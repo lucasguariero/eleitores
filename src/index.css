@@ -625,8 +625,6 @@ input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--blue); }
 .calendar-cell { min-height:105px; padding:8px; color:inherit; text-align:left; background:var(--superficie-2); border:0; border-right:1px solid var(--linha-suave); border-bottom:1px solid var(--linha-suave); }
 .calendar-cell.empty { background:#fbfcfd; }
 button.calendar-cell:hover { background:var(--superficie-3); }.calendar-cell small { display:block; color:var(--muted); }
-.event { display:block; margin-top:6px; padding:7px; color:var(--blue); background:#eaf2fb; border-left:3px solid #4c7db8; border-radius:4px; font-size:11px; }
-.event b { display:block; margin-bottom:2px; }.event.cumprido { color:#28705d; background:#e8f6f1; border-color:#319076; }.event.descumprido { color:#9c3f43; background:#fdebec; border-color:#c85057; }
 .year-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:11px; }.year-grid button { display:grid; gap:8px; padding:16px; color:inherit; text-align:left; background:var(--superficie-2); border:1px solid var(--linha); border-radius: 8px; }.year-grid i { height:5px; background:#0ea5e9; border-radius: 6px; }
 .event-detail { display:grid; gap:13px; }.event-detail div small,.event-detail div strong { display:block; }
 /* Confronto lado a lado + o que diverge + a decisão, na mesma linha de leitura. */
