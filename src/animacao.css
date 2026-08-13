@@ -1,0 +1,60 @@
+/**
+ * Movimento com função, não enfeite. Três regras que valem para tudo aqui:
+ *
+ * 1. Só anima `transform` e `opacity` — as duas propriedades que o compositor resolve sem
+ *    recalcular layout. Animar width/height/margin causa thrash e engasga em tabela longa.
+ * 2. Entrada curta (160–260ms) e nunca em cascata longa: o escalonamento para no 6º item,
+ *    senão a última linha de uma lista de 20 chega meio segundo depois e a tela parece lenta.
+ * 3. Tudo morre em `prefers-reduced-motion`. O bloco que desliga está no fim deste arquivo e
+ *    preserva o estado final — some o deslocamento, não a informação.
+ */
+
+@keyframes surge { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes surge-lateral { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+@keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cresce { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes desliza-barra { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Troca de rota: o conteúdo entra, a casca fica parada. A sidebar piscando a cada
+   clique seria pior que não animar nada.
+   Só opacidade, nunca transform: um wrapper de página transformado vira containing block
+   para `position: fixed` e distorce a medida de largura se a animação travar (aba em
+   segundo plano, dispositivo lento). Já quebrou aqui — a página passou a acusar 899px de
+   largura numa viewport de 375. O deslocamento fica nos cards internos, que são inofensivos. */
+.pagina { animation: aparece 200ms ease-out both; }
+
+.metric-card, .atalho, .plano-card, .carteira-item { animation: surge 220ms ease-out both; }
+.modal { animation: cresce 180ms ease-out both; }
+.modal-backdrop { animation: aparece 140ms ease-out both; }
+.notification-popover { animation: surge 160ms ease-out both; transform-origin: top right; }
+
+/* A barra de progresso cresce a partir da esquerda usando transform, não width:
+   mesmo efeito visual, sem custo de layout. */
+.progress span { transform-origin: left; animation: desliza-barra 620ms cubic-bezier(.22,.61,.36,1) both; }
+
+/* Barra do gráfico: escala vertical a partir da base. */
+.chart-column i, .mini-bars i { transform-origin: bottom; animation: desliza-barra 520ms cubic-bezier(.22,.61,.36,1) both; animation-name: cresce-vertical; }
+@keyframes cresce-vertical { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* Linhas de tabela entram em cascata bem curta, só as primeiras. */
+tbody tr { animation: aparece 240ms ease-out both; }
+tbody tr:nth-child(1) { animation-delay: 0ms } tbody tr:nth-child(2) { animation-delay: 35ms }
+tbody tr:nth-child(3) { animation-delay: 70ms } tbody tr:nth-child(4) { animation-delay: 105ms }
+tbody tr:nth-child(5) { animation-delay: 140ms } tbody tr:nth-child(n+6) { animation-delay: 175ms }
+
+/* Acordeão: o conteúdo desliza ao abrir. */
+.detail-accordion[open] .detail-body { animation: surge 200ms ease-out both; }
+.turnos-grid, .rota-lista > div { animation: surge-lateral 220ms ease-out both; }
+
+/* O ícone que gira enquanto a exportação é gerada em segundo plano. */
+.spin { animation: gira 900ms linear infinite; }
+@keyframes gira { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina, .metric-card, .atalho, .plano-card, .carteira-item, .modal,
+  .modal-backdrop, .notification-popover, tbody tr, .detail-accordion[open] .detail-body,
+  .turnos-grid, .rota-lista > div, .progress span, .chart-column i, .mini-bars i,
+  .spin { animation: none !important; }
+  /* O estado final tem que continuar visível — desligar movimento não é esconder conteúdo. */
+  .progress span, .chart-column i, .mini-bars i { transform: none !important; }
+}
