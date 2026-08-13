@@ -26,8 +26,10 @@ bundle.html
 *.sln
 *.sw?
 
-# Cache de ferramenta de design (local, não é fonte)
-.impeccable/
+# Ferramenta de design: o config compartilhado VAI para o repo (justifica as exceções
+# do detector); só o cache de sessão e o override local ficam de fora.
+.impeccable/hook.cache.json
+.impeccable/config.local.json
 
 # Vercel
 .vercel

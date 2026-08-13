@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "border-left: 4px solid var(--violet)",
+        "createdAt": "2026-08-13T13:07:31.064Z",
+        "reason": "Card de insight e resposta de cruzamento: borda violeta de 4px e especificacao do design system Stitch para a camada derivada"
+      },
+      {
+        "rule": "side-tab",
+        "value": "border-left: 3px solid var(--cor-tipo, var(--linha-forte))",
+        "createdAt": "2026-08-13T13:07:31.142Z",
+        "reason": "Evento do calendario: a borda carrega o tipo do compromisso, unico canal num chip de 11px"
+      },
+      {
+        "rule": "side-tab",
+        "value": "border-left:3px solid #4f75ad",
+        "createdAt": "2026-08-13T13:07:31.209Z",
+        "reason": "Arvore territorial: a borda codifica nivel hierarquico junto com a indentacao"
+      },
+      {
+        "rule": "overused-font",
+        "value": "font-family: inter",
+        "createdAt": "2026-08-13T13:07:31.285Z",
+        "reason": "Fonte do design system Intelligence Protocol, registrado em DESIGN.md"
+      },
+      {
+        "rule": "overused-font",
+        "value": "google fonts: inter",
+        "createdAt": "2026-08-13T13:07:31.357Z",
+        "reason": "Mesma fonte, no @import"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "transition: width",
+        "createdAt": "2026-08-13T13:07:31.435Z",
+        "reason": "Barra de progresso de 5px: scaleX distorceria o raio das pontas"
+      }
+    ]
+  }
+}
