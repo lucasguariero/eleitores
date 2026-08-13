@@ -83,26 +83,6 @@ export const rota = {
   ],
 }
 
-/**
- * O que separa reunião de compromisso de agenda é o que sobra depois: deliberação com dono
- * e prazo. Sem isso é só um evento no calendário.
- */
-export const reunioes = [
-  {
-    id: 1, titulo: 'Coordenação regional — Centro Norte', data: '14 ago, 09:00', local: 'Aurora do Cerrado', status: 'Realizada', participantes: 7, pauta: 3,
-    encaminhamentos: [
-      { texto: 'Fechar calendário de visitas do ciclo', dono: 'Sofia Linhares', prazo: '20 ago', situacao: 'Em dia' },
-      { texto: 'Levantar candidatos sem avaliação em Serra Alta', dono: 'Rafael Guimar', prazo: '18 ago', situacao: 'Atrasado' },
-    ],
-  },
-  {
-    id: 2, titulo: 'Alinhamento de prestação de contas', data: '12 ago, 15:30', local: 'Sede', status: 'Realizada', participantes: 4, pauta: 2,
-    encaminhamentos: [
-      { texto: 'Anexar comprovantes do deslocamento aéreo', dono: 'Breno Valadares', prazo: '16 ago', situacao: 'Concluído' },
-    ],
-  },
-  { id: 3, titulo: 'Escuta com conselho comunitário', data: '21 ago, 10:00', local: 'Ipê Verde', status: 'Agendada', participantes: 12, pauta: 4, encaminhamentos: [] },
-]
 
 export const contas = {
   periodo: 'Ciclo 2026 · agosto',
@@ -160,4 +140,115 @@ export const statusPolitico: Record<number, string> = {
   1: 'Aliado', 2: 'Adversário', 3: 'Aliado', 4: 'Neutro', 5: 'Aliado',
   6: 'Aliado parcial', 7: 'Não avaliado', 8: 'Adversário', 9: 'Aliado parcial',
   10: 'Não avaliado', 11: 'Aliado', 12: 'Neutro',
+}
+
+/**
+ * Agenda unificada. Reunião não é um módulo irmão da agenda — é um TIPO de compromisso.
+ * Manter os dois separados obrigava a equipe a lembrar em qual tela registrar cada coisa,
+ * e deixava viagem e visita sem o que a reunião tinha de melhor: encaminhamento com dono
+ * e prazo. Aqui todo compromisso pode gerar encaminhamento; o tipo só muda o que se espera
+ * dele (reunião tem pauta, viagem tem trajeto).
+ */
+export type TipoCompromisso = 'Viagem' | 'Visita' | 'Reunião' | 'Entrevista'
+
+export type Encaminhamento = {
+  texto: string
+  dono: string
+  prazo: string
+  situacao: 'Em dia' | 'Atrasado' | 'Concluído'
+}
+
+export type Compromisso = {
+  id: number
+  tipo: TipoCompromisso
+  titulo: string
+  /** ISO, para ordenar e agrupar sem depender de parsing de texto. */
+  data: string
+  hora: string
+  municipio: string
+  responsavel: string
+  participantes: number
+  situacao: 'Marcado' | 'Cumprido' | 'Descumprido'
+  vinculo?: string
+  pauta?: string[]
+  encaminhamentos: Encaminhamento[]
+}
+
+export const compromissos: Compromisso[] = [
+  {
+    id: 1, tipo: 'Reunião', titulo: 'Coordenação regional — Centro Norte', data: '2026-08-14', hora: '09:00',
+    municipio: 'Aurora do Cerrado', responsavel: 'Sofia Linhares', participantes: 7, situacao: 'Cumprido',
+    vinculo: 'Presença Regional 360',
+    pauta: ['Calendário de visitas do ciclo', 'Candidatos sem avaliação', 'Orçamento de deslocamento'],
+    encaminhamentos: [
+      { texto: 'Fechar calendário de visitas do ciclo', dono: 'Sofia Linhares', prazo: '20 ago', situacao: 'Em dia' },
+      { texto: 'Levantar candidatos sem avaliação em Serra Alta', dono: 'Rafael Guimar', prazo: '18 ago', situacao: 'Atrasado' },
+    ],
+  },
+  {
+    id: 2, tipo: 'Reunião', titulo: 'Alinhamento de prestação de contas', data: '2026-08-12', hora: '15:30',
+    municipio: 'Sede', responsavel: 'Breno Valadares', participantes: 4, situacao: 'Cumprido',
+    pauta: ['Comprovantes pendentes', 'Fechamento do período'],
+    encaminhamentos: [{ texto: 'Anexar comprovantes do deslocamento aéreo', dono: 'Breno Valadares', prazo: '16 ago', situacao: 'Concluído' }],
+  },
+  {
+    id: 3, tipo: 'Visita', titulo: 'Visita ao Polo Aurora', data: '2026-08-04', hora: '10:00',
+    municipio: 'Aurora do Cerrado', responsavel: 'Sofia Linhares', participantes: 3, situacao: 'Cumprido',
+    vinculo: 'Marina Sol Queiroz',
+    encaminhamentos: [{ texto: 'Retornar com proposta de calendário comunitário', dono: 'Sofia Linhares', prazo: '22 ago', situacao: 'Em dia' }],
+  },
+  {
+    id: 4, tipo: 'Entrevista', titulo: 'Entrevista com rádio regional', data: '2026-08-11', hora: '08:30',
+    municipio: 'Ipê Verde', responsavel: 'Cecília Prado', participantes: 2, situacao: 'Cumprido',
+    encaminhamentos: [],
+  },
+  {
+    id: 5, tipo: 'Viagem', titulo: 'Viagem à Serra Alta', data: '2026-08-18', hora: '06:00',
+    municipio: 'Serra Alta', responsavel: 'Rafael Guimar', participantes: 4, situacao: 'Marcado',
+    vinculo: 'Ciclo Centro Norte',
+    encaminhamentos: [{ texto: 'Confirmar pista de pouso e transporte terrestre', dono: 'Rafael Guimar', prazo: '16 ago', situacao: 'Atrasado' }],
+  },
+  {
+    id: 6, tipo: 'Reunião', titulo: 'Escuta com conselho comunitário', data: '2026-08-21', hora: '10:00',
+    municipio: 'Ipê Verde', responsavel: 'Sofia Linhares', participantes: 12, situacao: 'Marcado',
+    pauta: ['Demandas de saneamento', 'Calendário de festas', 'Indicação de novas lideranças locais'],
+    encaminhamentos: [],
+  },
+  {
+    id: 7, tipo: 'Visita', titulo: 'Visita institucional à prefeitura', data: '2026-08-26', hora: '14:00',
+    municipio: 'Campo Novo do Horizonte', responsavel: 'Cecília Prado', participantes: 3, situacao: 'Descumprido',
+    vinculo: 'Aline Campos Leal',
+    encaminhamentos: [{ texto: 'Remarcar — agenda do prefeito mudou na véspera', dono: 'Cecília Prado', prazo: '02 set', situacao: 'Atrasado' }],
+  },
+  {
+    id: 8, tipo: 'Viagem', titulo: 'Rota das águas — três municípios', data: '2026-08-19', hora: '07:00',
+    municipio: 'Rio Doce do Norte', responsavel: 'Rafael Guimar', participantes: 5, situacao: 'Marcado',
+    vinculo: 'Ciclo Centro Norte', encaminhamentos: [],
+  },
+  {
+    id: 9, tipo: 'Visita', titulo: 'Aniversário da cidade', data: '2026-08-11', hora: '19:00',
+    municipio: 'Serra Alta', responsavel: 'Sofia Linhares', participantes: 6, situacao: 'Marcado',
+    vinculo: 'Aniversário de Serra Alta', encaminhamentos: [],
+  },
+  {
+    id: 10, tipo: 'Entrevista', titulo: 'Podcast regional sobre saneamento', data: '2026-09-03', hora: '11:00',
+    municipio: 'Vale Claro', responsavel: 'Cecília Prado', participantes: 2, situacao: 'Marcado', encaminhamentos: [],
+  },
+]
+
+export const tiposCompromisso: TipoCompromisso[] = ['Viagem', 'Visita', 'Reunião', 'Entrevista']
+
+/** Agrupa por dia do mês pedido — o calendário e a visão de dia leem daqui. */
+export function compromissosDoMes(ano: number, mes: number) {
+  const prefixo = `${ano}-${String(mes).padStart(2, '0')}`
+  return compromissos.filter(c => c.data.startsWith(prefixo))
+}
+
+export function compromissosDoDia(iso: string) {
+  return compromissos.filter(c => c.data === iso).sort((a, b) => a.hora.localeCompare(b.hora))
+}
+
+/** Encaminhamentos abertos de qualquer compromisso — antes só existiam dentro de reunião. */
+export function encaminhamentosAbertos() {
+  return compromissos.flatMap(c => c.encaminhamentos.filter(e => e.situacao !== 'Concluído').map(e => ({ ...e, compromisso: c })))
 }

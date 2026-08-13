@@ -2,21 +2,21 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, type R
 import {
   Activity, AlertTriangle, ArrowRight, Bell, BriefcaseBusiness, Building2,
   CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight,
-  CircleHelp, Clock3, Database, Download, FileText, Filter, Grid3X3,
+  CircleHelp, Database, Download, FileText, Filter, Grid3X3,
   Handshake, Info, Layers3, LayoutDashboard, List, LockKeyhole, LogOut, Map,
-  MapPin, Megaphone, Menu, MessageCircle, MoreHorizontal, Phone, Plus,
+  MapPin, Megaphone, Menu, MessageCircle, MoreHorizontal, Plus,
   RefreshCw, Search, Settings, Shield, ShieldCheck, SlidersHorizontal, Sparkles,
   Target, TrendingUp, UserCog, UsersRound, X, Link2, History,
   Vote, BookOpenCheck, Home, Cake, Workflow, Receipt, Route, Lock, Sigma, Paperclip, Palette, Sun, Moon, Monitor,
   type LucideIcon,
 } from 'lucide-react'
 import { campaigns, electoralPeople, linkQueue, monthCells, priorityColors, relationships, team, territories, users, weekdays, type ElectoralPerson } from './data'
-import { aniversarios, apuracao, contas, cruzamentos, divisoes, exportacoes, municipios, reunioes, rota, statusPolitico, sugestoesCruzamento } from './dominio'
-import { gruposOrdem, moduloIncluso, modulos, planos, tenantPadrao, type Plano, type Tenant } from './produto'
+import { aniversarios, apuracao, compromissosDoDia, compromissosDoMes, contas, cruzamentos, divisoes, encaminhamentosAbertos, exportacoes, municipios, rota, statusPolitico, sugestoesCruzamento, tiposCompromisso, type Compromisso, type TipoCompromisso } from './dominio'
+import { cargosEquipe, gruposOrdem, moduloIncluso, modulos, perfilVe, perfis, planos, tenantPadrao, vinculosEquipe, type Perfil, type Plano, type Tenant } from './produto'
 import { completude, dadosInternos } from './ficha'
 import { aplicarTema, ouvirSistema, temaSalvo, type Tema } from './tema'
 
-const TenantCtx = createContext<{ tenant: Tenant; setTenant: (t: Tenant) => void }>({ tenant: tenantPadrao, setTenant: () => {} })
+const TenantCtx = createContext<{ tenant: Tenant; setTenant: (t: Tenant) => void; perfil: Perfil; setPerfil: (p: Perfil) => void }>({ tenant: tenantPadrao, setTenant: () => {}, perfil: perfis[0], setPerfil: () => {} })
 const useTenant = () => useContext(TenantCtx)
 
 // A avaliação política é editável: a fila de triagem levava a uma ficha onde não dava para triar.
@@ -102,7 +102,7 @@ function Modal({ title, description, onClose, children }: { title: string; descr
   return <div className="modal-backdrop" role="presentation" onMouseDown={onClose}><section className="modal" ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} onMouseDown={event => event.stopPropagation()}><button className="icon-button modal-close" aria-label="Fechar" onClick={onClose}><X size={18} /></button><h2>{title}</h2>{description && <p>{description}</p>}{children}</section></div>
 }
 
-function EmptyState({ title, text, action }: { title: string; text: string; action: ReactNode }) {
+function EmptyState({ title, text, action }: { title: string; text: string; action?: ReactNode }) {
   return <div className="empty-state"><CircleHelp size={24} /><h3>{title}</h3><p>{text}</p>{action}</div>
 }
 
@@ -224,20 +224,6 @@ function Campaigns() {
   </>
 }
 
-function Relationship() {
-  const [type, setType] = useState('Todos')
-  const [query, setQuery] = useState('')
-  const [selected, setSelected] = useState<typeof relationships[0] | null>(null)
-  const [newRecord, setNewRecord] = useState(false)
-  const shown = relationships.filter(item => (type === 'Todos' || item.type === type) && item.person.toLowerCase().includes(query.toLowerCase()))
-  return <>
-    <div className="metrics-grid three"><Metric label="Interações no mês" value="86" delta="+14 frente ao período anterior" icon={MessageCircle} /><Metric label="Candidatos sem contato" value="23" delta="Há mais de 45 dias" icon={Clock3} /><Metric label="Visitas realizadas" value="31" delta="8 territórios cobertos" icon={MapPin} /></div>
-    <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar candidato" aria-label="Buscar candidato" /></div><div className="segmented">{['Todos', 'Visita', 'Reunião', 'Contato'].map(value => <button className={type === value ? 'active' : ''} onClick={() => setType(value)} key={value}>{value}</button>)}</div><button className="primary-button" onClick={() => setNewRecord(true)}><Plus size={16} /> Registrar interação</button></section>
-    <div className="relationship-layout"><section className="card relationship-history"><div className="card-heading"><div><span className="eyebrow">Linha do tempo</span><h2>Histórico recente</h2></div><Pill>{shown.length} registros</Pill></div>{shown.length === 0 ? <EmptyState title="Nenhum histórico encontrado" text="Ajuste a busca ou registre uma nova interação." action={<button className="primary-button" onClick={() => { setQuery(''); setType('Todos') }}>Limpar busca</button>} /> : shown.map(item => <button className="relationship-row" key={`${item.person}-${item.when}`} onClick={() => setSelected(item)}><span className={`activity-icon type-${item.type.toLowerCase()}`}>{item.type === 'Visita' ? <MapPin size={17} /> : item.type === 'Reunião' ? <UsersRound size={17} /> : <Phone size={17} />}</span><div><div><strong>{item.person}</strong><Pill>{item.type}</Pill></div><p>{item.note}</p><small>{item.by} · {item.territory}</small></div><time>{item.when}</time><ChevronRight size={17} /></button>)}</section><aside className="card relationship-answer"><span className="eyebrow">Pergunta rápida</span><h2>Quem falou com este candidato por último?</h2><div className="question-box"><Search size={18} /><input placeholder="Digite um nome" aria-label="Consultar último contato" onChange={e => { const term = e.target.value.trim(); setSelected(term.length > 2 ? relationships.find(item => item.person.toLowerCase().includes(term.toLowerCase())) || null : null) }} /></div>{selected ? <div className="answer-card"><Avatar initials={selected.by.split(' ').map(n => n[0]).join('')} /><div><small>Último registro encontrado</small><strong>{selected.by}</strong><span>{selected.type} · {selected.when}</span></div></div> : <p className="muted-box">Comece a digitar ou selecione um registro ao lado para ver a resposta.</p>}<div className="relationship-note"><LockKeyhole size={17} /><p>O histórico operacional é privado da organização e nunca alimenta a base nacional.</p></div></aside></div>
-    {newRecord && <Modal title="Registrar interação" description="Inclua o contato no histórico fictício desta demonstração." onClose={() => setNewRecord(false)}><form className="modal-form" onSubmit={event => { event.preventDefault(); setNewRecord(false) }}><label>Candidato<select required><option value="">Selecione</option>{electoralPeople.slice(0, 6).map(p => <option key={p.id}>{p.name}</option>)}</select></label><label>Tipo<select><option>Visita</option><option>Reunião</option><option>Contato</option></select></label><label>Resumo<textarea required placeholder="Contexto e encaminhamentos" /></label><div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setNewRecord(false)}>Cancelar</button><button className="primary-button">Salvar interação</button></div></form></Modal>}
-  </>
-}
-
 function Intelligence({ navigate }: { navigate: Navigate }) {
   const [dismissed, setDismissed] = useState<number[]>([])
   const insights = [
@@ -255,14 +241,43 @@ function Intelligence({ navigate }: { navigate: Navigate }) {
 }
 
 function Team() {
-  const [bond, setBond] = useState('Todos os vínculos')
-  const [query, setQuery] = useState('')
-  const shown = team.filter(person => (bond === 'Todos os vínculos' || person.bond === bond) && person.name.toLowerCase().includes(query.toLowerCase()))
+  const [novo, setNovo] = useState(false)
+  const [criado, setCriado] = useState<string | null>(null)
+  const [form, setForm] = useState({ nome: '', email: '', vinculo: vinculosEquipe[0], cargo: cargosEquipe[0], area: 'Articulação', perfil: 'coordenacao', acesso: true })
+  const criar = (e: { preventDefault: () => void }) => { e.preventDefault(); setCriado(form.nome || 'Novo integrante'); setNovo(false); setTimeout(() => setCriado(null), 2600) }
   return <>
-    <PageHeader eyebrow="Administração" title="Equipe" description="Funcionários, colaboradores e prestadores, com vínculo e função interna — separados da base eleitoral." actions={<button className="primary-button"><Plus size={16} /> Adicionar à equipe</button>} />
-    <div className="domain-note"><BriefcaseBusiness size={20} /><div><strong>Este domínio representa a operação interna.</strong><p>Ter vínculo com a equipe não cria automaticamente uma conta de acesso e não inclui a pessoa no Quadro Eleitoral.</p></div></div>
-    <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar na equipe" /></div><select value={bond} onChange={e => setBond(e.target.value)}><option>Todos os vínculos</option><option>Funcionária</option><option>Funcionário</option><option>Colaboradora</option><option>Prestador</option><option>Prestadora</option></select></section>
-    <div className="table-card"><table><thead><tr><th>Pessoa</th><th>Vínculo</th><th>Função interna</th><th>Área</th><th>Acesso ao sistema</th><th>Status</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{shown.map(person => <tr key={person.name}><td><div className="person-cell"><Avatar initials={person.initials} /><strong>{person.name}</strong></div></td><td>{person.bond}</td><td>{person.role}</td><td>{person.area}</td><td>{person.hasAccess ? <Pill tone="blue">Possui conta</Pill> : <span className="muted">Sem conta</span>}</td><td><Pill tone={person.status.includes('Ativ') ? 'green' : 'neutral'}>{person.status}</Pill></td><td><button className="icon-button" aria-label="Mais ações"><MoreHorizontal size={17} /></button></td></tr>)}</tbody></table></div>
+    <PageHeader eyebrow="Administração" title="Equipe" description="Quem trabalha no grupo político. O cargo diz o que a pessoa faz; o acesso ao sistema é decidido logo abaixo, e são coisas independentes." actions={<>{criado && <span className="confirmacao"><Check size={15} /> {criado} cadastrado</span>}<button className="primary-button" onClick={() => setNovo(true)}><Plus size={16} /> Cadastrar pessoa</button></>} />
+
+    <div className="domain-note"><Info size={18} /><div><strong>Cargo e perfil de acesso são campos diferentes, de propósito.</strong><p>Cargo é o que a pessoa faz no grupo — “Analista territorial”. Perfil é o que ela pode fazer no sistema — “Leitura executiva”. Amarrar um ao outro impediria dois analistas de terem permissões diferentes, que é o caso comum quando um é sênior e o outro entrou ontem.</p></div></div>
+
+    <div className="metrics-grid three"><Metric label="Integrantes" value={String(team.length)} delta="ativos no ciclo" icon={UsersRound} /><Metric label="Com acesso ao sistema" value={String(team.filter(p => p.hasAccess).length)} delta="contas habilitadas" icon={ShieldCheck} /><Metric label="Sem acesso" value={String(team.filter(p => !p.hasAccess).length)} delta="trabalham sem conta" icon={Lock} /></div>
+
+    <div className="table-card"><table><thead><tr><th>Pessoa</th><th>Vínculo</th><th>Cargo no grupo</th><th>Área</th><th>Perfil de acesso</th><th>Situação</th></tr></thead><tbody>{team.map(pessoa => <tr key={pessoa.name}>
+      <td><div className="person-cell"><Avatar initials={pessoa.initials} /><div><strong>{pessoa.name}</strong><small>{pessoa.area}</small></div></div></td>
+      <td>{pessoa.bond}</td>
+      <td><strong>{pessoa.role}</strong><small>o que faz no grupo</small></td>
+      <td>{pessoa.area}</td>
+      <td>{pessoa.hasAccess ? <Pill tone="blue">{pessoa.name === 'Sofia Linhares' ? 'Administrador' : 'Coordenação'}</Pill> : <span className="pill-vago">Sem conta</span>}</td>
+      <td><Pill tone={pessoa.status.startsWith('Ativ') ? 'green' : 'amber'}>{pessoa.status}</Pill></td>
+    </tr>)}</tbody></table></div>
+
+    {novo && <Modal title="Cadastrar pessoa na equipe" description="Os dois últimos campos respondem perguntas diferentes: o que ela faz, e o que ela pode." onClose={() => setNovo(false)}>
+      <form className="modal-form" onSubmit={criar}>
+        <label>Nome completo<input required value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} placeholder="Nome e sobrenome" /></label>
+        <label>E-mail<input required type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="nome.sobrenome@exemplo.invalid" /></label>
+        <div className="form-grid">
+          <label>Vínculo<select value={form.vinculo} onChange={e => setForm({ ...form, vinculo: e.target.value })}>{vinculosEquipe.map(v => <option key={v}>{v}</option>)}</select></label>
+          <label>Área<select value={form.area} onChange={e => setForm({ ...form, area: e.target.value })}><option>Articulação</option><option>Inteligência</option><option>Relacionamento</option><option>Campanhas</option><option>Base Nacional</option></select></label>
+        </div>
+        <label>Cargo no grupo <span className="ajuda-campo">o que a pessoa faz</span><select value={form.cargo} onChange={e => setForm({ ...form, cargo: e.target.value })}>{cargosEquipe.map(c => <option key={c}>{c}</option>)}</select></label>
+        <label className="toggle-row"><span><strong>Dar acesso ao sistema</strong><small>Nem todo integrante precisa de conta. Sem acesso, a pessoa existe no cadastro e não entra na plataforma.</small></span><input type="checkbox" checked={form.acesso} onChange={e => setForm({ ...form, acesso: e.target.checked })} /></label>
+        {form.acesso && <label>Perfil de acesso <span className="ajuda-campo">o que a pessoa pode fazer no sistema</span>
+          <select value={form.perfil} onChange={e => setForm({ ...form, perfil: e.target.value })}>{perfis.map(p => <option key={p.id} value={p.id}>{p.nome}</option>)}</select>
+          <small className="descricao-perfil">{perfis.find(p => p.id === form.perfil)?.descricao}</small>
+        </label>}
+        <div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setNovo(false)}>Cancelar</button><button className="primary-button" type="submit">Cadastrar</button></div>
+      </form>
+    </Modal>}
   </>
 }
 
@@ -285,7 +300,9 @@ function UsersAccess() {
 
 function Parameters({ navigate, route }: { navigate: Navigate; route: string }) {
   const aba = route.split('/')[1] || 'valores'
-  const abas = [{ label: 'Valores e vocabulários', route: 'parametrizacoes/valores' }, { label: 'Planos e módulos', route: 'parametrizacoes/planos' }]
+  const abas = [{ label: 'Valores e vocabulários', route: 'parametrizacoes/valores' }, { label: 'Identidade do ambiente', route: 'parametrizacoes/identidade' }, { label: 'Planos e módulos', route: 'parametrizacoes/planos' }, { label: 'Dados e retenção', route: 'parametrizacoes/dados' }]
+  if (aba === 'identidade') return <><PageHeader eyebrow="Administração" title="Identidade do ambiente" description="Nome, sigla e referências do grupo político. Afeta o que todo mundo vê — por isso vive aqui, e não na conta pessoal." /><SubTabs items={abas} active="parametrizacoes/identidade" navigate={navigate} /><IdentidadeAmbiente /></>
+  if (aba === 'dados') return <><PageHeader eyebrow="Administração" title="Dados e retenção" description="Por quanto tempo o ambiente guarda cada coisa, e de onde vem cada dado. Base política guarda opinião sobre pessoas identificadas: retenção não é detalhe técnico." /><SubTabs items={abas} active="parametrizacoes/dados" navigate={navigate} /><DadosRetencao navigate={navigate} /></>
   if (aba === 'planos') return <>
     <PageHeader eyebrow="Administração" title="Planos e módulos" description="O que este cliente contratou. Desligar um módulo o remove do menu — é assim que o mesmo produto atende grupos diferentes." actions={<button className="secondary-button" onClick={() => navigate('configuracoes')}><Settings size={16} /> Configurações gerais</button>} />
     <SubTabs items={abas} active="parametrizacoes/planos" navigate={navigate} />
@@ -320,21 +337,19 @@ function ParametersValores({ navigate, abas }: { navigate: Navigate; abas: { lab
 }
 
 function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }) {
-  const { tenant, setTenant } = useTenant()
+  const { tenant, setTenant, perfil, setPerfil } = useTenant()
   const { tema, setTema } = useTema()
   const aba = route.split('/')[1] || 'aparencia'
   const [salvo, setSalvo] = useState(false)
   const [toggles, setToggles] = useState({ oportunidade: true, resumo: true, confidencial: false, aniversario: true, prazo: true })
   const abas = [
     { id: 'aparencia', label: 'Aparência', icone: Palette },
-    { id: 'organizacao', label: 'Organização', icone: Building2 },
     { id: 'notificacoes', label: 'Notificações', icone: Bell },
     { id: 'seguranca', label: 'Segurança e sessão', icone: Shield },
-    { id: 'dados', label: 'Dados e privacidade', icone: Database },
   ]
   const salvar = () => { setSalvo(true); setTimeout(() => setSalvo(false), 1800) }
   return <>
-    <PageHeader eyebrow="Preferências do ambiente" title="Configurações" description="Ajustes de quem usa e do ambiente. Valores de negócio ficam em Parametrizações; o que o cliente contratou, em Planos e módulos." actions={salvo ? <span className="confirmacao"><Check size={15} /> Alterações salvas</span> : undefined} />
+    <PageHeader eyebrow="Preferências pessoais" title="Minha conta" description="Só o que afeta você neste dispositivo e nesta conta. O que vale para todo o ambiente — identidade, vocabulários, planos e retenção — mora em Administração → Parametrizações." actions={salvo ? <span className="confirmacao"><Check size={15} /> Alterações salvas</span> : undefined} />
     <div className="settings-layout">
       <nav className="card settings-nav" aria-label="Seções de configuração">{abas.map(a => { const Icone = a.icone; return <button key={a.id} className={aba === a.id ? 'active' : ''} onClick={() => navigate(`configuracoes/${a.id}`)}><Icone size={17} /> {a.label}</button> })}</nav>
       <section className="card settings-form">
@@ -367,6 +382,8 @@ function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }
           <div className="domain-note"><Info size={18} /><div><strong>O que você muda aqui aparece na hora no menu e nas telas.</strong><p>Sigla e nome alimentam o rodapé da barra lateral; candidato e partido de referência são usados para destacar registros do próprio grupo.</p></div></div>
           <div className="settings-actions"><button className="primary-button" onClick={salvar}>Salvar alterações</button></div>
         </>}
+
+        {aba === 'aparencia' && <><h3>Ver o sistema como outro perfil</h3><p className="section-description">Recurso de demonstração: troque o perfil e o menu se reorganiza na hora. É assim que o produto esconde módulo de quem não tem permissão — o contrato diz o que o cliente comprou, o perfil diz o que a pessoa pode ver.</p><div className="perfil-grid">{perfis.map(p => <button key={p.id} className={`card perfil-opcao ${perfil.id === p.id ? 'ativo' : ''}`} onClick={() => setPerfil(p)}><div><strong>{p.nome}</strong><small>{p.descricao}</small></div><Pill tone={perfil.id === p.id ? 'green' : 'neutral'}>{p.ve === '*' ? modulos.length : p.ve.length} módulos</Pill></button>)}</div></>}
 
         {aba === 'notificacoes' && <>
           <div className="card-heading"><div><span className="eyebrow">Avisos</span><h2>O que merece interromper você</h2></div></div>
@@ -410,12 +427,6 @@ function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }
   </>
 }
 
-const demoAgenda = [
-  { day: 4, title: 'Visita ao Polo Aurora', type: 'Visita', status: 'Cumprido', link: 'Helena Nunes · Vale do Ipê' },
-  { day: 11, title: 'Entrevista com lideranças', type: 'Entrevista', status: 'Marcado', link: 'Campos do Norte · Presença 360' },
-  { day: 18, title: 'Viagem à Serra Clara', type: 'Viagem', status: 'Marcado', link: 'Serra Clara · Ciclo regional' },
-  { day: 26, title: 'Reunião de articulação', type: 'Reunião', status: 'Descumprido', link: 'Caio Monteverde · Serra Clara' },
-]
 
 function SubTabs({ items, active, navigate }: { items: { label: string; route: string }[]; active: string; navigate: Navigate }) {
   return <nav className="subtabs" aria-label="Navegação da seção">{items.map(item => <button key={item.route} className={active === item.route ? 'active' : ''} onClick={() => navigate(item.route)}>{item.label}</button>)}</nav>
@@ -588,38 +599,109 @@ function Eleicoes() {
 }
 
 function AgendaModulo({ navigate }: { navigate: Navigate }) {
-  const [aba, setAba] = useState<'lista' | 'mes' | 'rota' | 'historico'>('rota')
+  const [visao, setVisao] = useState<'dia' | 'mes' | 'ano' | 'lista' | 'rota'>('mes')
   const [mes, setMes] = useState('2026-08')
-  const [evento, setEvento] = useState<typeof demoAgenda[0] | null>(null)
-  const total = rota.paradas.reduce((s, p) => s + p.km, 0)
-  const abas = [['lista', 'Listagem'], ['mes', 'Calendário'], ['rota', 'Rota de viagem'], ['historico', 'Histórico de contatos']] as const
+  const [dia, setDia] = useState('2026-08-14')
+  const [tipo, setTipo] = useState<'Todos' | TipoCompromisso>('Todos')
+  const [aberto, setAberto] = useState<Compromisso | null>(null)
+  const ano = Number(mes.slice(0, 4)), mesNum = Number(mes.slice(5))
+  const filtra = (lista: Compromisso[]) => tipo === 'Todos' ? lista : lista.filter(c => c.tipo === tipo)
+  const doMes = filtra(compromissosDoMes(ano, mesNum))
+  const abertos = encaminhamentosAbertos()
+  const atrasados = abertos.filter(e => e.situacao === 'Atrasado')
+  const totalKm = rota.paradas.reduce((s, p) => s + p.km, 0)
+  const visoes = [['dia', 'Dia'], ['mes', 'Mês'], ['ano', 'Ano'], ['lista', 'Listagem'], ['rota', 'Rota de viagem']] as const
+
   return <>
-    <PageHeader eyebrow="Relacionamento" title="Agenda" description="Viagens, visitas, reuniões e entrevistas — o calendário, a rota que liga os municípios do ciclo e o histórico de quem falou com quem." actions={<button className="primary-button"><Plus size={16} /> Novo compromisso</button>} />
-    <div className="metrics-grid"><Metric label="Compromissos" value="24" delta="no ciclo atual" icon={CalendarDays} /><Metric label="Viagens" value="6" delta="3 com pista próxima" icon={Route} /><Metric label="Visitas" value="12" delta="8 territórios" icon={MapPin} /><Metric label="Entrevistas" value="6" delta="2 pendentes" icon={MessageCircle} /></div>
-    <nav className="subtabs" aria-label="Visão da agenda">{abas.map(([id, rotulo]) => <button key={id} className={aba === id ? 'active' : ''} onClick={() => setAba(id)}>{rotulo}</button>)}</nav>
+    <PageHeader eyebrow="Relacionamento" title="Agenda" description="Viagens, visitas, reuniões e entrevistas num só lugar. Reunião é um tipo de compromisso, não um módulo à parte — e qualquer tipo pode gerar encaminhamento com dono e prazo." actions={<button className="primary-button"><Plus size={16} /> Novo compromisso</button>} />
 
-    {aba === 'lista' && <div className="table-card"><table><thead><tr><th>Tipo</th><th>Data</th><th>Município</th><th>Com quem</th><th>Situação</th></tr></thead><tbody>{rota.paradas.map(p => <tr key={p.ordem}><td><Pill tone="blue">{p.tipo}</Pill></td><td>{p.data}</td><td>{p.municipio}</td><td>Sofia Linhares</td><td><Pill tone="green">Confirmado</Pill></td></tr>)}</tbody></table></div>}
+    <div className="metrics-grid">
+      <Metric label="Compromissos no mês" value={String(doMes.length)} delta={tipo === 'Todos' ? 'todos os tipos' : `só ${tipo.toLowerCase()}`} icon={CalendarDays} />
+      <Metric label="Encaminhamentos abertos" value={String(abertos.length)} delta="com dono definido" icon={Target} onClick={() => setVisao('lista')} />
+      <Metric label="Em atraso" value={String(atrasados.length)} delta="pedem cobrança" icon={AlertTriangle} onClick={() => setVisao('lista')} />
+      <Metric label="Quilometragem da rota" value={`${totalKm} km`} delta={`${rota.paradas.length} paradas`} icon={Route} onClick={() => setVisao('rota')} />
+    </div>
 
-    {aba === 'mes' && <>
-      <section className="card agenda-toolbar"><select value={mes} onChange={e => setMes(e.target.value)} aria-label="Mês exibido"><option value="2026-08">Agosto 2026</option><option value="2026-09">Setembro 2026</option></select><div className="agenda-legend"><Pill tone="blue">Marcado</Pill><Pill tone="green">Cumprido</Pill><Pill tone="red">Descumprido</Pill></div></section>
-      <div className="calendar-grid">
-        {weekdays.map(n => <div className="calendar-weekday" key={n}>{n}</div>)}
-        {monthCells(Number(mes.slice(0, 4)), Number(mes.slice(5))).map((dia, i) => {
-          if (!dia) return <div className="calendar-cell empty" key={i} />
-          const ev = mes === '2026-08' ? demoAgenda.find(x => x.day === dia) : undefined
-          return <button className={`calendar-cell ${ev ? 'has-event' : ''}`} key={i} onClick={() => ev && setEvento(ev)}><small>{dia}</small>{ev && <span className={`event ${ev.status.toLowerCase()}`}><b>{ev.type}</b>{ev.title}</span>}</button>
-        })}
+    <section className="card agenda-controles">
+      <div className="segmented" role="tablist" aria-label="Visão da agenda">{visoes.map(([id, rotulo]) => <button key={id} role="tab" aria-selected={visao === id} className={visao === id ? 'active' : ''} onClick={() => setVisao(id)}>{rotulo}</button>)}</div>
+      {visao !== 'rota' && <div className="filtros-tipo">
+        <button className={`chip-tipo ${tipo === 'Todos' ? 'ativo' : ''}`} onClick={() => setTipo('Todos')}>Todos</button>
+        {tiposCompromisso.map(t => <button key={t} className={`chip-tipo tipo-${t.toLowerCase().replace('ã', 'a')} ${tipo === t ? 'ativo' : ''}`} onClick={() => setTipo(t)}>{t}</button>)}
+      </div>}
+      {(visao === 'mes' || visao === 'lista') && <select value={mes} onChange={e => setMes(e.target.value)} aria-label="Mês exibido"><option value="2026-08">Agosto 2026</option><option value="2026-09">Setembro 2026</option></select>}
+      {visao === 'dia' && <input type="date" value={dia} onChange={e => setDia(e.target.value)} aria-label="Dia exibido" />}
+      {visao === 'ano' && <select value={ano} aria-label="Ano exibido" onChange={e => setMes(`${e.target.value}-08`)}><option>2026</option></select>}
+    </section>
+
+    {visao === 'dia' && <AgendaDia iso={dia} tipo={tipo} aoAbrir={setAberto} />}
+    {visao === 'mes' && <AgendaMes ano={ano} mes={mesNum} itens={doMes} aoAbrir={setAberto} />}
+    {visao === 'ano' && <AgendaAno ano={ano} aoEscolherMes={m => { setMes(`${ano}-${String(m).padStart(2, '0')}`); setVisao('mes') }} />}
+    {visao === 'lista' && <AgendaLista itens={doMes} aoAbrir={setAberto} />}
+    {visao === 'rota' && <AgendaRota navigate={navigate} total={totalKm} />}
+
+    {aberto && <Modal title={aberto.titulo} description={`${aberto.tipo} · ${aberto.hora} · ${aberto.municipio}`} onClose={() => setAberto(null)}>
+      <div className="event-detail">
+        <div className="pill-row"><Pill tone={aberto.situacao === 'Cumprido' ? 'green' : aberto.situacao === 'Descumprido' ? 'red' : 'blue'}>{aberto.situacao}</Pill><Pill tone="neutral">{aberto.tipo}</Pill>{aberto.vinculo && <Pill tone="purple">{aberto.vinculo}</Pill>}</div>
+        <div className="info-grid"><span><small>Responsável</small><strong>{aberto.responsavel}</strong></span><span><small>Participantes</small><strong>{aberto.participantes}</strong></span></div>
+        {!!aberto.pauta?.length && <div><small className="rotulo-bloco">Pauta</small><ol className="pauta-lista">{aberto.pauta.map(p => <li key={p}>{p}</li>)}</ol></div>}
+        <div>
+          <small className="rotulo-bloco">Encaminhamentos</small>
+          {aberto.encaminhamentos.length === 0
+            ? <div className="muted-box">Nada registrado. {aberto.situacao === 'Marcado' ? 'Encaminhamento se registra durante ou depois do compromisso.' : 'Um compromisso cumprido sem encaminhamento costuma indicar registro incompleto.'}</div>
+            : <div className="encaminhamentos">{aberto.encaminhamentos.map(e => <div key={e.texto}><span className={`enc-dot ${e.situacao === 'Atrasado' ? 'atraso' : e.situacao === 'Concluído' ? 'ok' : ''}`} /><div><strong>{e.texto}</strong><small>{e.dono} · prazo {e.prazo}</small></div><Pill tone={e.situacao === 'Atrasado' ? 'red' : e.situacao === 'Concluído' ? 'green' : 'blue'}>{e.situacao}</Pill></div>)}</div>}
+        </div>
       </div>
-      {evento && <Modal title={evento.title} description={`${evento.type} · ${evento.status}`} onClose={() => setEvento(null)}><div className="event-detail"><Pill tone={evento.status === 'Cumprido' ? 'green' : evento.status === 'Descumprido' ? 'red' : 'blue'}>{evento.status}</Pill><div><small>Ligado a</small><strong>{evento.link}</strong></div><div><small>Responsável</small><strong>Sofia Linhares</strong></div><p>Objetivo e encaminhamentos demonstrativos, registrados de forma estruturada.</p></div></Modal>}
-    </>}
-
-    {aba === 'historico' && <Relationship />}
-
-    {aba === 'rota' && <div className="rota-layout">
-      <section className="card"><div className="card-heading"><div><span className="eyebrow">{rota.nome}</span><h2>Paradas na ordem do trajeto</h2></div><Pill tone="blue">{total} km</Pill></div><div className="rota-lista">{rota.paradas.map((p, i) => <div key={p.ordem}><span className="rota-num">{p.ordem}</span><div><strong>{p.municipio}</strong><small>{p.data} · {p.tipo}</small></div>{p.pista && <Pill tone="purple">Pista próxima</Pill>}{i > 0 && <b>{p.km} km</b>}</div>)}</div><button className="secondary-button full"><Plus size={15} /> Adicionar parada</button></section>
-      <section className="card"><div className="card-heading"><div><span className="eyebrow">Trajeto</span><h2>Mapa da rota</h2></div><button className="text-button" onClick={() => navigate('municipios')}>Ver municípios <ArrowRight size={14} /></button></div><svg className="rota-mapa" viewBox="0 0 400 300" role="img" aria-label="Trajeto abstrato entre os municípios da rota"><path d="M60 240 L150 170 L250 200 L330 90" /><g>{[[60, 240], [150, 170], [250, 200], [330, 90]].map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="15" /><text x={x} y={y + 5} textAnchor="middle">{i + 1}</text></g>)}</g></svg><p className="map-hint"><Info size={14} /> Trajeto ponto a ponto na ordem das paradas. Polígonos e distâncias são demonstrativos.</p></section>
-    </div>}
+    </Modal>}
   </>
+}
+
+function AgendaDia({ iso, tipo, aoAbrir }: { iso: string; tipo: string; aoAbrir: (c: Compromisso) => void }) {
+  const itens = compromissosDoDia(iso).filter(c => tipo === 'Todos' || c.tipo === tipo)
+  const data = new Date(`${iso}T12:00:00`)
+  const extenso = data.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })
+  if (!itens.length) return <EmptyState title={`Nada marcado em ${extenso}`} text="Dia livre. Aniversários do mês podem sugerir onde vale estar presente." action={<button className="primary-button" onClick={() => go('aniversarios')}>Ver aniversários do mês</button>} />
+  return <section className="card"><div className="card-heading"><div><span className="eyebrow">{extenso}</span><h2>{itens.length} compromisso{itens.length > 1 ? 's' : ''}</h2></div></div>
+    <div className="dia-linha">{itens.map(c => <button key={c.id} onClick={() => aoAbrir(c)}><time>{c.hora}</time><span className={`marca-tipo tipo-${c.tipo.toLowerCase().replace('ã', 'a')}`} /><div><strong>{c.titulo}</strong><small>{c.municipio} · {c.responsavel}</small></div><Pill tone={c.situacao === 'Cumprido' ? 'green' : c.situacao === 'Descumprido' ? 'red' : 'blue'}>{c.situacao}</Pill>{!!c.encaminhamentos.length && <Pill tone="amber">{c.encaminhamentos.length} encam.</Pill>}<ChevronRight size={15} /></button>)}</div></section>
+}
+
+function AgendaMes({ ano, mes, itens, aoAbrir }: { ano: number; mes: number; itens: Compromisso[]; aoAbrir: (c: Compromisso) => void }) {
+  return <div className="calendar-grid">
+    {weekdays.map(n => <div className="calendar-weekday" key={n}>{n}</div>)}
+    {monthCells(ano, mes).map((d, i) => {
+      if (!d) return <div className="calendar-cell empty" key={i} />
+      const iso = `${ano}-${String(mes).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+      const doDia = itens.filter(c => c.data === iso)
+      return <div className="calendar-cell" key={i}><small>{d}</small>{doDia.map(c => <button key={c.id} className={`event tipo-${c.tipo.toLowerCase().replace('ã', 'a')}`} onClick={() => aoAbrir(c)}><b>{c.hora} · {c.tipo}</b>{c.titulo}</button>)}</div>
+    })}
+  </div>
+}
+
+function AgendaAno({ ano, aoEscolherMes }: { ano: number; aoEscolherMes: (m: number) => void }) {
+  const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+  return <div className="year-grid">{meses.map((m, i) => {
+    const doMes = compromissosDoMes(ano, i + 1)
+    const porTipo = tiposCompromisso.map(t => ({ t, n: doMes.filter(c => c.tipo === t).length })).filter(x => x.n)
+    return <button key={m} onClick={() => aoEscolherMes(i + 1)}><strong>{m}</strong><span>{doMes.length ? `${doMes.length} compromisso${doMes.length > 1 ? 's' : ''}` : 'sem registro'}</span><div className="ano-barras">{porTipo.map(x => <i key={x.t} className={`tipo-${x.t.toLowerCase().replace('ã', 'a')}`} style={{ flexGrow: x.n }} />)}</div></button>
+  })}</div>
+}
+
+function AgendaLista({ itens, aoAbrir }: { itens: Compromisso[]; aoAbrir: (c: Compromisso) => void }) {
+  if (!itens.length) return <EmptyState title="Nenhum compromisso neste filtro" text="Troque o tipo ou o mês para ver outros registros." />
+  return <div className="table-card"><table><thead><tr><th>Tipo</th><th>Quando</th><th>Compromisso</th><th>Município</th><th>Responsável</th><th>Encaminhamentos</th><th>Situação</th></tr></thead><tbody>{itens.map(c => <tr key={c.id} onClick={() => aoAbrir(c)}>
+    <td><span className={`marca-tipo tipo-${c.tipo.toLowerCase().replace('ã', 'a')}`} /> {c.tipo}</td>
+    <td><strong>{c.data.slice(8)}/{c.data.slice(5, 7)}</strong><small>{c.hora}</small></td>
+    <td><strong>{c.titulo}</strong>{c.vinculo && <small>ligado a {c.vinculo}</small>}</td>
+    <td>{c.municipio}</td><td>{c.responsavel}</td>
+    <td>{c.encaminhamentos.length ? <Pill tone={c.encaminhamentos.some(e => e.situacao === 'Atrasado') ? 'red' : 'amber'}>{c.encaminhamentos.length}</Pill> : <span className="muted">—</span>}</td>
+    <td><Pill tone={c.situacao === 'Cumprido' ? 'green' : c.situacao === 'Descumprido' ? 'red' : 'blue'}>{c.situacao}</Pill></td>
+  </tr>)}</tbody></table></div>
+}
+
+function AgendaRota({ navigate, total }: { navigate: Navigate; total: number }) {
+  return <div className="rota-layout">
+    <section className="card"><div className="card-heading"><div><span className="eyebrow">{rota.nome}</span><h2>Paradas na ordem do trajeto</h2></div><Pill tone="blue">{total} km</Pill></div><div className="rota-lista">{rota.paradas.map((p, i) => <div key={p.ordem}><span className="rota-num">{p.ordem}</span><div><strong>{p.municipio}</strong><small>{p.data} · {p.tipo}</small></div>{p.pista && <Pill tone="purple">Pista próxima</Pill>}{i > 0 && <b>{p.km} km</b>}</div>)}</div><button className="secondary-button full"><Plus size={15} /> Adicionar parada</button></section>
+    <section className="card"><div className="card-heading"><div><span className="eyebrow">Trajeto</span><h2>Mapa da rota</h2></div><button className="text-button" onClick={() => navigate('municipios')}>Ver municípios <ArrowRight size={14} /></button></div><svg className="rota-mapa" viewBox="0 0 400 300" role="img" aria-label="Trajeto abstrato entre os municípios da rota"><path d="M60 240 L150 170 L250 200 L330 90" /><g>{[[60, 240], [150, 170], [250, 200], [330, 90]].map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="15" /><text x={x} y={y + 5} textAnchor="middle">{i + 1}</text></g>)}</g></svg><p className="map-hint"><Info size={14} /> Trajeto ponto a ponto na ordem das paradas. Polígonos e distâncias são demonstrativos.</p></section>
+  </div>
 }
 
 function Aniversarios({ navigate }: { navigate: Navigate }) {
@@ -631,22 +713,6 @@ function Aniversarios({ navigate }: { navigate: Navigate }) {
     <div className="metrics-grid three"><Metric label="Datas no mês" value={String(aniversarios.length)} delta="agosto de 2026" icon={Cake} /><Metric label="Com presença agendada" value={String(aniversarios.filter(a => a.agendado).length)} delta="já na agenda" icon={Check} /><Metric label="Sem agendamento" value={String(aniversarios.filter(a => !a.agendado).length)} delta="oportunidade aberta" icon={AlertTriangle} /></div>
     <section className="card toolbar-card"><select value={categoria} onChange={e => setCategoria(e.target.value)} aria-label="Categoria"><option>Todas</option><option>Candidato</option><option>Município</option><option>Padroeira</option></select><select aria-label="Mês"><option>Agosto 2026</option><option>Setembro 2026</option></select></section>
     <div className="aniversarios-lista">{dias.map(dia => <section className="card" key={dia}><div className="dia-selo">Dia {dia}</div><div className="dia-eventos">{lista.filter(a => a.dia === dia).map(a => <div key={a.nome}><Pill tone={a.categoria === 'Candidato' ? 'blue' : a.categoria === 'Padroeira' ? 'purple' : 'neutral'}>{a.categoria}</Pill><div><strong>{a.nome}</strong><small>{a.detalhe}</small></div>{a.agendado ? <Pill tone="green"><Check size={12} /> Presença agendada</Pill> : <button className="secondary-button" onClick={() => navigate('agenda')}><CalendarDays size={14} /> Agendar presença</button>}</div>)}</div></section>)}</div>
-  </>
-}
-
-function Reunioes() {
-  const [aberta, setAberta] = useState(1)
-  const atual = reunioes.find(r => r.id === aberta) || reunioes[0]
-  const pendentes = reunioes.flatMap(r => r.encaminhamentos).filter(e => e.situacao !== 'Concluído')
-  return <>
-    <PageHeader eyebrow="Relacionamento" title="Reuniões" description="Pauta, participantes e — o que importa — os encaminhamentos com dono e prazo." actions={<button className="primary-button"><Plus size={16} /> Nova reunião</button>} />
-    <div className="metrics-grid three"><Metric label="Reuniões no ciclo" value={String(reunioes.length)} delta="1 agendada" icon={Handshake} /><Metric label="Encaminhamentos abertos" value={String(pendentes.length)} delta="com dono definido" icon={Target} /><Metric label="Em atraso" value={String(pendentes.filter(e => e.situacao === 'Atrasado').length)} delta="pedem cobrança" icon={AlertTriangle} /></div>
-    <div className="campaign-layout"><section className="campaign-list">{reunioes.map(r => <button className={`card campaign-card ${aberta === r.id ? 'active' : ''}`} key={r.id} onClick={() => setAberta(r.id)}><div className="campaign-top"><Pill tone={r.status === 'Realizada' ? 'green' : 'blue'}>{r.status}</Pill><MoreHorizontal size={17} /></div><h2>{r.titulo}</h2><p>{r.local}</p><div className="campaign-meta"><span><CalendarDays size={14} /> {r.data}</span><span><UsersRound size={14} /> {r.participantes}</span></div></button>)}</section>
-    <section className="card"><div className="card-heading"><div><span className="eyebrow">Reunião selecionada</span><h2>{atual.titulo}</h2></div><Pill tone={atual.status === 'Realizada' ? 'green' : 'blue'}>{atual.status}</Pill></div>
-      <div className="info-grid"><span><small>Data</small><strong>{atual.data}</strong></span><span><small>Local</small><strong>{atual.local}</strong></span><span><small>Participantes</small><strong>{atual.participantes}</strong></span><span><small>Itens de pauta</small><strong>{atual.pauta}</strong></span></div>
-      <h3>Encaminhamentos</h3>
-      {atual.encaminhamentos.length === 0 ? <div className="muted-box">Reunião ainda não realizada — os encaminhamentos são registrados durante ou depois dela.</div> : <div className="encaminhamentos">{atual.encaminhamentos.map(e => <div key={e.texto}><span className={`enc-dot ${e.situacao === 'Atrasado' ? 'atraso' : e.situacao === 'Concluído' ? 'ok' : ''}`} /><div><strong>{e.texto}</strong><small>{e.dono} · prazo {e.prazo}</small></div><Pill tone={e.situacao === 'Atrasado' ? 'red' : e.situacao === 'Concluído' ? 'green' : 'blue'}>{e.situacao}</Pill></div>)}</div>}
-    </section></div>
   </>
 }
 
@@ -724,12 +790,13 @@ function VocabularioStatus() {
 }
 
 function Sidebar({ route, navigate, mobileOpen, onClose }: { route: string; navigate: Navigate; mobileOpen: boolean; onClose: () => void }) {
-  const { tenant } = useTenant()
+  const { tenant, perfil } = useTenant()
   const active = route.split('/')[0]
   const select = (value: string) => { navigate(value); onClose() }
   // O menu é derivado do contrato, não escrito à mão: é o que faz disto um produto.
-  const visiveis = modulos.filter(m => tenant.ativos.includes(m.id))
-  return <aside className={`sidebar ${mobileOpen ? 'mobile-open' : ''}`}><div className="brand"><span className="brand-mark"><span /><span /><span /></span><div><strong>ELEITORES</strong><small>Inteligência política</small></div><button className="icon-button sidebar-close" aria-label="Fechar menu" onClick={onClose}><X size={18} /></button></div><nav className="main-nav" aria-label="Navegação principal">{gruposOrdem.map(grupo => { const itens = visiveis.filter(m => m.grupo === grupo); if (!itens.length) return null; return <div key={grupo} className="nav-grupo"><span className="nav-grupo-label">{grupo}</span>{itens.map(m => { const Icon = iconesModulo[m.id] || CircleHelp; return <button key={m.id} className={active === m.id ? 'active' : ''} onClick={() => select(m.id)}><Icon size={18} /><span>{m.label}</span></button> })}</div> })}</nav><div className="sidebar-footer"><button className={active === 'configuracoes' ? 'active' : ''} onClick={() => select('configuracoes')}><Settings size={18} /><span>Configurações</span></button><div className="tenant"><span>{tenant.sigla}</span><div><strong>{tenant.nome}</strong><small>Plano {planos.find(p => p.id === tenant.plano)?.nome} · ambiente fictício</small></div><MoreHorizontal size={16} /></div></div></aside>
+  // Duas perguntas diferentes: o cliente COMPROU o módulo, e este usuário PODE vê-lo.
+  const visiveis = modulos.filter(m => tenant.ativos.includes(m.id) && perfilVe(perfil, m.id))
+  return <aside className={`sidebar ${mobileOpen ? 'mobile-open' : ''}`}><div className="brand"><span className="brand-mark"><span /><span /><span /></span><div><strong>ELEITORES</strong><small>Inteligência política</small></div><button className="icon-button sidebar-close" aria-label="Fechar menu" onClick={onClose}><X size={18} /></button></div><nav className="main-nav" aria-label="Navegação principal">{gruposOrdem.map(grupo => { const itens = visiveis.filter(m => m.grupo === grupo); if (!itens.length) return null; return <div key={grupo} className="nav-grupo"><span className="nav-grupo-label">{grupo}</span>{itens.map(m => { const Icon = iconesModulo[m.id] || CircleHelp; return <button key={m.id} className={active === m.id ? 'active' : ''} onClick={() => select(m.id)}><Icon size={18} /><span>{m.label}</span></button> })}</div> })}</nav><div className="sidebar-footer"><button className={active === 'configuracoes' ? 'active' : ''} onClick={() => select('configuracoes')}><Settings size={18} /><span>Minha conta</span></button><div className="tenant"><span>{tenant.sigla}</span><div><strong>{tenant.nome}</strong><small>Plano {planos.find(p => p.id === tenant.plano)?.nome} · ambiente fictício</small></div><MoreHorizontal size={16} /></div></div></aside>
 }
 
 /** Módulo fora do contrato não some do produto: ele explica o que é e como contratar. */
@@ -771,6 +838,7 @@ function App() {
   const [route, setRoute] = useState(() => window.location.hash.replace('#', '') || 'bem-vindo')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [tenant, setTenant] = useState<Tenant>(tenantPadrao)
+  const [perfil, setPerfil] = useState<Perfil>(perfis[0])
   const [avaliacoes, setAvaliacoes] = useState<Record<number, string>>(statusPolitico)
   const statusDe = (id: number) => avaliacoes[id] || 'Não avaliado'
   const avaliar = (id: number, valor: string) => setAvaliacoes(a => ({ ...a, [id]: valor }))
@@ -800,7 +868,6 @@ function App() {
       case 'eleicoes': return <Eleicoes />
       case 'campanhas': return <Campaigns />
       case 'agenda': return <AgendaModulo navigate={navigate} />
-      case 'reunioes': return <Reunioes />
       case 'aniversarios': return <Aniversarios navigate={navigate} />
       case 'inteligencia': return <Intelligence navigate={navigate} />
       case 'cruzamento': return <Cruzamento />
@@ -815,7 +882,52 @@ function App() {
       default: return <BemVindo navigate={navigate} />
     }
   }, [route, tenant])
-  return <TemaCtx.Provider value={{ tema, setTema }}><TenantCtx.Provider value={{ tenant, setTenant }}><AvaliacaoCtx.Provider value={{ statusDe, avaliar }}><div className="app-shell"><a className="skip-link" href="#main-content">Pular para o conteúdo</a><Sidebar route={route} navigate={navigate} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />{mobileOpen && <button className="sidebar-overlay" aria-label="Fechar menu" onClick={() => setMobileOpen(false)} />}<Topbar route={route} onMenu={() => setMobileOpen(true)} /><main id="main-content" className="main-content">{/* key força a animação de entrada a rodar de novo a cada troca de rota */}<div className="pagina" key={route}>{page}</div><footer className="prototype-footer"><span><Info size={14} /> Protótipo local · dados inteiramente fictícios · sem integrações reais</span><button className="text-button"><CircleHelp size={14} /> Ajuda</button><button className="text-button"><LogOut size={14} /> Sair</button></footer></main></div></AvaliacaoCtx.Provider></TenantCtx.Provider></TemaCtx.Provider>
+  return <TemaCtx.Provider value={{ tema, setTema }}><TenantCtx.Provider value={{ tenant, setTenant, perfil, setPerfil }}><AvaliacaoCtx.Provider value={{ statusDe, avaliar }}><div className="app-shell"><a className="skip-link" href="#main-content">Pular para o conteúdo</a><Sidebar route={route} navigate={navigate} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />{mobileOpen && <button className="sidebar-overlay" aria-label="Fechar menu" onClick={() => setMobileOpen(false)} />}<Topbar route={route} onMenu={() => setMobileOpen(true)} /><main id="main-content" className="main-content">{/* key força a animação de entrada a rodar de novo a cada troca de rota */}<div className="pagina" key={route}>{page}</div><footer className="prototype-footer"><span><Info size={14} /> Protótipo local · dados inteiramente fictícios · sem integrações reais</span><button className="text-button"><CircleHelp size={14} /> Ajuda</button><button className="text-button"><LogOut size={14} /> Sair</button></footer></main></div></AvaliacaoCtx.Provider></TenantCtx.Provider></TemaCtx.Provider>
+}
+
+
+function IdentidadeAmbiente() {
+  const { tenant, setTenant } = useTenant()
+  const [salvo, setSalvo] = useState(false)
+  return <section className="card">
+    <div className="card-heading"><div><span className="eyebrow">Contrato</span><h2>{tenant.nome}</h2></div>{salvo ? <span className="confirmacao"><Check size={15} /> Salvo</span> : <Pill tone="blue">Plano {planos.find(p => p.id === tenant.plano)?.nome}</Pill>}</div>
+    <div className="form-grid">
+      <label>Nome exibido<input value={tenant.nome} onChange={e => setTenant({ ...tenant, nome: e.target.value })} /></label>
+      <label>Sigla<input value={tenant.sigla} maxLength={4} onChange={e => setTenant({ ...tenant, sigla: e.target.value.toUpperCase() })} /></label>
+      <label>Candidato principal<input value={tenant.candidatoPrincipal} onChange={e => setTenant({ ...tenant, candidatoPrincipal: e.target.value })} /></label>
+      <label>Partido de referência<input value={tenant.partidoReferencia} onChange={e => setTenant({ ...tenant, partidoReferencia: e.target.value })} /></label>
+      <label>Divisão territorial contratada<select value={tenant.divisaoTerritorial} onChange={e => setTenant({ ...tenant, divisaoTerritorial: e.target.value })}><option>Mesorregião</option><option>Território de identidade</option><option>Região administrativa</option></select></label>
+      <label>Cor de acento<input type="color" defaultValue="#06b6d4" /></label>
+    </div>
+    <div className="domain-note"><Info size={18} /><div><strong>Mude a sigla e olhe o rodapé da barra lateral.</strong><p>O que se edita aqui aparece na hora em todas as telas: é o mesmo contrato que alimenta o menu, o nome do ambiente e o vocabulário territorial.</p></div></div>
+    <div className="settings-actions"><button className="primary-button" onClick={() => { setSalvo(true); setTimeout(() => setSalvo(false), 1800) }}>Salvar identidade</button></div>
+  </section>
+}
+
+function DadosRetencao({ navigate }: { navigate: Navigate }) {
+  return <>
+    <section className="card">
+      <div className="card-heading"><div><span className="eyebrow">Governança</span><h2>Retenção</h2></div></div>
+      <div className="form-grid">
+        <label>Histórico de interações<select defaultValue="5 anos"><option>2 anos</option><option>5 anos</option><option>Indeterminada</option></select></label>
+        <label>Arquivos exportados<select defaultValue="7 dias"><option>7 dias</option><option>30 dias</option><option>90 dias</option></select></label>
+        <label>Observações políticas<select defaultValue="Enquanto o contrato durar"><option>Enquanto o contrato durar</option><option>2 anos</option></select></label>
+        <label>Registro de auditoria<select defaultValue="Indeterminada"><option>Indeterminada</option><option>5 anos</option></select></label>
+      </div>
+      <p className="section-description">Base política guarda opinião sobre pessoas identificadas. Retenção e saída de dado não são detalhe técnico — são a diferença entre inteligência e passivo.</p>
+    </section>
+    <section className="card">
+      <div className="card-heading"><div><span className="eyebrow">Procedência</span><h2>De onde vem cada dado</h2></div></div>
+      <div className="origem-lista">{[['TSE', 'Candidaturas, resultados e filiação', 'Sincronização manual hoje; automática prevista'], ['IBGE', 'População, malha territorial e códigos', 'Sincronização manual hoje; automática prevista'], ['ANAC', 'Pistas de pouso próximas aos municípios', 'Integração prevista, hoje preenchido à mão'], ['Equipe', 'Avaliação política, observações e vínculos', 'Sempre manual, sempre com autor e data']].map(([fonte, o, como]) =>
+        <div key={fonte}><span className="origem-selo">{fonte}</span><div><strong>{o}</strong><small>{como}</small></div></div>)}</div>
+      <div className="acoes-dados">
+        <button className="secondary-button" onClick={() => navigate('exportacoes')}><Download size={15} /> Exportar tudo</button>
+        <button className="secondary-button"><FileText size={15} /> Registro de auditoria</button>
+        <button className="secondary-button perigo"><AlertTriangle size={15} /> Solicitar exclusão do ambiente</button>
+      </div>
+      <p className="section-description">A exclusão é irreversível e passa por confirmação humana — por isso pede solicitação, não um botão que apaga na hora.</p>
+    </section>
+  </>
 }
 
 export default App

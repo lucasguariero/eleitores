@@ -171,7 +171,7 @@ small { display: block; color: var(--muted); }
 .sidebar-footer { padding: 10px 12px 13px; border-top: 1px solid rgba(255,255,255,.1); }
 .tenant { margin-top: 10px; display: grid; grid-template-columns: 31px 1fr 16px; align-items: center; gap: 9px; padding: 9px 7px; }
 .tenant > span { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 8px; color: white; background: #496f9e; font-size:12px; font-weight: 700; }
-.tenant strong { display: block; color: var(--blue); font-size:12px; }
+.tenant strong { display: block; color: #e8f0fa; font-size:12px; }
 .tenant small { color: var(--muted-2); font-size:11px; }
 .sidebar-close { display: none !important; margin-left: auto; color: white; }
 

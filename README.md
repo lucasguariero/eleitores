@@ -70,11 +70,11 @@ e reclassificar à mão — não dá para separar automaticamente o que foi conc
 |---|---|
 | Início | Bem-vindo, Painel Executivo |
 | Território | Municípios (lista, divisões e dossiê), Territórios, Eleições |
-| Relacionamento | Quadro Eleitoral (lista, carteira por status e ficha do candidato), Campanhas, Agenda (com rota de viagem), Reuniões, Aniversários |
+| Relacionamento | Quadro Eleitoral (lista, carteira por status e ficha do candidato), Campanhas, Agenda (dia, mês, ano, listagem e rota), Aniversários |
 | Análise | Inteligência, Cruzamento de dados, Relatórios, Exportações |
 | Gestão | Prestação de contas |
-| Administração | Base Nacional, Equipe, Usuários e Acessos, Parametrizações |
-| Rodapé | Configurações |
+| Administração | Base Nacional, Equipe, Usuários e Acessos, Parametrizações (vocabulários, identidade, planos e retenção) |
+| Rodapé | Minha conta (aparência, notificações, sessão) |
 
 ### Padrões que o protótipo defende
 
@@ -147,3 +147,41 @@ Pill, avatar e estado ativo carregam par cor+fundo casado: no escuro o par **inv
 Por isso eles ficam num bloco de sobrescrita explícito em vez de virarem token.
 
 Contraste WCAG AA verificado nos **dois temas**, rota a rota.
+
+## Agenda unificada, e por quê
+
+Reunião não é um módulo irmão da agenda — é um TIPO de compromisso, ao lado de viagem, visita e
+entrevista. Separar os dois obrigava a equipe a lembrar em qual tela registrar cada coisa, e deixava
+viagem e visita sem o que a reunião tinha de melhor: **encaminhamento com dono e prazo**. Agora
+qualquer tipo gera encaminhamento; o tipo só muda o que se espera dele (reunião tem pauta, viagem tem
+trajeto).
+
+Cinco visões sobre o mesmo dado: **Dia · Mês · Ano · Listagem · Rota de viagem**, com filtro por tipo
+que atravessa todas. Uma cor por tipo, igual nas cinco — se o tipo mudasse de cor entre visões, a
+leitura quebraria.
+
+## Cargo não é permissão
+
+Dois campos que parecem um só:
+
+| | Onde | O que responde |
+|---|---|---|
+| **Cargo** | Equipe | O que a pessoa faz no grupo — “Analista territorial” |
+| **Perfil de acesso** | Usuários e Acessos | O que ela pode fazer no sistema — “Leitura executiva” |
+
+Amarrar um ao outro impediria dois analistas territoriais de terem permissões diferentes — que é o
+caso comum quando um é sênior e o outro entrou ontem.
+
+O menu cruza **duas** perguntas independentes: o cliente comprou o módulo (contrato) e este usuário
+pode vê-lo (perfil). Em *Minha conta → Aparência* há um simulador de perfil: trocar para “Leitura
+executiva” colapsa o menu de 18 itens para 3.
+
+## Minha conta × Administração
+
+O critério não é “o que é técnico”, é **isso afeta só a mim ou afeta todo mundo?**
+
+- **Minha conta** (rodapé): aparência, notificações, sessão. Some quando você troca de máquina.
+- **Administração → Parametrizações**: identidade do ambiente, vocabulários, planos e módulos,
+  retenção de dados. Afeta todos os usuários daquele cliente e exige permissão.
+
+Por isso “Configurações” deixou de existir como saco misto de preferências pessoais e do ambiente.

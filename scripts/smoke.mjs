@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import { monthCells, priorityColors } from '../src/data.ts'
 import { statusPolitico } from '../src/dominio.ts'
  import { completude } from '../src/ficha.ts'
-import { gruposOrdem, moduloIncluso, modulos, ordemPlanos, planos, tenantPadrao } from '../src/produto.ts'
+import { gruposOrdem, moduloIncluso, modulos, ordemPlanos, perfis, planos, tenantPadrao } from '../src/produto.ts'
 
 // ─── Camada de produto ────────────────────────────────────────────────────────
 // O menu é derivado do contrato. Se um plano mais barato liberar mais módulo que um mais
@@ -92,6 +92,14 @@ const app = fs.readFileSync(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const data = fs.readFileSync(new URL('../src/data.ts', import.meta.url), 'utf8')
 // Toda rota do catálogo precisa existir no roteador, senão o menu leva a lugar nenhum.
 const requiredRoutes = [...modulos.map(m => m.id), 'configuracoes']
+
+// Perfil de acesso e cargo são campos independentes: amarrar um ao outro impediria dois
+// analistas territoriais de terem permissões diferentes.
+assert.ok(perfis.length >= 3, 'o produto precisa de mais de um perfil, senão permissão não existe')
+assert.ok(perfis.some(p => p.ve === '*'), 'algum perfil precisa enxergar tudo')
+assert.ok(perfis.some(p => Array.isArray(p.ve) && p.ve.length < modulos.length), 'algum perfil precisa enxergar menos que o catálogo, senão a ocultação nunca aparece')
+assert.ok(perfis.every(p => p.ve === '*' || p.ve.every(id => modulos.some(m => m.id === id))), 'perfil só pode liberar módulo existente')
+assert.ok(perfis.every(p => p.edita === '*' || p.ve === '*' || p.edita.every(id => p.ve.includes(id))), 'não dá para editar módulo que não se enxerga')
 const missing = requiredRoutes.filter(route => !app.includes(`'${route}'`))
 
 if (missing.length) {
@@ -109,7 +117,7 @@ if (!app.includes('territory-map') || !app.includes('setSelectedId(item.id)')) {
   process.exit(1)
 }
 
-for (const capability of ['ElectoralProfileExpanded', 'TerritoryProfile', 'MunicipioFicha', 'PlanosModulos', 'Cruzamento', 'PrestacaoContas', 'Reunioes', 'ModuloBloqueado', 'ComparisonReport', 'AgendaModulo', 'LinkQueue', 'AuditPanel']) {
+for (const capability of ['ElectoralProfileExpanded', 'TerritoryProfile', 'MunicipioFicha', 'PlanosModulos', 'Cruzamento', 'PrestacaoContas', 'AgendaDia', 'AgendaMes', 'AgendaAno', 'AgendaLista', 'IdentidadeAmbiente', 'DadosRetencao', 'ModuloBloqueado', 'ComparisonReport', 'AgendaModulo', 'LinkQueue', 'AuditPanel']) {
   if (!app.includes(`function ${capability}`)) {
     console.error(`Capacidade expandida ausente: ${capability}`)
     process.exit(1)

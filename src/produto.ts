@@ -42,8 +42,7 @@ export const modulos: Modulo[] = [
 
   { id: 'quadro-eleitoral', label: 'Quadro Eleitoral', grupo: 'Relacionamento', plano: 'essencial', descricao: 'Quem concorreu ou concorre a eleição — atual e do passado — com avaliação política.' },
   { id: 'campanhas', label: 'Campanhas', grupo: 'Relacionamento', plano: 'avancado', descricao: 'Objetivos, frentes de trabalho e marcos.' },
-  { id: 'agenda', label: 'Agenda', grupo: 'Relacionamento', plano: 'avancado', descricao: 'Viagens, visitas e entrevistas, com rota entre municípios.' },
-  { id: 'reunioes', label: 'Reuniões', grupo: 'Relacionamento', plano: 'avancado', descricao: 'Pauta, participantes, deliberações e encaminhamentos com dono e prazo.' },
+  { id: 'agenda', label: 'Agenda', grupo: 'Relacionamento', plano: 'avancado', descricao: 'Viagens, visitas, reuniões e entrevistas, com rota entre municípios e encaminhamentos.' },
   { id: 'aniversarios', label: 'Aniversários', grupo: 'Relacionamento', plano: 'essencial', descricao: 'Datas de candidatos, municípios e padroeiras.' },
 
   { id: 'inteligencia', label: 'Inteligência', grupo: 'Análise', plano: 'inteligencia', descricao: 'Insights com evidência declarada e próximo passo.' },
@@ -98,3 +97,54 @@ export const tenantPadrao: Tenant = {
     { valor: 'Não avaliado', tom: 'pendente', descricao: 'Ninguém analisou ainda. É lacuna, não posição.' },
   ],
 }
+
+/**
+ * Perfil de acesso ≠ cargo. São duas coisas que parecem uma só e não são:
+ *
+ *   CARGO   (em Equipe)   — o que a pessoa faz no grupo político.
+ *                           "Analista territorial", "Coordenação política".
+ *   PERFIL  (em Usuários) — o que a pessoa pode fazer NO SISTEMA.
+ *                           "Administrador", "Editor", "Leitor".
+ *
+ * Amarrar um ao outro impediria dois analistas territoriais de terem permissões
+ * diferentes — que é justamente o caso comum quando um é sênior e o outro entrou ontem.
+ * Por isso a tela de Equipe pede os dois, separados e explicados.
+ */
+export type Perfil = {
+  id: string
+  nome: string
+  descricao: string
+  /** Módulos que o perfil enxerga. `'*'` vê tudo que o contrato liberou. */
+  ve: string[] | '*'
+  /** Onde pode escrever. Ver e editar são permissões diferentes. */
+  edita: string[] | '*'
+}
+
+export const perfis: Perfil[] = [
+  { id: 'admin', nome: 'Administrador', descricao: 'Enxerga e edita tudo, inclusive contrato e usuários.', ve: '*', edita: '*' },
+  {
+    id: 'coordenacao', nome: 'Coordenação', descricao: 'Opera o dia a dia: cadastro, agenda e campanhas. Não mexe em contrato nem em usuários.',
+    ve: ['bem-vindo', 'painel', 'municipios', 'territorios', 'eleicoes', 'quadro-eleitoral', 'campanhas', 'agenda', 'aniversarios', 'inteligencia', 'cruzamento', 'relatorios', 'exportacoes', 'prestacao', 'equipe'],
+    edita: ['quadro-eleitoral', 'municipios', 'campanhas', 'agenda', 'aniversarios'],
+  },
+  {
+    id: 'analise', nome: 'Análise', descricao: 'Lê tudo o que é dado e produz leitura. Não altera cadastro.',
+    ve: ['bem-vindo', 'painel', 'municipios', 'territorios', 'eleicoes', 'quadro-eleitoral', 'inteligencia', 'cruzamento', 'relatorios', 'exportacoes', 'base-nacional'],
+    edita: ['exportacoes'],
+  },
+  {
+    id: 'leitura', nome: 'Leitura executiva', descricao: 'Só consulta o consolidado. Não abre cadastro individual nem exporta.',
+    ve: ['bem-vindo', 'painel', 'relatorios'], edita: [],
+  },
+]
+
+export function perfilVe(perfil: Perfil, moduloId: string) {
+  return perfil.ve === '*' || perfil.ve.includes(moduloId)
+}
+export function perfilEdita(perfil: Perfil, moduloId: string) {
+  return perfil.edita === '*' || perfil.edita.includes(moduloId)
+}
+
+/** Cargos do grupo político — vocabulário do cliente, sem relação com permissão. */
+export const cargosEquipe = ['Coordenação política', 'Analista territorial', 'Assessoria de agenda', 'Analista de dados', 'Design de comunicação', 'Articulação regional']
+export const vinculosEquipe = ['Funcionário', 'Prestador', 'Colaborador', 'Voluntário']
