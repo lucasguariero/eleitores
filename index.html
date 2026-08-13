@@ -9,6 +9,13 @@
       // Aberto por duplo clique (file://): este arquivo é a entrada do Vite e o navegador
       // não executa TSX. bundle.html é a versão autocontida — redireciona para ela.
       if (location.protocol === 'file:' && !location.pathname.endsWith('/bundle.html')) location.replace('bundle.html')
+      // Tema aplicado ANTES do React montar: se esperar o JS, a página pisca branco por um
+      // quadro para quem usa o tema escuro. É a única lógica que precisa rodar tão cedo.
+      try {
+        var t = localStorage.getItem('eleitores:tema') || 'sistema'
+        var escuro = t === 'escuro' || (t === 'sistema' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = escuro ? 'dark' : 'light'
+      } catch (e) { document.documentElement.dataset.theme = 'light' }
     </script>
   </head>
   <body>

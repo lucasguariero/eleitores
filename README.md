@@ -129,3 +129,21 @@ acessível. `prefers-reduced-motion` corta deslocamento e rolagem animada preser
 - **Prestação de contas não substitui o sistema oficial** nem gera peça contábil válida.
 - **Cruzamento de dados não consulta modelo externo**: cruza apenas as bases fictícias do protótipo.
 - Os preços na tela de planos são fictícios e servem só para mostrar o formato da vitrine.
+
+## Tema claro e escuro
+
+Três estados, não dois: **Seguir o sistema**, **Claro**, **Escuro**. Um alternador de dois estados
+obriga quem usa o SO no escuro a reescolher em cada máquina e ignora uma preferência já declarada.
+Trocável no ícone da barra superior ou em *Configurações → Aparência*.
+
+O tema é aplicado em [`index.html`](index.html) **antes do React montar** — se esperar o JS, a página
+pisca branco por um quadro para quem usa o escuro.
+
+O escuro **não é o claro invertido**. No escuro a sombra praticamente desaparece, então quem separa as
+camadas passa a ser a diferença de luminância entre superfícies mais a borda; por isso `--superficie-2`
+(card) é mais *clara* que o canvas ali, ao contrário do tema claro.
+
+Pill, avatar e estado ativo carregam par cor+fundo casado: no escuro o par **inverte**, não muda de tom.
+Por isso eles ficam num bloco de sobrescrita explícito em vez de virarem token.
+
+Contraste WCAG AA verificado nos **dois temas**, rota a rota.

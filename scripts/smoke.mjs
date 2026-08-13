@@ -91,7 +91,7 @@ assert.equal(runGuard('http:', '/index.html'), null, 'servido por HTTP o index r
 const app = fs.readFileSync(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const data = fs.readFileSync(new URL('../src/data.ts', import.meta.url), 'utf8')
 // Toda rota do catálogo precisa existir no roteador, senão o menu leva a lugar nenhum.
-const requiredRoutes = [...modulos.map(m => m.id), 'relacionamento', 'configuracoes']
+const requiredRoutes = [...modulos.map(m => m.id), 'configuracoes']
 const missing = requiredRoutes.filter(route => !app.includes(`'${route}'`))
 
 if (missing.length) {
@@ -109,14 +109,14 @@ if (!app.includes('territory-map') || !app.includes('setSelectedId(item.id)')) {
   process.exit(1)
 }
 
-for (const capability of ['ElectoralProfileExpanded', 'TerritoryProfile', 'MunicipioFicha', 'PlanosModulos', 'Cruzamento', 'PrestacaoContas', 'Reunioes', 'ModuloBloqueado', 'ComparisonReport', 'RelationshipHub', 'LinkQueue', 'AuditPanel']) {
+for (const capability of ['ElectoralProfileExpanded', 'TerritoryProfile', 'MunicipioFicha', 'PlanosModulos', 'Cruzamento', 'PrestacaoContas', 'Reunioes', 'ModuloBloqueado', 'ComparisonReport', 'AgendaModulo', 'LinkQueue', 'AuditPanel']) {
   if (!app.includes(`function ${capability}`)) {
     console.error(`Capacidade expandida ausente: ${capability}`)
     process.exit(1)
   }
 }
 
-for (const fragment of ['liderancas/perfil/', 'territorios/perfil/', 'relacionamento/agenda', 'relatorios/comparativo', 'relatorios/consolidado']) {
+for (const fragment of ['liderancas/perfil/', 'territorios/perfil/', 'relatorios/comparativo', 'relatorios/consolidado']) {
   if (!app.includes(fragment)) {
     console.error(`Subrota ausente: ${fragment}`)
     process.exit(1)

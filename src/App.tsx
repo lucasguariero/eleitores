@@ -7,16 +7,24 @@ import {
   MapPin, Megaphone, Menu, MessageCircle, MoreHorizontal, Phone, Plus,
   RefreshCw, Search, Settings, Shield, ShieldCheck, SlidersHorizontal, Sparkles,
   Target, TrendingUp, UserCog, UsersRound, X, Link2, History,
-  Vote, BookOpenCheck, Home, Cake, Workflow, Receipt, Route, Lock, Sigma, Paperclip,
+  Vote, BookOpenCheck, Home, Cake, Workflow, Receipt, Route, Lock, Sigma, Paperclip, Palette, Sun, Moon, Monitor,
   type LucideIcon,
 } from 'lucide-react'
 import { campaigns, electoralPeople, linkQueue, monthCells, priorityColors, relationships, team, territories, users, weekdays, type ElectoralPerson } from './data'
 import { aniversarios, apuracao, contas, cruzamentos, divisoes, exportacoes, municipios, reunioes, rota, statusPolitico, sugestoesCruzamento } from './dominio'
 import { gruposOrdem, moduloIncluso, modulos, planos, tenantPadrao, type Plano, type Tenant } from './produto'
 import { completude, dadosInternos } from './ficha'
+import { aplicarTema, ouvirSistema, temaSalvo, type Tema } from './tema'
 
 const TenantCtx = createContext<{ tenant: Tenant; setTenant: (t: Tenant) => void }>({ tenant: tenantPadrao, setTenant: () => {} })
 const useTenant = () => useContext(TenantCtx)
+
+// A avaliação política é editável: a fila de triagem levava a uma ficha onde não dava para triar.
+const AvaliacaoCtx = createContext<{ statusDe: (id: number) => string; avaliar: (id: number, valor: string) => void }>({ statusDe: () => 'Não avaliado', avaliar: () => {} })
+const useAvaliacao = () => useContext(AvaliacaoCtx)
+
+const TemaCtx = createContext<{ tema: Tema; setTema: (t: Tema) => void }>({ tema: 'sistema', setTema: () => {} })
+const useTema = () => useContext(TemaCtx)
 
 /** Ícone por módulo. Mora aqui porque produto.ts é configuração e não deve importar UI. */
 const iconesModulo: Record<string, LucideIcon> = {
@@ -25,6 +33,12 @@ const iconesModulo: Record<string, LucideIcon> = {
   aniversarios: Cake, inteligencia: Sparkles, cruzamento: Workflow, relatorios: FileText,
   exportacoes: Download, prestacao: Receipt, 'base-nacional': Database, equipe: BriefcaseBusiness,
   usuarios: UserCog, parametrizacoes: SlidersHorizontal,
+}
+
+function StatusPill({ valor }: { valor: string }) {
+  // Uma renderização só: antes eram quatro, e uma delas inventava vocabulário fora da escala.
+  if (!valor || valor === 'Não avaliado') return <span className="pill-vago">Não avaliado</span>
+  return <Pill tone={tomStatus[valor] || 'neutral'}>{valor}</Pill>
 }
 
 const tomStatus: Record<string, 'green' | 'blue' | 'neutral' | 'red' | 'purple'> = {
@@ -93,11 +107,12 @@ function EmptyState({ title, text, action }: { title: string; text: string; acti
 }
 
 function Dashboard({ navigate }: { navigate: Navigate }) {
+  const { statusDe } = useAvaliacao()
   const { tenant } = useTenant()
   const [period, setPeriod] = useState('Últimos 30 dias')
   const bars = [58, 72, 64, 82, 76, 88]
   const posicoes = tenant.escalaStatus.filter(s => s.tom !== 'pendente')
-  const contagem = posicoes.map(s => ({ ...s, n: electoralPeople.filter(p => statusPolitico[p.id] === s.valor).length }))
+  const contagem = posicoes.map(s => ({ ...s, n: electoralPeople.filter(p => statusDe(p.id) === s.valor).length }))
   const avaliadas = contagem.reduce((soma, c) => soma + c.n, 0)
   const semAvaliacao = electoralPeople.length - avaliadas
   const fracos = [...municipios].sort((a, b) => a.completude - b.completude).slice(0, 4)
@@ -136,12 +151,13 @@ function Dashboard({ navigate }: { navigate: Navigate }) {
     </div>
     <div className="dashboard-grid equal">
       <section className="card"><div className="card-heading"><div><span className="eyebrow">Leitura recomendada</span><h2>Oportunidades em foco</h2></div><button className="text-button" onClick={() => navigate('inteligencia')}>Ver inteligência <ArrowRight size={15} /></button></div><div className="insight-compact"><Sparkles size={20} /><div><strong>Serra Alta combina prioridade alta e dossiê incompleto</strong><p>É o território de maior prioridade cujo dossiê municipal está abaixo de 50%, e onde duas lideranças aliadas não recebem visita há mais de 90 dias.</p></div></div></section>
-      <section className="card"><div className="card-heading"><div><span className="eyebrow">Atividade recente</span><h2>Relacionamento</h2></div><button className="text-button" onClick={() => navigate('relacionamento')}>Abrir histórico <ArrowRight size={15} /></button></div>{relationships.slice(0, 3).map(item => <div className="activity-row" key={item.person}><Avatar initials={item.person.split(' ').slice(0, 2).map(n => n[0]).join('')} size="sm" /><div><strong>{item.person}</strong><small>{item.type} por {item.by}</small></div><time>{item.when}</time></div>)}</section>
+      <section className="card"><div className="card-heading"><div><span className="eyebrow">Atividade recente</span><h2>Relacionamento</h2></div><button className="text-button" onClick={() => navigate('reunioes')}>Abrir histórico <ArrowRight size={15} /></button></div>{relationships.slice(0, 3).map(item => <div className="activity-row" key={item.person}><Avatar initials={item.person.split(' ').slice(0, 2).map(n => n[0]).join('')} size="sm" /><div><strong>{item.person}</strong><small>{item.type} por {item.by}</small></div><time>{item.when}</time></div>)}</section>
     </div>
   </>
 }
 
 function ElectoralBoard({ navigate, route }: { navigate: Navigate; route: string }) {
+  const { statusDe } = useAvaliacao()
   const profileId = Number(route.split('/')[2])
   const searched = route.split('/')[1] === 'busca' ? decodeURIComponent(route.split('/')[2] || '') : ''
   const [view, setView] = useState<'list' | 'grid'>('list')
@@ -152,17 +168,19 @@ function ElectoralBoard({ navigate, route }: { navigate: Navigate; route: string
   const { tenant } = useTenant()
   // Chegando por #liderancas/pendentes, a lista já abre filtrada nas que ninguém avaliou.
   const [status, setStatus] = useState(route.split('/')[1] === 'pendentes' ? 'Não avaliado' : 'Todos')
-  const filtered = electoralPeople.filter(person => person.name.toLowerCase().includes(query.toLowerCase()) && (party === 'Todos os partidos' || person.party === party) && (running === 'Todos' || (running === 'Concorrendo' ? person.running : !person.running)) && (status === 'Todos' || statusPolitico[person.id] === status))
-  const semAvaliacao = electoralPeople.filter(p => statusPolitico[p.id] === 'Não avaliado').length
+  const filtered = electoralPeople.filter(person => person.name.toLowerCase().includes(query.toLowerCase()) && (party === 'Todos os partidos' || person.party === party) && (running === 'Todos' || (running === 'Concorrendo' ? person.running : !person.running)) && (status === 'Todos' || statusDe(person.id) === status))
+  const semAvaliacao = electoralPeople.filter(p => statusDe(p.id) === 'Não avaliado').length
   const pageSize = 6
   const pageItems = filtered.slice((page - 1) * pageSize, page * pageSize)
   const pages = Math.max(1, Math.ceil(filtered.length / pageSize))
   useEffect(() => { if (page > pages) setPage(1) }, [page, pages])
   useEffect(() => { if (searched) { setQuery(searched); setPage(1) } }, [searched])
-  if (profileId) return <ElectoralProfileExpanded person={electoralPeople.find(person => person.id === profileId) || electoralPeople[0]} navigate={navigate} />
+  if (profileId) { const pessoa = electoralPeople.find(p => p.id === profileId)
+    if (!pessoa) return <EmptyState title="Liderança não encontrada" text={`Nenhum registro com o identificador ${profileId}. O link pode estar velho, ou o registro foi inativado.`} action={<button className="primary-button" onClick={() => navigate('liderancas')}>Voltar à lista</button>} />
+    return <ElectoralProfileExpanded person={pessoa} navigate={navigate} /> }
   return <>
     <PageHeader eyebrow="Relacionamento" title="Lideranças" description="Quem concorreu ou concorre a eleição. Candidatura e desempenho vêm do TSE; a avaliação política é da equipe." actions={<><button className="secondary-button"><Download size={16} /> Exportar visão</button><button className="primary-button" onClick={() => document.getElementById('busca-pessoa')?.focus()}><Search size={16} /> Localizar pessoa</button></>} />
-    <div className="carteira-faixa">{tenant.escalaStatus.filter(s => s.tom !== 'pendente').map(s => { const n = electoralPeople.filter(p => statusPolitico[p.id] === s.valor).length; return <button key={s.valor} className={`card carteira-item ${status === s.valor ? 'ativo' : ''}`} onClick={() => { setStatus(status === s.valor ? 'Todos' : s.valor); setPage(1) }}><small>{s.valor}</small><strong>{n}</strong><Pill tone={tomStatus[s.valor] || 'neutral'}>{Math.round(n / electoralPeople.length * 100)}%</Pill></button> })}
+    <div className="carteira-faixa">{tenant.escalaStatus.filter(s => s.tom !== 'pendente').map(s => { const n = electoralPeople.filter(p => statusDe(p.id) === s.valor).length; return <button key={s.valor} className={`card carteira-item ${status === s.valor ? 'ativo' : ''}`} onClick={() => { setStatus(status === s.valor ? 'Todos' : s.valor); setPage(1) }}><small>{s.valor}</small><strong>{n}</strong><Pill tone={tomStatus[s.valor] || 'neutral'}>{Math.round(n / electoralPeople.length * 100)}%</Pill></button> })}
       <button className={`card carteira-pendencia ${status === 'Não avaliado' ? 'ativo' : ''}`} onClick={() => { setStatus(status === 'Não avaliado' ? 'Todos' : 'Não avaliado'); setPage(1) }}><AlertTriangle size={17} /><div><strong>{semAvaliacao} sem avaliação</strong><small>lacuna, não é posição — fica fora da distribuição</small></div><ArrowRight size={15} /></button>
     </div>
     <section className="card toolbar-card">
@@ -173,7 +191,7 @@ function ElectoralBoard({ navigate, route }: { navigate: Navigate; route: string
       <div className="view-toggle" aria-label="Alternar visualização"><button className={view === 'list' ? 'active' : ''} onClick={() => setView('list')} aria-label="Lista"><List size={17} /></button><button className={view === 'grid' ? 'active' : ''} onClick={() => setView('grid')} aria-label="Grade"><Grid3X3 size={17} /></button></div>
     </section>
     <div className="result-meta"><span><strong>{filtered.length}</strong> pessoas encontradas</span><span><Info size={14} /> Dados inteiramente fictícios</span></div>
-    {pageItems.length === 0 ? <EmptyState title="Nenhuma pessoa encontrada" text="Ajuste os filtros ou limpe a busca para voltar à lista completa." action={<button className="primary-button" onClick={() => { setQuery(''); setParty('Todos os partidos'); setRunning('Todos') }}>Limpar filtros</button>} /> : view === 'list' ? <div className="table-card"><table><thead><tr><th>Pessoa</th><th>Partido e cargo</th><th>Status político</th><th>Última candidatura</th><th>Desempenho</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{pageItems.map(person => <tr key={person.id} onClick={() => navigate(`liderancas/perfil/${person.id}`)}><td><div className="person-cell"><Avatar initials={person.initials} /><div><strong>{person.name}</strong><small>{person.territory}</small></div></div></td><td><strong>{person.party}</strong><small>{person.office}</small></td><td>{statusPolitico[person.id] === 'Não avaliado' ? <span className="pill-vago">Não avaliado</span> : <Pill tone={tomStatus[statusPolitico[person.id]] || 'neutral'}>{statusPolitico[person.id]}</Pill>}</td><td><strong>{person.history[0].year} · {person.history[0].office}</strong><small>{person.history[0].result} · fonte TSE</small></td><td><strong>{person.votes.toLocaleString('pt-BR')} votos</strong><Progress value={person.performance} /></td><td><button className="icon-button" aria-label={`Abrir perfil de ${person.name}`}><ChevronRight size={17} /></button></td></tr>)}</tbody></table></div> : <div className="people-grid">{pageItems.map(person => <button className="person-card" key={person.id} onClick={() => navigate(`liderancas/perfil/${person.id}`)}><div className="person-card-top"><Avatar initials={person.initials} size="lg" />{person.running && <Pill tone="blue">Em disputa</Pill>}</div><h3>{person.name}</h3><p>{person.office} · {person.party}</p><div className="person-stats"><span><small>Votos recentes</small><strong>{person.votes.toLocaleString('pt-BR')}</strong></span><span><small>Índice</small><strong>{person.performance}</strong></span></div><Progress value={person.performance} label={person.status} /></button>)}</div>}
+    {pageItems.length === 0 ? <EmptyState title="Nenhuma pessoa encontrada" text="Ajuste os filtros ou limpe a busca para voltar à lista completa." action={<button className="primary-button" onClick={() => { setQuery(''); setParty('Todos os partidos'); setRunning('Todos') }}>Limpar filtros</button>} /> : view === 'list' ? <div className="table-card"><table><thead><tr><th>Pessoa</th><th>Partido e cargo</th><th>Status político</th><th>Última candidatura</th><th>Desempenho</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{pageItems.map(person => <tr key={person.id} onClick={() => navigate(`liderancas/perfil/${person.id}`)}><td><div className="person-cell"><Avatar initials={person.initials} /><div><strong>{person.name}</strong><small>{person.territory}</small></div></div></td><td><strong>{person.party}</strong><small>{person.office}</small></td><td><StatusPill valor={statusDe(person.id)} /></td><td><strong>{person.history[0].year} · {person.history[0].office}</strong><small>{person.history[0].result} · fonte TSE</small></td><td><strong>{person.votes.toLocaleString('pt-BR')} votos</strong><Progress value={person.performance} /></td><td><button className="icon-button" aria-label={`Abrir perfil de ${person.name}`}><ChevronRight size={17} /></button></td></tr>)}</tbody></table></div> : <div className="people-grid">{pageItems.map(person => <button className="person-card" key={person.id} onClick={() => navigate(`liderancas/perfil/${person.id}`)}><div className="person-card-top"><Avatar initials={person.initials} size="lg" />{person.running && <Pill tone="blue">Em disputa</Pill>}</div><h3>{person.name}</h3><p>{person.office} · {person.party}</p><div className="person-stats"><span><small>Votos recentes</small><strong>{person.votes.toLocaleString('pt-BR')}</strong></span><span><small>Índice</small><strong>{person.performance}</strong></span></div><Progress value={person.performance} label={person.status} /></button>)}</div>}
     <div className="pagination"><span>Página {page} de {pages}</span><div><button className="icon-button" disabled={page === 1} onClick={() => setPage(value => value - 1)} aria-label="Página anterior"><ChevronLeft size={17} /></button>{Array.from({ length: pages }, (_, i) => i + 1).map(value => <button className={`page-button ${page === value ? 'active' : ''}`} onClick={() => setPage(value)} key={value}>{value}</button>)}<button className="icon-button" disabled={page === pages} onClick={() => setPage(value => value + 1)} aria-label="Próxima página"><ChevronRight size={17} /></button></div></div>
   </>
 }
@@ -301,12 +319,94 @@ function ParametersValores({ navigate, abas }: { navigate: Navigate; abas: { lab
   </>
 }
 
-function SettingsPage() {
-  const [saved, setSaved] = useState(false)
-  const [toggles, setToggles] = useState({ notifications: true, weekly: true, confidential: false })
+function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }) {
+  const { tenant, setTenant } = useTenant()
+  const { tema, setTema } = useTema()
+  const aba = route.split('/')[1] || 'aparencia'
+  const [salvo, setSalvo] = useState(false)
+  const [toggles, setToggles] = useState({ oportunidade: true, resumo: true, confidencial: false, aniversario: true, prazo: true })
+  const abas = [
+    { id: 'aparencia', label: 'Aparência', icone: Palette },
+    { id: 'organizacao', label: 'Organização', icone: Building2 },
+    { id: 'notificacoes', label: 'Notificações', icone: Bell },
+    { id: 'seguranca', label: 'Segurança e sessão', icone: Shield },
+    { id: 'dados', label: 'Dados e privacidade', icone: Database },
+  ]
+  const salvar = () => { setSalvo(true); setTimeout(() => setSalvo(false), 1800) }
   return <>
-    <PageHeader eyebrow="Preferências da organização" title="Configurações" description="Ajustes gerais do ambiente. Valores de negócio permanecem em Parametrizações." />
-    <div className="settings-layout"><section className="card settings-nav"><button className="active"><Building2 size={17} /> Organização</button><button><Bell size={17} /> Notificações</button><button><Shield size={17} /> Segurança</button><button><Database size={17} /> Dados e privacidade</button></section><section className="card settings-form"><div className="card-heading"><div><span className="eyebrow">Identidade do ambiente</span><h2>Organização demonstração</h2></div>{saved && <Pill tone="green"><Check size={13} /> Salvo</Pill>}</div><div className="form-grid"><label>Nome exibido<input defaultValue="Instituto Horizonte Cívico" /></label><label>Sigla<input defaultValue="IHC" /></label><label className="full-field">Descrição<textarea defaultValue="Ambiente inteiramente fictício para demonstração do produto Eleitores." /></label></div><h3>Preferências</h3>{[['notifications', 'Alertas de oportunidade', 'Receber avisos quando um território pedir atenção.'], ['weekly', 'Resumo executivo semanal', 'Consolidar sinais e avanços em uma leitura curta.'], ['confidential', 'Modo de alta confidencialidade', 'Ocultar detalhes sensíveis em telas compartilhadas.']].map(([key, title, text]) => <label className="toggle-row" key={key}><span><strong>{title}</strong><small>{text}</small></span><input type="checkbox" checked={toggles[key as keyof typeof toggles]} onChange={e => setToggles(current => ({ ...current, [key]: e.target.checked }))} /></label>)}<div className="settings-actions"><button className="primary-button" onClick={() => { setSaved(true); setTimeout(() => setSaved(false), 1800) }}>Salvar alterações</button></div></section></div>
+    <PageHeader eyebrow="Preferências do ambiente" title="Configurações" description="Ajustes de quem usa e do ambiente. Valores de negócio ficam em Parametrizações; o que o cliente contratou, em Planos e módulos." actions={salvo ? <span className="confirmacao"><Check size={15} /> Alterações salvas</span> : undefined} />
+    <div className="settings-layout">
+      <nav className="card settings-nav" aria-label="Seções de configuração">{abas.map(a => { const Icone = a.icone; return <button key={a.id} className={aba === a.id ? 'active' : ''} onClick={() => navigate(`configuracoes/${a.id}`)}><Icone size={17} /> {a.label}</button> })}</nav>
+      <section className="card settings-form">
+
+        {aba === 'aparencia' && <>
+          <div className="card-heading"><div><span className="eyebrow">Aparência</span><h2>Tema da interface</h2></div></div>
+          <p className="section-description">Três opções, não duas: “Seguir o sistema” respeita a preferência que você já declarou no seu computador, e muda junto com ele.</p>
+          <div className="tema-grid" role="radiogroup" aria-label="Tema da interface">
+            {([['sistema', 'Seguir o sistema', 'Acompanha o tema do seu computador'], ['claro', 'Claro', 'Fundo claro, ideal para sala iluminada'], ['escuro', 'Escuro', 'Menos cansativo em jornada longa']] as const).map(([id, titulo, texto]) =>
+              <button key={id} role="radio" aria-checked={tema === id} className={`tema-opcao ${tema === id ? 'ativo' : ''}`} onClick={() => setTema(id)}>
+                <span className={`tema-amostra amostra-${id}`} aria-hidden="true"><i /><b /></span>
+                <strong>{titulo}</strong><small>{texto}</small>
+                {tema === id && <Pill tone="green"><Check size={12} /> Em uso</Pill>}
+              </button>)}
+          </div>
+          <h3>Acessibilidade</h3>
+          <div className="info-grid"><span><small>Movimento reduzido</small><strong>{typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'Ativo pelo sistema' : 'Desativado pelo sistema'}</strong></span><span><small>Contraste dos textos</small><strong>WCAG AA em ambos os temas</strong></span></div>
+          <p className="section-description">O protótipo obedece à preferência de movimento reduzido do sistema operacional: as animações somem e o estado final permanece visível.</p>
+        </>}
+
+        {aba === 'organizacao' && <>
+          <div className="card-heading"><div><span className="eyebrow">Identidade do ambiente</span><h2>{tenant.nome}</h2></div><Pill tone="blue">Plano {planos.find(p => p.id === tenant.plano)?.nome}</Pill></div>
+          <div className="form-grid">
+            <label>Nome exibido<input value={tenant.nome} onChange={e => setTenant({ ...tenant, nome: e.target.value })} /></label>
+            <label>Sigla<input value={tenant.sigla} maxLength={4} onChange={e => setTenant({ ...tenant, sigla: e.target.value.toUpperCase() })} /></label>
+            <label>Candidato principal<input value={tenant.candidatoPrincipal} onChange={e => setTenant({ ...tenant, candidatoPrincipal: e.target.value })} /></label>
+            <label>Partido de referência<input value={tenant.partidoReferencia} onChange={e => setTenant({ ...tenant, partidoReferencia: e.target.value })} /></label>
+            <label className="full-field">Descrição<textarea defaultValue="Ambiente inteiramente fictício para demonstração do produto Eleitores." /></label>
+          </div>
+          <div className="domain-note"><Info size={18} /><div><strong>O que você muda aqui aparece na hora no menu e nas telas.</strong><p>Sigla e nome alimentam o rodapé da barra lateral; candidato e partido de referência são usados para destacar registros do próprio grupo.</p></div></div>
+          <div className="settings-actions"><button className="primary-button" onClick={salvar}>Salvar alterações</button></div>
+        </>}
+
+        {aba === 'notificacoes' && <>
+          <div className="card-heading"><div><span className="eyebrow">Avisos</span><h2>O que merece interromper você</h2></div></div>
+          <p className="section-description">Notificação demais vira ruído e some com o que importa. Cada item aqui existe porque a perda dele custa uma oportunidade concreta.</p>
+          {([['oportunidade', 'Território pedindo atenção', 'Quando um município de prioridade alta fica sem visita por mais de 90 dias.'], ['aniversario', 'Data comemorativa próxima', 'Aniversário de liderança, de município ou festa de padroeira nos próximos 7 dias.'], ['prazo', 'Prazo de prestação de contas', 'Lançamento sem comprovante às vésperas do fechamento do período.'], ['resumo', 'Resumo executivo semanal', 'Consolida avanços e pendências numa leitura curta, toda segunda.']] as const).map(([id, titulo, texto]) =>
+            <label className="toggle-row" key={id}><span><strong>{titulo}</strong><small>{texto}</small></span><input type="checkbox" checked={toggles[id]} onChange={e => setToggles(c => ({ ...c, [id]: e.target.checked }))} /></label>)}
+          <div className="settings-actions"><button className="primary-button" onClick={salvar}>Salvar preferências</button></div>
+        </>}
+
+        {aba === 'seguranca' && <>
+          <div className="card-heading"><div><span className="eyebrow">Acesso</span><h2>Segurança e sessão</h2></div></div>
+          <div className="info-grid"><span><small>Perfil</small><strong>Administradora</strong></span><span><small>Autenticação em duas etapas</small><strong>Não configurada</strong></span><span><small>Último acesso</small><strong>Hoje, 10:42 · este dispositivo</strong></span><span><small>Expiração de sessão</small><strong>8 horas de inatividade</strong></span></div>
+          <h3>Sessões ativas</h3>
+          <div className="sessoes">{[['Este dispositivo', 'Windows · Chrome', 'agora', true], ['Notebook da coordenação', 'Windows · Edge', 'há 2 dias', false], ['Celular', 'Android · Chrome', 'há 6 dias', false]].map(([nome, onde, quando, atual]) =>
+            <div key={nome as string}><div><strong>{nome}</strong><small>{onde} · {quando}</small></div>{atual ? <Pill tone="green">Sessão atual</Pill> : <button className="secondary-button">Encerrar</button>}</div>)}</div>
+          <label className="toggle-row"><span><strong>Modo de alta confidencialidade</strong><small>Oculta telefones, observações políticas e valores ao compartilhar tela. Útil em reunião com terceiros.</small></span><input type="checkbox" checked={toggles.confidencial} onChange={e => setToggles(c => ({ ...c, confidencial: e.target.checked }))} /></label>
+          <div className="source-warning"><AlertTriangle size={18} /><div><strong>Demonstração</strong><p>Nenhuma sessão, senha ou autenticação real existe neste protótipo. Os controles são ilustrativos.</p></div></div>
+        </>}
+
+        {aba === 'dados' && <>
+          <div className="card-heading"><div><span className="eyebrow">Governança</span><h2>Dados e privacidade</h2></div></div>
+          <p className="section-description">Base política guarda opinião sobre pessoas identificadas. Retenção e saída de dado não são detalhe técnico — são a diferença entre inteligência e passivo.</p>
+          <div className="form-grid">
+            <label>Retenção do histórico de interações<select defaultValue="5 anos"><option>2 anos</option><option>5 anos</option><option>Indeterminada</option></select></label>
+            <label>Retenção de arquivos exportados<select defaultValue="7 dias"><option>7 dias</option><option>30 dias</option><option>90 dias</option></select></label>
+          </div>
+          <h3>Origem dos dados</h3>
+          <div className="origem-lista">{[['TSE', 'Candidaturas, resultados e filiação', 'Sincronização manual hoje; automática prevista'], ['IBGE', 'População, malha territorial e códigos', 'Sincronização manual hoje; automática prevista'], ['ANAC', 'Pistas de pouso próximas aos municípios', 'Integração prevista, hoje preenchido à mão'], ['Equipe', 'Avaliação política, observações e vínculos', 'Sempre manual, sempre com autor e data']].map(([fonte, o, como]) =>
+            <div key={fonte}><span className="origem-selo">{fonte}</span><div><strong>{o}</strong><small>{como}</small></div></div>)}</div>
+          <h3>Seus dados</h3>
+          <div className="acoes-dados">
+            <button className="secondary-button" onClick={() => navigate('exportacoes')}><Download size={15} /> Exportar tudo</button>
+            <button className="secondary-button"><FileText size={15} /> Registro de auditoria</button>
+            <button className="secondary-button perigo"><AlertTriangle size={15} /> Solicitar exclusão do ambiente</button>
+          </div>
+          <p className="section-description">A exclusão é irreversível e passa por confirmação humana — por isso ela pede solicitação, não um botão que apaga na hora.</p>
+        </>}
+
+      </section>
+    </div>
   </>
 }
 
@@ -327,6 +427,7 @@ function AccordionBlock({ title, icon: Icon, children, open = false }: { title: 
 
 /** Só o que foi preenchido aparece. Vazio não vira linha "não informado" — vira pendência. */
 function DadosInternosBloco({ id, navigate }: { id: number; navigate: Navigate }) {
+  const { statusDe } = useAvaliacao()
   const d = dadosInternos[id] || {}
   const vazio = !d.telefone && !d.areas?.length && !d.atributos?.length && !d.vinculos?.length && !d.observacao
   if (vazio) return <div className="muted-box">Nenhum dado interno registrado ainda. Tudo o que se sabe desta pessoa veio do TSE.</div>
@@ -338,18 +439,20 @@ function DadosInternosBloco({ id, navigate }: { id: number; navigate: Navigate }
     </div>
     {!!d.areas?.length && <div className="campo-chips"><small>Áreas de atuação</small><div className="pill-row">{d.areas.map(a => <Pill key={a} tone="blue">{a}</Pill>)}</div></div>}
     {!!d.atributos?.length && <div className="campo-chips"><small>Atributos de liderança</small><div className="pill-row">{d.atributos.map(a => <Pill key={a}>{a}</Pill>)}</div></div>}
-    {!!d.vinculos?.length && <div className="campo-chips"><small>Vínculos com outras lideranças</small><div className="vinculo-lista">{d.vinculos.map(v => { const p = electoralPeople.find(x => x.id === v.pessoaId); if (!p) return null; return <button key={v.pessoaId} onClick={() => navigate(`liderancas/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{v.tipo}</small></span><Pill tone={tomStatus[statusPolitico[p.id]] || 'neutral'}>{statusPolitico[p.id]}</Pill><ChevronRight size={15} /></button> })}</div></div>}
+    {!!d.vinculos?.length && <div className="campo-chips"><small>Vínculos com outras lideranças</small><div className="vinculo-lista">{d.vinculos.map(v => { const p = electoralPeople.find(x => x.id === v.pessoaId); if (!p) return null; return <button key={v.pessoaId} onClick={() => navigate(`liderancas/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{v.tipo}</small></span><StatusPill valor={statusDe(p.id)} /><ChevronRight size={15} /></button> })}</div></div>}
     {d.observacao && <div className="observacao"><p>{d.observacao.texto}</p><small>{d.observacao.autor} · {d.observacao.data} · edição rastreável</small></div>}
   </>
 }
 
 function ElectoralProfileExpanded({ person, navigate }: { person: ElectoralPerson; navigate: Navigate }) {
+  const { statusDe, avaliar } = useAvaliacao()
+  const { tenant } = useTenant()
   const [tab, setTab] = useState('perfil')
   return <>
     <button className="back-button" onClick={() => navigate('liderancas')}><ChevronLeft size={16} /> Voltar às lideranças</button>
-    <section className="profile-hero card domain-hero electoral"><div className="profile-main"><div className="portrait-placeholder"><Avatar initials={person.initials} size="lg" /><small>Foto ilustrativa</small></div><div><span className="eyebrow">Perfil eleitoral estruturado</span><h1>{person.name}</h1><p>{person.office} · {person.party} · {person.territory}</p><div className="pill-row"><Pill tone="green">{person.status}</Pill>{person.running && <Pill tone="blue">Em disputa</Pill>}<Pill>Atualizado há 2 dias</Pill></div></div></div><div className="hero-actions"><button className="secondary-button" onClick={() => setTab('auditoria')}><History size={16} /> Auditoria</button><button className="primary-button" onClick={() => navigate('relacionamento/agenda')}><CalendarDays size={16} /> Agendar interação</button></div></section>
+    <section className="profile-hero card domain-hero electoral"><div className="profile-main"><div className="portrait-placeholder"><Avatar initials={person.initials} size="lg" /><small>Foto ilustrativa</small></div><div><span className="eyebrow">Perfil eleitoral estruturado</span><h1>{person.name}</h1><p>{person.office} · {person.party} · {person.territory}</p><div className="pill-row"><Pill tone="green">{person.status}</Pill>{person.running && <Pill tone="blue">Em disputa</Pill>}<Pill>Atualizado há 2 dias</Pill></div></div></div><div className="hero-actions"><button className="secondary-button" onClick={() => setTab('auditoria')}><History size={16} /> Auditoria</button><button className="primary-button" onClick={() => navigate('agenda')}><CalendarDays size={16} /> Agendar interação</button></div></section>
     <div className="profile-tabs"><button className={tab === 'perfil' ? 'active' : ''} onClick={() => setTab('perfil')}>Perfil completo</button><button className={tab === 'interacoes' ? 'active' : ''} onClick={() => setTab('interacoes')}>Interações</button><button className={tab === 'auditoria' ? 'active' : ''} onClick={() => setTab('auditoria')}>Auditoria</button></div>
-    {tab === 'perfil' && <><FaixaCompletude valor={completude(person.id).pct} atualizadoPor={dadosInternos[person.id]?.observacao?.autor || 'ninguém ainda'} quando={dadosInternos[person.id]?.observacao?.data || '—'} />
+    {tab === 'perfil' && <><section className="card avaliacao-bloco"><div><span className="eyebrow">Avaliação política</span><h2>Como o grupo classifica esta pessoa</h2><p className="section-description">É a única informação da ficha que é julgamento da equipe, não fato do TSE. Trocar aqui atualiza a lista e o painel na hora.</p></div><div className="avaliacao-opcoes" role="radiogroup" aria-label="Status político">{tenant.escalaStatus.map(s => <button key={s.valor} role="radio" aria-checked={statusDe(person.id) === s.valor} className={statusDe(person.id) === s.valor ? 'ativo' : ''} onClick={() => avaliar(person.id, s.valor)} title={s.descricao}><StatusPill valor={s.valor} /></button>)}</div></section><FaixaCompletude valor={completude(person.id).pct} atualizadoPor={dadosInternos[person.id]?.observacao?.autor || 'ninguém ainda'} quando={dadosInternos[person.id]?.observacao?.data || '—'} />
     <div className="detail-layout"><div className="detail-stack">
       <section className="card"><div className="card-heading"><div><span className="eyebrow">Origem oficial</span><h2>Dados do TSE</h2></div><Pill tone="blue"><ShieldCheck size={12} /> Sinc. 12/08/2026</Pill></div><p className="section-description">Somente leitura. Divergência aqui se resolve na fila de vínculo da Base Nacional, não na ficha.</p><div className="info-grid"><span><small>Nome completo</small><strong>{person.name}</strong></span><span><small>Nome de urna</small><strong>{person.name.split(" ")[0]} {person.name.split(" ").at(-1)}</strong></span><span><small>Partido</small><strong>{person.party}</strong></span><span><small>Cargo</small><strong>{person.office}</strong></span><span><small>Município</small><strong>{person.territory}</strong></span><span><small>Situação</small><strong>{person.status}</strong></span></div></section>
       <AccordionBlock title="Histórico eleitoral" icon={Vote} open><p className="section-description">Cada disputa com votação e resultado, como publicado pelo TSE.</p><div className="timeline">{person.history.map(item => <div key={item.year}><span>{item.year}</span><div><strong>{item.office}</strong><p>{item.votes.toLocaleString("pt-BR")} votos</p></div><Pill tone={item.result.includes("Eleit") ? "green" : "amber"}>{item.result}</Pill></div>)}</div></AccordionBlock>
@@ -379,11 +482,6 @@ function Reports({ route, navigate }: { route: string; navigate: Navigate }) {
 function ComparisonReport({navigate}:{navigate:Navigate}) { return <div className="comparison-grid">{electoralPeople.slice(0,3).map((p,i)=><section className={`card candidate-comparison c${i}`} key={p.id}><Avatar initials={p.initials} size="lg"/><h2>{p.name}</h2><p>{p.party} · {p.office}</p><strong className="big-number">{p.performance}</strong><Progress value={p.performance}/><dl><div><dt>Votos</dt><dd>{p.votes.toLocaleString('pt-BR')}</dd></div><div><dt>Municípios líderes</dt><dd>{14-i*3}</dd></div><div><dt>Crescimento</dt><dd>+{8-i*2},2%</dd></div></dl><button className="text-button" onClick={()=>navigate(`liderancas/perfil/${p.id}`)}>Abrir perfil <ArrowRight size={14}/></button></section>)}</div> }
 function ConsolidatedReport({navigate}:{navigate:Navigate}) { return <section className="card"><div className="card-heading"><div><span className="eyebrow">Drill-down</span><h2>Desempenho municipal consolidado</h2></div><Pill tone="purple">63 municípios fictícios</Pill></div><div className="municipal-ranking">{territories.map((t,i)=><button key={t.id} onClick={()=>navigate(`territorios/perfil/${t.id}`)}><b>{i+1}</b><span><strong>{t.name}</strong><small>{t.electorate.toLocaleString('pt-BR')} eleitores simulados</small></span><Progress value={88-i*7}/><strong>{(88-i*7)}%</strong><ChevronRight size={16}/></button>)}</div></section> }
 
-function RelationshipHub({ route, navigate }: { route:string; navigate:Navigate }) {
-  const view=route.split('/')[1]||'crm'; const [mode,setMode]=useState<'month'|'year'>('month'); const [selected,setSelected]=useState<typeof demoAgenda[0]|null>(null); const [month,setMonth]=useState('2026-08')
-  return <><PageHeader eyebrow="CRM político" title="Relacionamento e Agenda" description="Interações, viagens, visitas, reuniões e entrevistas conectadas a pessoas, territórios e campanhas." actions={<button className="primary-button"><Plus size={16}/> Novo registro</button>}/><SubTabs items={[{label:'Histórico CRM',route:'relacionamento/crm'},{label:'Agenda',route:'relacionamento/agenda'}]} active={`relacionamento/${view}`} navigate={navigate}/>{view==='crm'?<Relationship/>:<><section className="card agenda-toolbar"><div className="segmented"><button className={mode==='month'?'active':''} onClick={()=>setMode('month')}>Mês</button><button className={mode==='year'?'active':''} onClick={()=>setMode('year')}>Ano</button></div><select value={month} onChange={e=>setMonth(e.target.value)} aria-label="Mês exibido"><option value="2026-08">Agosto 2026</option><option value="2026-09">Setembro 2026</option></select><div className="agenda-legend"><Pill tone="blue">Marcado</Pill><Pill tone="green">Cumprido</Pill><Pill tone="red">Descumprido</Pill></div></section>{mode==='month'?<div className="calendar-grid">{weekdays.map(name=><div className="calendar-weekday" key={name}>{name}</div>)}{monthCells(Number(month.slice(0,4)),Number(month.slice(5))).map((day,i)=>{if(!day) return <div className="calendar-cell empty" key={i}/>; const event=month==='2026-08'?demoAgenda.find(a=>a.day===day):undefined; return <button className={`calendar-cell ${event?'has-event':''}`} key={i} onClick={()=>event&&setSelected(event)}><small>{day}</small>{event&&<span className={`event ${event.status.toLowerCase()}`}><b>{event.type}</b>{event.title}</span>}</button>})}</div>:<div className="year-grid">{['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'].map((m,i)=><button key={m}><strong>{m}</strong><span>{i===7?'4 compromissos':`${(i*3)%8} registros`}</span><i style={{width:`${25+(i*7)%70}%`}}/></button>)}</div>}{selected&&<Modal title={selected.title} description={`${selected.type} · ${selected.status}`} onClose={()=>setSelected(null)}><div className="event-detail"><Pill tone={selected.status==='Cumprido'?'green':selected.status==='Descumprido'?'red':'blue'}>{selected.status}</Pill><div><small>Ligado a</small><strong>{selected.link}</strong></div><div><small>Responsável</small><strong>Sofia Linhares</strong></div><p>Objetivo e encaminhamentos demonstrativos, registrados de forma estruturada.</p></div></Modal>}</>}</>
-}
-
 function NationalBaseHub() {
   const [tab,setTab]=useState('cadastros'); const tabs=['cadastros','vinculos','eleicoes','territorios'];
   return <><PageHeader eyebrow="Camada permanente TSE + IBGE" title="Base Nacional" description="Cadastros curados, vínculos de identidade, eleições, sincronizações e catálogo territorial — tudo simulado." actions={<button className="secondary-button"><RefreshCw size={16}/> Nova sincronização simulada</button>}/><div className="source-warning"><AlertTriangle size={18}/><div><strong>Ambiente demonstrativo</strong><p>Nenhum registro, arquivo ou serviço real está conectado.</p></div></div><div className="profile-tabs">{tabs.map(t=><button key={t} className={tab===t?'active':''} onClick={()=>setTab(t)}>{({cadastros:'Cadastros curados',vinculos:'Fila de vínculos',eleicoes:'Eleições e sincronizações',territorios:'Catálogo territorial'} as Record<string,string>)[t]}</button>)}</div>{tab==='cadastros'&&<NationalRecords/>}{tab==='vinculos'&&<LinkQueue/>}{tab==='eleicoes'&&<ElectionCatalog/>}{tab==='territorios'&&<TerritoryCatalog/>}</>
@@ -409,10 +507,11 @@ function TerritoryCatalog(){return <section className="card"><div className="car
 function AuditPanel(){return <section className="card"><div className="card-heading"><div><span className="eyebrow">Rastreabilidade</span><h2>Auditoria compreensível</h2></div><button className="filter-button"><Filter size={15}/> Filtrar</button></div><div className="audit-table"><div className="audit-head"><b>Ator</b><b>Campo</b><b>Antes</b><b>Depois</b><b>Data</b></div>{[['Sofia Linhares','Status','Monitorado','Contato prioritário','Hoje, 10:42'],['Breno Valadares','Território','Serra Clara','Serra Clara + Vale do Ipê','Ontem, 18:20'],['Rafael Guimar','Canal','Telefone','Assessoria','10 ago, 14:05']].map(r=><div key={r[4]}>{r.map((x,i)=><span key={i}>{i===3?<Pill tone="blue">{x}</Pill>:x}</span>)}</div>)}</div></section>}
 
 function BemVindo({ navigate }: { navigate: Navigate }) {
+  const { statusDe } = useAvaliacao()
   const { tenant } = useTenant()
   const hoje = aniversarios.filter(a => a.dia === 12)
   const atalhos = modulos.filter(m => ['liderancas', 'municipios', 'eleicoes', 'painel', 'agenda', 'aniversarios'].includes(m.id) && tenant.ativos.includes(m.id))
-  const semAvaliacao = electoralPeople.filter(p => statusPolitico[p.id] === 'Não avaliado').length
+  const semAvaliacao = electoralPeople.filter(p => statusDe(p.id) === 'Não avaliado').length
   return <>
     <PageHeader eyebrow="12 de agosto de 2026" title="Bem-vindo, Eduardo" description={`${tenant.nome} · dados inteiramente fictícios`} />
     <section className={`card faixa-datas ${hoje.length ? 'tem' : ''}`}><Cake size={18} /><div>{hoje.length ? <><strong>{hoje.length} data comemorativa hoje</strong><small>{hoje.map(h => h.nome).join(', ')}</small></> : <><strong>Nenhum aniversário ou data comemorativa hoje</strong><small>A próxima é dia 14, aniversário de Aline Campos Leal.</small></>}</div><button className="text-button" onClick={() => navigate('aniversarios')}>Ver o mês <ArrowRight size={14} /></button></section>
@@ -445,6 +544,7 @@ function Municipios({ navigate }: { navigate: Navigate }) {
 }
 
 function MunicipioFicha({ id, navigate }: { id: string; navigate: Navigate }) {
+  const { statusDe } = useAvaliacao()
   const { tenant } = useTenant()
   const m = municipios.find(x => x.id === id) || municipios[0]
   const indice = municipios.findIndex(x => x.id === m.id)
@@ -461,7 +561,7 @@ function MunicipioFicha({ id, navigate }: { id: string; navigate: Navigate }) {
     <div className="detail-layout"><div className="detail-stack">
       <section className="card"><div className="card-heading"><div><span className="eyebrow">Origem oficial</span><h2>Dados do IBGE e do TSE</h2></div><Pill tone="blue"><ShieldCheck size={12} /> Sinc. 12/08/2026</Pill></div><div className="info-grid"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Número de eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span><span><small>{tenant.divisaoTerritorial}</small><strong>{m.divisao}</strong></span><span><small>Distância até a capital</small><strong>{m.distanciaCapital} km</strong></span><span><small>Prefeito(a)</small><strong>{m.prefeito} · {m.partidoPrefeito}</strong></span><span><small>Vice-prefeito(a)</small><strong>{m.vice}</strong></span></div></section>
       <section className="card"><div className="card-heading"><div><span className="eyebrow">Preenchido pela equipe</span><h2>Dados internos</h2></div><button className="icon-button" aria-label="Editar dados internos"><Plus size={16} /></button></div><div className="info-grid"><span><small>Aniversário da cidade</small><strong>{m.aniversario}</strong></span><span><small>Padroeira</small><strong className={m.padroeira ? '' : 'vazio'}>{m.padroeira || 'a preencher'}</strong></span><span><small>Pistas de pouso próximas</small><strong className={m.pistaPouso ? '' : 'vazio'}>{m.pistaPouso || 'a preencher'}</strong></span><span><small>Última observação</small><strong>Sofia Linhares · 09 ago</strong></span></div></section>
-      <AccordionBlock title="Lideranças vinculadas" icon={UsersRound} open><div className="vinculo-lista">{electoralPeople.slice(0, 4).map(p => <button key={p.id} onClick={() => navigate(`liderancas/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{p.office}</small></span><Pill tone={tomStatus[statusPolitico[p.id]] || 'neutral'}>{statusPolitico[p.id]}</Pill><ChevronRight size={15} /></button>)}</div></AccordionBlock>
+      <AccordionBlock title="Lideranças vinculadas" icon={UsersRound} open><div className="vinculo-lista">{electoralPeople.slice(0, 4).map(p => <button key={p.id} onClick={() => navigate(`liderancas/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{p.office}</small></span><StatusPill valor={statusDe(p.id)} /><ChevronRight size={15} /></button>)}</div></AccordionBlock>
       <AccordionBlock title="Resultados das eleições no município" icon={Vote}><div className="result-comparison">{['2020', '2022', '2024'].map((ano, i) => <div key={ano}><strong>{ano}</strong><span><i style={{ width: `${58 + i * 12}%` }} /></span><b>{24 + i * 7} mil votos</b></div>)}</div></AccordionBlock>
     </div><aside className="detail-aside"><BlocoCompletar pendentes={pendentes} /></aside></div>
   </>
@@ -488,13 +588,34 @@ function Eleicoes() {
 }
 
 function AgendaModulo({ navigate }: { navigate: Navigate }) {
-  const [aba, setAba] = useState<'lista' | 'rota'>('rota')
+  const [aba, setAba] = useState<'lista' | 'mes' | 'rota' | 'historico'>('rota')
+  const [mes, setMes] = useState('2026-08')
+  const [evento, setEvento] = useState<typeof demoAgenda[0] | null>(null)
   const total = rota.paradas.reduce((s, p) => s + p.km, 0)
+  const abas = [['lista', 'Listagem'], ['mes', 'Calendário'], ['rota', 'Rota de viagem'], ['historico', 'Histórico de contatos']] as const
   return <>
-    <PageHeader eyebrow="Relacionamento" title="Agenda" description="Viagens, visitas, reuniões e entrevistas — e a rota que liga os municípios do ciclo." actions={<button className="primary-button"><Plus size={16} /> Novo compromisso</button>} />
+    <PageHeader eyebrow="Relacionamento" title="Agenda" description="Viagens, visitas, reuniões e entrevistas — o calendário, a rota que liga os municípios do ciclo e o histórico de quem falou com quem." actions={<button className="primary-button"><Plus size={16} /> Novo compromisso</button>} />
     <div className="metrics-grid"><Metric label="Compromissos" value="24" delta="no ciclo atual" icon={CalendarDays} /><Metric label="Viagens" value="6" delta="3 com pista próxima" icon={Route} /><Metric label="Visitas" value="12" delta="8 territórios" icon={MapPin} /><Metric label="Entrevistas" value="6" delta="2 pendentes" icon={MessageCircle} /></div>
-    <nav className="subtabs" aria-label="Visão da agenda"><button className={aba === 'lista' ? 'active' : ''} onClick={() => setAba('lista')}>Listagem</button><button className={aba === 'rota' ? 'active' : ''} onClick={() => setAba('rota')}>Rota de viagem</button></nav>
-    {aba === 'lista' ? <div className="table-card"><table><thead><tr><th>Tipo</th><th>Data</th><th>Município</th><th>Com quem</th><th>Situação</th></tr></thead><tbody>{rota.paradas.map(p => <tr key={p.ordem}><td><Pill tone="blue">{p.tipo}</Pill></td><td>{p.data}</td><td>{p.municipio}</td><td>Sofia Linhares</td><td><Pill tone="green">Confirmado</Pill></td></tr>)}</tbody></table></div> : <div className="rota-layout">
+    <nav className="subtabs" aria-label="Visão da agenda">{abas.map(([id, rotulo]) => <button key={id} className={aba === id ? 'active' : ''} onClick={() => setAba(id)}>{rotulo}</button>)}</nav>
+
+    {aba === 'lista' && <div className="table-card"><table><thead><tr><th>Tipo</th><th>Data</th><th>Município</th><th>Com quem</th><th>Situação</th></tr></thead><tbody>{rota.paradas.map(p => <tr key={p.ordem}><td><Pill tone="blue">{p.tipo}</Pill></td><td>{p.data}</td><td>{p.municipio}</td><td>Sofia Linhares</td><td><Pill tone="green">Confirmado</Pill></td></tr>)}</tbody></table></div>}
+
+    {aba === 'mes' && <>
+      <section className="card agenda-toolbar"><select value={mes} onChange={e => setMes(e.target.value)} aria-label="Mês exibido"><option value="2026-08">Agosto 2026</option><option value="2026-09">Setembro 2026</option></select><div className="agenda-legend"><Pill tone="blue">Marcado</Pill><Pill tone="green">Cumprido</Pill><Pill tone="red">Descumprido</Pill></div></section>
+      <div className="calendar-grid">
+        {weekdays.map(n => <div className="calendar-weekday" key={n}>{n}</div>)}
+        {monthCells(Number(mes.slice(0, 4)), Number(mes.slice(5))).map((dia, i) => {
+          if (!dia) return <div className="calendar-cell empty" key={i} />
+          const ev = mes === '2026-08' ? demoAgenda.find(x => x.day === dia) : undefined
+          return <button className={`calendar-cell ${ev ? 'has-event' : ''}`} key={i} onClick={() => ev && setEvento(ev)}><small>{dia}</small>{ev && <span className={`event ${ev.status.toLowerCase()}`}><b>{ev.type}</b>{ev.title}</span>}</button>
+        })}
+      </div>
+      {evento && <Modal title={evento.title} description={`${evento.type} · ${evento.status}`} onClose={() => setEvento(null)}><div className="event-detail"><Pill tone={evento.status === 'Cumprido' ? 'green' : evento.status === 'Descumprido' ? 'red' : 'blue'}>{evento.status}</Pill><div><small>Ligado a</small><strong>{evento.link}</strong></div><div><small>Responsável</small><strong>Sofia Linhares</strong></div><p>Objetivo e encaminhamentos demonstrativos, registrados de forma estruturada.</p></div></Modal>}
+    </>}
+
+    {aba === 'historico' && <Relationship />}
+
+    {aba === 'rota' && <div className="rota-layout">
       <section className="card"><div className="card-heading"><div><span className="eyebrow">{rota.nome}</span><h2>Paradas na ordem do trajeto</h2></div><Pill tone="blue">{total} km</Pill></div><div className="rota-lista">{rota.paradas.map((p, i) => <div key={p.ordem}><span className="rota-num">{p.ordem}</span><div><strong>{p.municipio}</strong><small>{p.data} · {p.tipo}</small></div>{p.pista && <Pill tone="purple">Pista próxima</Pill>}{i > 0 && <b>{p.km} km</b>}</div>)}</div><button className="secondary-button full"><Plus size={15} /> Adicionar parada</button></section>
       <section className="card"><div className="card-heading"><div><span className="eyebrow">Trajeto</span><h2>Mapa da rota</h2></div><button className="text-button" onClick={() => navigate('municipios')}>Ver municípios <ArrowRight size={14} /></button></div><svg className="rota-mapa" viewBox="0 0 400 300" role="img" aria-label="Trajeto abstrato entre os municípios da rota"><path d="M60 240 L150 170 L250 200 L330 90" /><g>{[[60, 240], [150, 170], [250, 200], [330, 90]].map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="15" /><text x={x} y={y + 5} textAnchor="middle">{i + 1}</text></g>)}</g></svg><p className="map-hint"><Info size={14} /> Trajeto ponto a ponto na ordem das paradas. Polígonos e distâncias são demonstrativos.</p></section>
     </div>}
@@ -637,13 +758,26 @@ function Topbar({ route, onMenu }: { route: string; onMenu: () => void }) {
     document.addEventListener('keydown', escape)
     return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', escape) }
   }, [notifications])
-  return <header className="topbar"><button className="icon-button mobile-menu" onClick={onMenu} aria-label="Abrir menu"><Menu size={20} /></button><div className="breadcrumb"><span>Eleitores</span><ChevronRight size={14} /><strong>{routeTitles[base] || 'Painel Executivo'}</strong></div><form className="global-search" onSubmit={event => { event.preventDefault(); if (query.trim()) { go(`liderancas/busca/${encodeURIComponent(query.trim())}`); setQuery('') } }}><Search size={17} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar pessoa, território ou campanha" aria-label="Busca global" /><kbd>⌘ K</kbd></form><div className="topbar-actions"><div className="notification-wrap"><button className="icon-button notification-button" aria-label="Notificações" onClick={() => setNotifications(value => !value)}><Bell size={19} /><span>3</span></button>{notifications && <div className="notification-popover"><div><strong>Notificações</strong><button className="text-button" onClick={() => setNotifications(false)}>Marcar como lidas</button></div><button onClick={() => { go('inteligencia'); setNotifications(false) }}><span className="dot amber" /><div><strong>Novo insight territorial</strong><small>Campos do Norte pede atenção</small></div></button><button onClick={() => { go('campanhas'); setNotifications(false) }}><span className="dot blue" /><div><strong>Marco se aproxima</strong><small>Revisão em dois dias</small></div></button><button onClick={() => { go('base-nacional'); setNotifications(false) }}><span className="dot green" /><div><strong>Camada validada</strong><small>Simulação concluída</small></div></button></div>}</div><button className="profile-button"><Avatar initials="SL" size="sm" /><span><strong>Sofia Linhares</strong><small>Administradora</small></span><ChevronDown size={14} /></button></div></header>
+  const { tema, setTema } = useTema()
+  // Um botão que cicla os três estados: alternador de dois obrigaria a abrir Configurações
+  // para voltar a "seguir o sistema", que é justamente o padrão que a maioria quer.
+  const proximoTema: Record<Tema, Tema> = { sistema: 'claro', claro: 'escuro', escuro: 'sistema' }
+  const IconeTema = tema === 'claro' ? Sun : tema === 'escuro' ? Moon : Monitor
+  const rotuloTema = tema === 'claro' ? 'Tema claro' : tema === 'escuro' ? 'Tema escuro' : 'Tema do sistema'
+  return <header className="topbar"><button className="icon-button mobile-menu" onClick={onMenu} aria-label="Abrir menu"><Menu size={20} /></button><div className="breadcrumb"><span>Eleitores</span><ChevronRight size={14} /><strong>{routeTitles[base] || 'Painel Executivo'}</strong></div><form className="global-search" onSubmit={event => { event.preventDefault(); if (query.trim()) { go(`liderancas/busca/${encodeURIComponent(query.trim())}`); setQuery('') } }}><Search size={17} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar pessoa, território ou campanha" aria-label="Busca global" /><kbd>⌘ K</kbd></form><div className="topbar-actions"><button className="icon-button" onClick={() => setTema(proximoTema[tema])} aria-label={`${rotuloTema}. Clique para alternar.`} title={rotuloTema}><IconeTema size={18} /></button><div className="notification-wrap"><button className="icon-button notification-button" aria-label="Notificações" onClick={() => setNotifications(value => !value)}><Bell size={19} /><span>3</span></button>{notifications && <div className="notification-popover"><div><strong>Notificações</strong><button className="text-button" onClick={() => setNotifications(false)}>Marcar como lidas</button></div><button onClick={() => { go('inteligencia'); setNotifications(false) }}><span className="dot amber" /><div><strong>Novo insight territorial</strong><small>Campos do Norte pede atenção</small></div></button><button onClick={() => { go('campanhas'); setNotifications(false) }}><span className="dot blue" /><div><strong>Marco se aproxima</strong><small>Revisão em dois dias</small></div></button><button onClick={() => { go('base-nacional'); setNotifications(false) }}><span className="dot green" /><div><strong>Camada validada</strong><small>Simulação concluída</small></div></button></div>}</div><button className="profile-button"><Avatar initials="SL" size="sm" /><span><strong>Sofia Linhares</strong><small>Administradora</small></span><ChevronDown size={14} /></button></div></header>
 }
 
 function App() {
   const [route, setRoute] = useState(() => window.location.hash.replace('#', '') || 'bem-vindo')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [tenant, setTenant] = useState<Tenant>(tenantPadrao)
+  const [avaliacoes, setAvaliacoes] = useState<Record<number, string>>(statusPolitico)
+  const statusDe = (id: number) => avaliacoes[id] || 'Não avaliado'
+  const avaliar = (id: number, valor: string) => setAvaliacoes(a => ({ ...a, [id]: valor }))
+  const [tema, setTemaEstado] = useState<Tema>(() => temaSalvo())
+  const setTema = (t: Tema) => { setTemaEstado(t); aplicarTema(t) }
+  // Enquanto a escolha for "sistema", seguir o SO em tempo real, sem recarregar.
+  useEffect(() => ouvirSistema(tema, () => aplicarTema(tema)), [tema])
   useEffect(() => {
     const calmo = window.matchMedia('(prefers-reduced-motion: reduce)')
     const update = () => { setRoute(window.location.hash.replace('#', '') || 'bem-vindo'); window.scrollTo({ top: 0, behavior: calmo.matches ? 'auto' : 'smooth' }) }
@@ -668,7 +802,6 @@ function App() {
       case 'agenda': return <AgendaModulo navigate={navigate} />
       case 'reunioes': return <Reunioes />
       case 'aniversarios': return <Aniversarios navigate={navigate} />
-      case 'relacionamento': return <RelationshipHub route={route} navigate={navigate} />
       case 'inteligencia': return <Intelligence navigate={navigate} />
       case 'cruzamento': return <Cruzamento />
       case 'relatorios': return <Reports route={route} navigate={navigate} />
@@ -678,11 +811,11 @@ function App() {
       case 'equipe': return <Team />
       case 'usuarios': return <UsersAccess />
       case 'parametrizacoes': return <Parameters navigate={navigate} route={route} />
-      case 'configuracoes': return <SettingsPage />
+      case 'configuracoes': return <SettingsPage route={route} navigate={navigate} />
       default: return <BemVindo navigate={navigate} />
     }
   }, [route, tenant])
-  return <TenantCtx.Provider value={{ tenant, setTenant }}><div className="app-shell"><a className="skip-link" href="#main-content">Pular para o conteúdo</a><Sidebar route={route} navigate={navigate} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />{mobileOpen && <button className="sidebar-overlay" aria-label="Fechar menu" onClick={() => setMobileOpen(false)} />}<Topbar route={route} onMenu={() => setMobileOpen(true)} /><main id="main-content" className="main-content">{/* key força a animação de entrada a rodar de novo a cada troca de rota */}<div className="pagina" key={route}>{page}</div><footer className="prototype-footer"><span><Info size={14} /> Protótipo local · dados inteiramente fictícios · sem integrações reais</span><button className="text-button"><CircleHelp size={14} /> Ajuda</button><button className="text-button"><LogOut size={14} /> Sair</button></footer></main></div></TenantCtx.Provider>
+  return <TemaCtx.Provider value={{ tema, setTema }}><TenantCtx.Provider value={{ tenant, setTenant }}><AvaliacaoCtx.Provider value={{ statusDe, avaliar }}><div className="app-shell"><a className="skip-link" href="#main-content">Pular para o conteúdo</a><Sidebar route={route} navigate={navigate} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />{mobileOpen && <button className="sidebar-overlay" aria-label="Fechar menu" onClick={() => setMobileOpen(false)} />}<Topbar route={route} onMenu={() => setMobileOpen(true)} /><main id="main-content" className="main-content">{/* key força a animação de entrada a rodar de novo a cada troca de rota */}<div className="pagina" key={route}>{page}</div><footer className="prototype-footer"><span><Info size={14} /> Protótipo local · dados inteiramente fictícios · sem integrações reais</span><button className="text-button"><CircleHelp size={14} /> Ajuda</button><button className="text-button"><LogOut size={14} /> Sair</button></footer></main></div></AvaliacaoCtx.Provider></TenantCtx.Provider></TemaCtx.Provider>
 }
 
 export default App
