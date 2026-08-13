@@ -27,7 +27,7 @@ corepack pnpm run build && corepack pnpm run lint && corepack pnpm run test:smok
 Configurado para a Vercel em [`vercel.json`](vercel.json): build `pnpm run build`, saída `dist`,
 framework Vite.
 
-Não há regra de *rewrite* de SPA porque a navegação é por **hash** (`#painel`, `#liderancas/perfil/1`) —
+Não há regra de *rewrite* de SPA porque a navegação é por **hash** (`#painel`, `#quadro-eleitoral/perfil/1`) —
 toda URL servida é `/`, então não existe rota de servidor para reescrever. Um `rewrite` aqui seria
 configuração inútil resolvendo problema que a aplicação não tem.
 
@@ -70,7 +70,7 @@ e reclassificar à mão — não dá para separar automaticamente o que foi conc
 |---|---|
 | Início | Bem-vindo, Painel Executivo |
 | Território | Municípios (lista, divisões e dossiê), Territórios, Eleições |
-| Relacionamento | Lideranças (lista, carteira por status e ficha), Campanhas, Agenda (com rota de viagem), Reuniões, Aniversários |
+| Relacionamento | Quadro Eleitoral (lista, carteira por status e ficha do candidato), Campanhas, Agenda (com rota de viagem), Reuniões, Aniversários |
 | Análise | Inteligência, Cruzamento de dados, Relatórios, Exportações |
 | Gestão | Prestação de contas |
 | Administração | Base Nacional, Equipe, Usuários e Acessos, Parametrizações |

@@ -144,7 +144,7 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 .escala-lista > div { display: grid; grid-template-columns: 130px 1fr auto; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--linha-suave); }
 .escala-lista { margin-bottom: 20px; }
 
-/* Carteira de lideranças por status */
+/* Carteira do quadro eleitoral por status */
 .carteira-faixa { display: grid; grid-template-columns: repeat(4, 1fr) minmax(240px, 1.3fr); gap: 12px; margin-bottom: var(--gutter); }
 .carteira-item { padding: 16px; text-align: left; color: inherit; transition: all 180ms ease-in-out; }
 .carteira-item:hover { border-color: var(--linha-forte); }
@@ -182,7 +182,7 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
   .modulo-linha > :last-child { grid-column: 2; justify-self: start; }
 }
 
-/* Campos internos da ficha de liderança */
+/* Campos internos da ficha do candidato */
 .campo-chips { padding: 14px 0; border-bottom: 1px solid var(--linha-suave); }
 .campo-chips > small { margin-bottom: 8px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
 .campo-chips .vinculo-lista { margin-top: 4px; }
@@ -202,7 +202,7 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 .legenda-composicao strong { display: block; color: var(--texto-forte); font-size: 20px; font-weight: 700; }
 .legenda-composicao small { margin-top: 2px; font-size: 12px; }
 
-/* Card de pendência do painel: mesma linguagem do card da lista de lideranças. */
+/* Card de pendência do painel: mesma linguagem do card da lista do quadro eleitoral. */
 .painel-pendencia { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; text-align: left; }
 .painel-pendencia .pendencia-numero { color: var(--amber); font-size: 40px; font-weight: 700; line-height: 1; }
 .painel-pendencia small { margin-top: 6px; font-size: 13px; }

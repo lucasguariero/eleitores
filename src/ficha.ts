@@ -1,5 +1,5 @@
 /**
- * Camada interna da ficha de liderança — o que a equipe preenche à mão, separado do que
+ * Camada interna da ficha do candidato — o que a equipe preenche à mão, separado do que
  * chega do TSE. Campos ausentes são propositais: é o que alimenta a completude e o bloco
  * "Completar cadastro". Uma ficha 100% preenchida esconderia o problema que o desenho resolve.
  */
@@ -16,7 +16,7 @@ export type DadosInternos = {
 
 /** Peso estratégico de cada campo interno: define a ordem do bloco de pendências. */
 export const camposInternos: { chave: keyof DadosInternos; label: string; porque: string }[] = [
-  { chave: 'vinculos', label: 'Vínculos com outras lideranças', porque: 'é o que revela quem influencia quem na região' },
+  { chave: 'vinculos', label: 'Vínculos com outros candidatos', porque: 'é o que revela quem influencia quem na região' },
   { chave: 'areas', label: 'Áreas de atuação', porque: 'define em que pauta a aproximação faz sentido' },
   { chave: 'telefone', label: 'Telefone institucional', porque: 'sem ele a agenda não sai do papel' },
   { chave: 'atributos', label: 'Atributos de liderança', porque: 'orienta o tipo de abordagem' },

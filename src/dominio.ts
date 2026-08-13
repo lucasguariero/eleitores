@@ -92,7 +92,7 @@ export const reunioes = [
     id: 1, titulo: 'Coordenação regional — Centro Norte', data: '14 ago, 09:00', local: 'Aurora do Cerrado', status: 'Realizada', participantes: 7, pauta: 3,
     encaminhamentos: [
       { texto: 'Fechar calendário de visitas do ciclo', dono: 'Sofia Linhares', prazo: '20 ago', situacao: 'Em dia' },
-      { texto: 'Levantar lideranças sem avaliação em Serra Alta', dono: 'Rafael Guimar', prazo: '18 ago', situacao: 'Atrasado' },
+      { texto: 'Levantar candidatos sem avaliação em Serra Alta', dono: 'Rafael Guimar', prazo: '18 ago', situacao: 'Atrasado' },
     ],
   },
   {
@@ -122,21 +122,21 @@ export const contas = {
  */
 export const cruzamentos = [
   {
-    pergunta: 'Quais municípios têm liderança aliada mas nenhuma visita nos últimos 90 dias?',
+    pergunta: 'Quais municípios têm candidato aliado mas nenhuma visita nos últimos 90 dias?',
     resposta: 'Três municípios combinam presença política e ausência de agenda: Serra Alta, Rio Doce do Norte e Pedra Branca.',
-    bases: ['Lideranças', 'Agenda', 'Municípios'], registros: 1284, confianca: 'Alta',
+    bases: ['Quadro Eleitoral', 'Agenda', 'Municípios'], registros: 1284, confianca: 'Alta',
     linhas: [['Serra Alta', '2 aliados', 'última visita há 134 dias'], ['Rio Doce do Norte', '1 aliado', 'última visita há 97 dias'], ['Pedra Branca', '1 aliado', 'sem visita registrada']],
   },
   {
     pergunta: 'Onde a base cresceu sem que a cobertura territorial acompanhasse?',
-    resposta: 'Campo Novo do Horizonte concentra 26% das lideranças novas do ciclo e tem o dossiê municipal mais incompleto da carteira.',
-    bases: ['Lideranças', 'Municípios'], registros: 947, confianca: 'Média',
-    linhas: [['Campo Novo do Horizonte', '+38 lideranças', 'dossiê 23% completo'], ['Serra Alta', '+11 lideranças', 'dossiê 42% completo']],
+    resposta: 'Campo Novo do Horizonte concentra 26% dos candidatos novos do ciclo e tem o dossiê municipal mais incompleto da carteira.',
+    bases: ['Quadro Eleitoral', 'Municípios'], registros: 947, confianca: 'Média',
+    linhas: [['Campo Novo do Horizonte', '+38 candidatos', 'dossiê 23% completo'], ['Serra Alta', '+11 candidatos', 'dossiê 42% completo']],
   },
 ]
 
 export const sugestoesCruzamento = [
-  'Quais lideranças aliadas estão em municípios sem prefeito aliado?',
+  'Quais candidatos aliados estão em municípios sem prefeito aliado?',
   'Que municípios têm aniversário no próximo mês e nenhuma presença agendada?',
   'Onde houve queda de desempenho entre os dois últimos ciclos?',
 ]
@@ -144,18 +144,18 @@ export const sugestoesCruzamento = [
 export const aniversarios = [
   { dia: 3, categoria: 'Município', nome: 'Pedra Branca', detalhe: 'Aniversário da cidade', agendado: false },
   { dia: 11, categoria: 'Município', nome: 'Serra Alta', detalhe: 'Aniversário da cidade', agendado: true },
-  { dia: 14, categoria: 'Liderança', nome: 'Aline Campos Leal', detalhe: 'Vereadora · Campo Novo do Horizonte', agendado: false },
+  { dia: 14, categoria: 'Candidato', nome: 'Aline Campos Leal', detalhe: 'Vereadora · Campo Novo do Horizonte', agendado: false },
   { dia: 22, categoria: 'Padroeira', nome: 'Ipê Verde', detalhe: 'Festa de Santa Rita', agendado: false },
-  { dia: 26, categoria: 'Liderança', nome: 'Tomás de Alencar', detalhe: 'Senador · Vale Claro', agendado: true },
+  { dia: 26, categoria: 'Candidato', nome: 'Tomás de Alencar', detalhe: 'Senador · Vale Claro', agendado: true },
 ]
 
 export const exportacoes = [
-  { id: 1, solicitado: '10 ago, 15:25', concluido: '10 ago, 15:25', usuario: 'Eduardo Molina', modulo: 'Lideranças', formato: 'XLSX', situacao: 'Concluído', tamanho: '20 KB' },
+  { id: 1, solicitado: '10 ago, 15:25', concluido: '10 ago, 15:25', usuario: 'Eduardo Molina', modulo: 'Quadro Eleitoral', formato: 'XLSX', situacao: 'Concluído', tamanho: '20 KB' },
   { id: 2, solicitado: '12 ago, 09:02', concluido: null, usuario: 'Sofia Linhares', modulo: 'Municípios', formato: 'XLSX', situacao: 'Processando', tamanho: '—' },
   { id: 3, solicitado: '02 ago, 11:40', concluido: '02 ago, 11:41', usuario: 'Breno Valadares', modulo: 'Eleições', formato: 'PDF', situacao: 'Expirado', tamanho: '1,4 MB' },
 ]
 
-/** Status político por liderança — chaveado pelo id em electoralPeople. */
+/** Status político por candidato — chaveado pelo id em electoralPeople. */
 export const statusPolitico: Record<number, string> = {
   1: 'Aliado', 2: 'Adversário', 3: 'Aliado', 4: 'Neutro', 5: 'Aliado',
   6: 'Aliado parcial', 7: 'Não avaliado', 8: 'Adversário', 9: 'Aliado parcial',

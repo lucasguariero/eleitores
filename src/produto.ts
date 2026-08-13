@@ -40,11 +40,11 @@ export const modulos: Modulo[] = [
   { id: 'territorios', label: 'Territórios', grupo: 'Território', plano: 'avancado', descricao: 'Recortes próprios acima do município, com cobertura e prioridade.' },
   { id: 'eleicoes', label: 'Eleições', grupo: 'Território', plano: 'essencial', descricao: 'Apuração e resultados por cargo, turno e município.' },
 
-  { id: 'liderancas', label: 'Lideranças', grupo: 'Relacionamento', plano: 'essencial', descricao: 'Cadastro de quem concorreu ou concorre, com avaliação política.' },
+  { id: 'quadro-eleitoral', label: 'Quadro Eleitoral', grupo: 'Relacionamento', plano: 'essencial', descricao: 'Quem concorreu ou concorre a eleição — atual e do passado — com avaliação política.' },
   { id: 'campanhas', label: 'Campanhas', grupo: 'Relacionamento', plano: 'avancado', descricao: 'Objetivos, frentes de trabalho e marcos.' },
   { id: 'agenda', label: 'Agenda', grupo: 'Relacionamento', plano: 'avancado', descricao: 'Viagens, visitas e entrevistas, com rota entre municípios.' },
   { id: 'reunioes', label: 'Reuniões', grupo: 'Relacionamento', plano: 'avancado', descricao: 'Pauta, participantes, deliberações e encaminhamentos com dono e prazo.' },
-  { id: 'aniversarios', label: 'Aniversários', grupo: 'Relacionamento', plano: 'essencial', descricao: 'Datas de lideranças, municípios e padroeiras.' },
+  { id: 'aniversarios', label: 'Aniversários', grupo: 'Relacionamento', plano: 'essencial', descricao: 'Datas de candidatos, municípios e padroeiras.' },
 
   { id: 'inteligencia', label: 'Inteligência', grupo: 'Análise', plano: 'inteligencia', descricao: 'Insights com evidência declarada e próximo passo.' },
   { id: 'cruzamento', label: 'Cruzamento de dados', grupo: 'Análise', plano: 'inteligencia', descricao: 'Perguntas em linguagem natural sobre as bases do sistema.' },

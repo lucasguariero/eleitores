@@ -29,7 +29,7 @@ assert.equal(escala.filter(s => s.tom === 'pendente').length, 1, 'só "Não aval
 assert.equal(escala.find(s => s.tom === 'pendente').valor, 'Não avaliado')
 const valores = new Set(escala.map(s => s.valor))
 for (const [id, status] of Object.entries(statusPolitico)) {
-  assert.ok(valores.has(status), `liderança ${id} tem status "${status}" fora da escala do cliente`)
+  assert.ok(valores.has(status), `candidato ${id} tem status "${status}" fora da escala do cliente`)
 }
 
 // O Painel mostra a distribuição e as pendências como números separados. Se eles deixarem de
@@ -116,7 +116,7 @@ for (const capability of ['ElectoralProfileExpanded', 'TerritoryProfile', 'Munic
   }
 }
 
-for (const fragment of ['liderancas/perfil/', 'territorios/perfil/', 'relatorios/comparativo', 'relatorios/consolidado']) {
+for (const fragment of ['quadro-eleitoral/perfil/', 'territorios/perfil/', 'relatorios/comparativo', 'relatorios/consolidado']) {
   if (!app.includes(fragment)) {
     console.error(`Subrota ausente: ${fragment}`)
     process.exit(1)
