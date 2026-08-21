@@ -25,7 +25,10 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+<<<<<<< HEAD
     "docx": "^9.7.1",
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     "html-inline": "^1.2.0",
     "oxlint": "^1.75.0",
     "typescript": "~6.0.2",

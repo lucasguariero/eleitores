@@ -30,9 +30,12 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^6.0.4
         version: 6.0.5(vite@8.2.1(@types/node@24.13.3)(jiti@1.21.7)(yaml@2.9.0))
+<<<<<<< HEAD
       docx:
         specifier: ^9.7.1
         version: 9.7.1
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
       html-inline:
         specifier: ^1.2.0
         version: 1.2.0
@@ -269,9 +272,12 @@ packages:
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
+<<<<<<< HEAD
   '@types/node@25.9.5':
     resolution: {integrity: sha512-OScDchr2fwuUmWdf4kZ9h7PcJiYDVInhJizG/biAq3cAvqwYktuy/TYGGdZNMtNTFUP7rnb0NU4TUdm82kt4Rg==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   '@types/react-dom@19.2.4':
     resolution: {integrity: sha512-Bsc+QHgp+P/F02XDzNCY9jnZNCUuLki36KT7VKrTXXLdHf+vHMNZnW1rVu5DNW/rCK+fya3DATySbLM4yhtKUw==}
     peerDependencies:
@@ -306,10 +312,13 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
+<<<<<<< HEAD
   docx@9.7.1:
     resolution: {integrity: sha512-ilXFf9Moz47ABjFpDiA5s1w9lpb4EFSp7+5iiJSbfyYDM+bpZdAgLlSr7fW4aXhVe/E+F6QCv0EvRVFEd5CsWg==}
     engines: {node: '>=10'}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   duplexer2@0.0.2:
     resolution: {integrity: sha512-+AWBwjGadtksxjOQSFDhPNQbed7icNXApT4+2BNpsXzcCBiInq2H9XW0O8sfHFaPmnQRs7cg/P0fAr2IWQSW0g==}
 
@@ -327,9 +336,12 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+<<<<<<< HEAD
   hash.js@1.1.7:
     resolution: {integrity: sha512-taOaskGt4z4SOANNseOviYDvjEJinIkRgmp7LbKP2YTTmVxWBl87s/uzK9r+44BclBSp2X7K1hqeNfz9JbBeXA==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   html-inline@1.2.0:
     resolution: {integrity: sha512-7W6IV2bQVesdyJkrrZyu2Wk8jPQ1FyCa2y9xDURqHrCrI1HkJK85D1jzCuBTJhal6rQB+t3YBAqcDgSnohTzTw==}
     hasBin: true
@@ -342,9 +354,12 @@ packages:
     resolution: {integrity: sha512-7sCme3w9Hiv/kfL6sO6ePTGAV5fY6P7WDZyOs0zfXXU8vsS1ps1CQfGe0J1yuAdcCnOJ9h66RLYX/e9Cife8yw==}
     hasBin: true
 
+<<<<<<< HEAD
   immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   indexof@0.0.1:
     resolution: {integrity: sha512-i0G7hLJ1z0DE8dsqJa2rycj9dBmNKgXBvotXtZYXakU9oivfB9Uj2ZBC27qqef2U58/ZLwalxa1X/RDCdkHtVg==}
 
@@ -354,19 +369,25 @@ packages:
   isarray@0.0.1:
     resolution: {integrity: sha512-D2S+3GLxWH+uhrNEcoh/fnmYeP8E8/zHl644d/jdA0g2uyXvy3sb0qxotE+ne0LtccHknQzWwZEzhak7oJ0COQ==}
 
+<<<<<<< HEAD
   isarray@1.0.0:
     resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
+<<<<<<< HEAD
   jszip@3.10.1:
     resolution: {integrity: sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==}
 
   lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   lightningcss-android-arm64@1.33.0:
     resolution: {integrity: sha512-gEpRTalKdosp4Bb8qWtc2iOgE5SeIHlpS1up9bFq2wAyYhl1UdTObYiHe98zEM9SQvSoqQZ1IQD0JNpg3Ml5pg==}
     engines: {node: '>= 12.0.0'}
@@ -446,9 +467,12 @@ packages:
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+<<<<<<< HEAD
   minimalistic-assert@1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   minimist@0.0.10:
     resolution: {integrity: sha512-iotkTvxc+TwOm5Ieim8VnSNvCDjCK9S8G3scJ50ZthspSxa7jx50jkhYduuAtAjvfDUwSgOwf8+If99AlOEhyw==}
 
@@ -460,11 +484,14 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+<<<<<<< HEAD
   nanoid@5.1.16:
     resolution: {integrity: sha512-kVrnsrJqMR8+oLJnGEmSWw9BivK5mt7H3FZatVRjrc5wGqFYuBxX1yG7+A7Gi5AefkX6t/oCkizcQgpu0cY1dQ==}
     engines: {node: ^18 || >=20}
     hasBin: true
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   object-keys@0.4.0:
     resolution: {integrity: sha512-ncrLw+X55z7bkl5PnUvHwFK9FcGuFYo9gtjws2XtSzL+aZ8tm830P60WJ0dSmFVaSalWieW5MD7kEdnXda9yJw==}
 
@@ -481,9 +508,12 @@ packages:
       vite-plus:
         optional: true
 
+<<<<<<< HEAD
   pako@1.0.11:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -495,9 +525,12 @@ packages:
     resolution: {integrity: sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==}
     engines: {node: ^10 || ^12 || >=14}
 
+<<<<<<< HEAD
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   react-dom@19.2.8:
     resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
     peerDependencies:
@@ -513,9 +546,12 @@ packages:
   readable-stream@1.1.14:
     resolution: {integrity: sha512-+MeVjFf4L44XUkhM1eYbD8fyEsxcV81pqMSR5gblfcLCHfZvbrqy4/qYHE+/R5HoBUT11WV5O08Cr1n3YXkWVQ==}
 
+<<<<<<< HEAD
   readable-stream@2.3.8:
     resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   readable-wrap@1.0.0:
     resolution: {integrity: sha512-/8n0Mr10S+HGKFygQ42Z40JIXwafPH3A72pwmlNClThgsImV5LJJiCue5Je1asxwY082sYxq/+kTxH6nTn0w3g==}
 
@@ -524,6 +560,7 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
+<<<<<<< HEAD
   safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
 
@@ -537,6 +574,11 @@ packages:
   setimmediate@1.0.5:
     resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==}
 
+=======
+  scheduler@0.27.0:
+    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
+
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -550,9 +592,12 @@ packages:
   string_decoder@0.10.31:
     resolution: {integrity: sha512-ev2QzSzWPYmy9GuqfIVildA4OdcGLeFZQrq5ys6RtiuF+RQQiZWr8TZNyAcuVXyQRYfEO+MsoB/1BuQVhOJuoQ==}
 
+<<<<<<< HEAD
   string_decoder@1.1.1:
     resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   through2@0.4.2:
     resolution: {integrity: sha512-45Llu+EwHKtAZYTPPVn3XZHBgakWMN3rokhEv5hu596XP+cNgplMg+Gj+1nmAvj+L0K7+N49zBKx5rah5u0QIQ==}
 
@@ -580,12 +625,15 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
+<<<<<<< HEAD
   undici-types@7.24.6:
     resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   vite@8.2.1:
     resolution: {integrity: sha512-EU/eS7BH3XROHh2YnBefjM6DBKA6ZeMZEYQbj7NLWg5wHYlhB8B/Mayd5XsgWq+NFYccDOTemRpdETWR6Ka/lw==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -629,6 +677,7 @@ packages:
       yaml:
         optional: true
 
+<<<<<<< HEAD
   xml-js@1.6.11:
     resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==}
     hasBin: true
@@ -636,6 +685,8 @@ packages:
   xml@1.0.1:
     resolution: {integrity: sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   xtend@2.1.2:
     resolution: {integrity: sha512-vMNKzr2rHP9Dp/e1NQFnLQlwlhp9L/LfvnsVdHxN1f+uggyVI3i08uD14GPvCToPkdsRfyPqIyYGmIk58V98ZQ==}
     engines: {node: '>=0.4'}
@@ -758,10 +809,13 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
+<<<<<<< HEAD
   '@types/node@25.9.5':
     dependencies:
       undici-types: 7.24.6
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   '@types/react-dom@19.2.4(@types/react@19.2.18)':
     dependencies:
       '@types/react': 19.2.18
@@ -785,6 +839,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
+<<<<<<< HEAD
   docx@9.7.1:
     dependencies:
       '@types/node': 25.9.5
@@ -794,6 +849,8 @@ snapshots:
       xml: 1.0.1
       xml-js: 1.6.11
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   duplexer2@0.0.2:
     dependencies:
       readable-stream: 1.1.14
@@ -805,11 +862,14 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
+<<<<<<< HEAD
   hash.js@1.1.7:
     dependencies:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   html-inline@1.2.0:
     dependencies:
       minimist: 1.1.3
@@ -834,14 +894,18 @@ snapshots:
       readable-stream: 1.0.34
       through2: 0.4.2
 
+<<<<<<< HEAD
   immediate@3.0.6: {}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   indexof@0.0.1: {}
 
   inherits@2.0.4: {}
 
   isarray@0.0.1: {}
 
+<<<<<<< HEAD
   isarray@1.0.0: {}
 
   jiti@1.21.7:
@@ -858,6 +922,11 @@ snapshots:
     dependencies:
       immediate: 3.0.6
 
+=======
+  jiti@1.21.7:
+    optional: true
+
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   lightningcss-android-arm64@1.33.0:
     optional: true
 
@@ -911,16 +980,22 @@ snapshots:
     dependencies:
       react: 19.2.8
 
+<<<<<<< HEAD
   minimalistic-assert@1.0.1: {}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   minimist@0.0.10: {}
 
   minimist@1.1.3: {}
 
   nanoid@3.3.18: {}
 
+<<<<<<< HEAD
   nanoid@5.1.16: {}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   object-keys@0.4.0: {}
 
   oxlint@1.78.0:
@@ -945,8 +1020,11 @@ snapshots:
       '@oxlint/binding-win32-ia32-msvc': 1.78.0
       '@oxlint/binding-win32-x64-msvc': 1.78.0
 
+<<<<<<< HEAD
   pako@1.0.11: {}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   picocolors@1.1.1: {}
 
   picomatch@4.0.5: {}
@@ -957,8 +1035,11 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
+<<<<<<< HEAD
   process-nextick-args@2.0.1: {}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   react-dom@19.2.8(react@19.2.8):
     dependencies:
       react: 19.2.8
@@ -980,6 +1061,7 @@ snapshots:
       isarray: 0.0.1
       string_decoder: 0.10.31
 
+<<<<<<< HEAD
   readable-stream@2.3.8:
     dependencies:
       core-util-is: 1.0.3
@@ -990,6 +1072,8 @@ snapshots:
       string_decoder: 1.1.1
       util-deprecate: 1.0.2
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   readable-wrap@1.0.0:
     dependencies:
       readable-stream: 1.1.14
@@ -1014,6 +1098,7 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 1.2.3
       '@rolldown/binding-win32-x64-msvc': 1.2.3
 
+<<<<<<< HEAD
   safe-buffer@5.1.2: {}
 
   sax@1.6.1: {}
@@ -1022,6 +1107,10 @@ snapshots:
 
   setimmediate@1.0.5: {}
 
+=======
+  scheduler@0.27.0: {}
+
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   source-map-js@1.2.1: {}
 
   split@0.3.3:
@@ -1039,10 +1128,13 @@ snapshots:
 
   string_decoder@0.10.31: {}
 
+<<<<<<< HEAD
   string_decoder@1.1.1:
     dependencies:
       safe-buffer: 5.1.2
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   through2@0.4.2:
     dependencies:
       readable-stream: 1.0.34
@@ -1078,10 +1170,13 @@ snapshots:
 
   undici-types@7.18.2: {}
 
+<<<<<<< HEAD
   undici-types@7.24.6: {}
 
   util-deprecate@1.0.2: {}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   vite@8.2.1(@types/node@24.13.3)(jiti@1.21.7)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
@@ -1095,12 +1190,15 @@ snapshots:
       jiti: 1.21.7
       yaml: 2.9.0
 
+<<<<<<< HEAD
   xml-js@1.6.11:
     dependencies:
       sax: 1.6.1
 
   xml@1.0.1: {}
 
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   xtend@2.1.2:
     dependencies:
       object-keys: 0.4.0
