@@ -1,0 +1,35 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+artifact-dist
+.parcel-cache
+bundle.html
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ferramenta de design: o config compartilhado VAI para o repo (justifica as exceções
+# do detector); só o cache de sessão e o override local ficam de fora.
+.impeccable/hook.cache.json
+.impeccable/config.local.json
+
+# Vercel
+.vercel

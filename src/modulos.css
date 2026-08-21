@@ -1,0 +1,359 @@
+/* Estilos dos módulos acrescentados. Herdam os tokens do design system em index.css. */
+
+/* Menu agrupado — os rótulos de grupo só existem porque o menu passou a ser derivado do contrato. */
+.nav-grupo { margin-bottom: 14px; }
+/* Sobre o navy da sidebar, slate-500 reprova em contraste; slate-400 passa com folga. */
+.nav-grupo-label { display: block; padding: 0 12px; margin-bottom: 6px; color: var(--muted-2); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+
+/* Módulo fora do plano */
+.bloqueio { display: flex; align-items: center; gap: 20px; }
+.bloqueio-icone { display: grid; place-items: center; width: 52px; height: 52px; flex: 0 0 auto; color: var(--violet); background: var(--violeta-suave); border-radius: var(--radius); }
+.bloqueio > div { flex: 1; }
+.bloqueio h2 { margin-bottom: 4px; }
+.bloqueio p { margin: 0; font-size: 14px; }
+.bloqueio-preco { margin-top: 8px !important; color: var(--muted); font-size: 12px !important; font-weight: 600; }
+
+/* Bem-vindo */
+.faixa-datas { display: flex; align-items: center; gap: 14px; margin-bottom: var(--gutter); padding: 18px 20px; }
+.faixa-datas > svg { color: var(--muted); flex: 0 0 auto; }
+/* Sem tab lateral: a borda violeta de 4px é reservada ao que é derivado/inteligência
+   (insight e resposta de cruzamento). Usá-la aqui esvaziaria o significado dela. */
+
+/* Inteligência - cards de insight */
+.insights-list { display: grid; gap: 16px; }
+.insight-card { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 20px; position: relative; align-items: end; }
+.insight-info { position: absolute; top: 12px; right: 12px; }
+.insight-content h2 { font-size: 16px; margin: 8px 0; }
+.insight-content p { font-size: 14px; color: var(--muted); margin: 0; }
+.insight-actions { display: flex; align-items: center; gap: 12px; }
+.insight-actions .primary-button { white-space: nowrap; }
+.faixa-datas.tem { background: linear-gradient(100deg, #fff 60%, rgba(139,92,246,.05)); }
+.faixa-datas.tem > svg { color: var(--violet); }
+.faixa-datas > div { flex: 1; }
+.faixa-datas strong { display: block; font-size: 14px; }
+.faixa-datas small { margin-top: 3px; }
+.atalhos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-bottom: var(--gutter); }
+.atalho { display: grid; grid-template-columns: 44px 1fr 16px; align-items: center; gap: 14px; text-align: left; color: inherit; transition: all 180ms ease-in-out; }
+.atalho:hover { border-color: var(--linha-forte); box-shadow: 0 4px 10px rgba(15,23,42,.1); }
+.atalho > span { display: grid; place-items: center; width: 44px; height: 44px; color: var(--blue); background: var(--ciano-suave); border-radius: var(--radius); }
+.atalho strong { display: block; font-size: 15px; }
+.atalho small { margin-top: 4px; }
+.mudou-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.mudou-grid button { padding: 16px; text-align: left; color: inherit; background: var(--superficie-3); border: 1px solid var(--line); border-radius: var(--radius); transition: all 180ms ease-in-out; }
+.mudou-grid button:hover { border-color: var(--cyan); background: var(--ciano-suave); }
+.mudou-grid strong { display: block; margin-bottom: 4px; color: var(--texto-forte); font-size: 26px; font-weight: 700; }
+
+/* Municípios */
+.divisoes-grid, .municipios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-top: var(--gutter); }
+.toolbar-card { margin-bottom: var(--gutter); }
+.filter-row { margin-bottom: 12px; }
+.filter-row select { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px; background: var(--superficie-2); }
+.resultados-ano { margin-bottom: 20px; }
+.resultado-ano h4 { font-size: 14px; font-weight: 600; margin-bottom: 10px; color: var(--texto-forte); }
+.resultado-candidato { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--linha-suave); }
+.resultado-candidato:last-child { border-bottom: none; }
+.candidato-info { display: flex; flex-direction: column; }
+.candidato-info strong { font-size: 13px; }
+.candidato-info small { font-size: 11px; color: var(--muted); }
+.candidato-votos { text-align: right; }
+.candidato-votos b { font-size: 13px; display: block; }
+.candidato-votos small { font-size: 11px; color: var(--muted); }
+.barra-votos { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; }
+.barra-votos i { height: 6px; background: var(--cyan); border-radius: 3px; }
+.barra-votos i.vencedor { background: var(--green); }
+.hero-actions .active { color: #f59e0b; }
+.profile-hero h1 .pill { margin-left: 10px; vertical-align: middle; font-size: 12px; padding: 5px 10px; line-height: 1; }
+.divisao-num { display: grid; place-items: center; width: 28px; height: 28px; margin-bottom: 10px; color: white; background: var(--superficie-inversa); border-radius: 999px; font-size: 12px; font-weight: 700; }
+.divisao-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; }
+.divisao-nums strong { display: block; margin-top: 3px; font-size: 15px; }
+.municipio-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.municipio-topo h3 { margin-bottom: 3px; }
+.municipio-prefeito { display: flex; align-items: center; gap: 10px; padding: 12px; margin-bottom: 14px; background: var(--superficie-3); border-radius: var(--radius); }
+.municipio-prefeito strong { display: block; font-size: 13px; }
+.municipio-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.municipio-nums strong { display: block; margin-top: 3px; font-size: 15px; }
+
+/* Mesorregiões - usa mesmo estilo de cards de município */
+.meso-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-top: var(--gutter); }
+
+/* Completude e pendências — o padrão que substitui a parede de "não informado". */
+.faixa-completude { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; margin-bottom: var(--gutter); padding: 16px var(--gutter); }
+.faixa-completude strong { display: block; margin-top: 2px; color: var(--texto-forte); font-size: 22px; font-weight: 700; }
+.faixa-completude .progress-wrap { min-width: 140px; }
+.bloco-completar > div { display: block; padding: 12px 0; border-bottom: 1px solid var(--linha-suave); }
+.bloco-completar strong { display: block; font-size: 13px; }
+.bloco-completar small { margin-top: 3px; }
+.bloco-completar .primary-button { margin-top: 16px; }
+strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
+.vinculo-lista button { width: 100%; display: grid; grid-template-columns: 30px 1fr auto 16px; align-items: center; gap: 10px; padding: 11px 0; text-align: left; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--linha-suave); }
+.vinculo-lista button:hover { color: var(--blue); }
+.vinculo-lista strong { display: block; font-size: 13px; }
+
+/* Eleições */
+.apuracao-faixa { display: flex; align-items: center; justify-content: space-between; gap: var(--gutter); margin-bottom: var(--gutter); flex-wrap: wrap; }
+.apuracao-nums { display: flex; gap: 28px; }
+.apuracao-nums strong { display: block; margin-top: 3px; font-size: 18px; }
+.cargo-bloco { padding: 0; margin-bottom: 14px; overflow: hidden; }
+.cargo-cabeca { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; color: inherit; background: none; border: 0; font-size: 15px; font-weight: 600; }
+.cargo-cabeca > span { display: flex; align-items: center; gap: 10px; }
+.cargo-cabeca svg.open { transform: rotate(180deg); }
+.turnos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--gutter); padding: 0 20px 20px; border-top: 1px solid var(--line); }
+.turno-cabeca { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 12px; }
+.candidato-linha { display: grid; grid-template-columns: 30px 1fr auto auto; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--linha-suave); }
+.candidato-linha strong { display: block; font-size: 13px; }
+.candidato-linha b { font-size: 15px; }
+.candidato-linha > small, .candidato-linha .progress-wrap { grid-column: 2 / -1; }
+
+/* Agenda e rota */
+.rota-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--gutter); }
+.rota-lista > div { display: grid; grid-template-columns: 30px 1fr auto auto; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--linha-suave); }
+/* Texto branco sobre o ciano puro dá 2,4:1 — o número da parada usa o ciano escuro. */
+.rota-num { display: grid; place-items: center; width: 28px; height: 28px; color: var(--texto-sobre-primario); background: var(--blue); border-radius: 999px; font-size: 12px; font-weight: 700; }
+.rota-lista strong { display: block; font-size: 14px; }
+.rota-lista b { color: var(--muted); font-size: 12px; }
+.rota-mapa { width: 100%; height: 260px; background: var(--ciano-suave); border-radius: var(--radius); }
+.rota-mapa path { fill: none; stroke: var(--cyan); stroke-width: 3; stroke-dasharray: 7 5; }
+.rota-mapa circle { fill: var(--navy); }
+.rota-mapa text { fill: white; font-size: 13px; font-weight: 700; }
+
+/* Aniversários */
+.aniversarios-lista { display: grid; gap: 12px; }
+.aniversarios-lista .card { display: flex; gap: 20px; align-items: center; }
+.dia-selo { flex-shrink: 0; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; color: white; background: var(--superficie-inversa); border-radius: var(--radius); font-size: 12px; font-weight: 700; align-self: center; }
+.dia-eventos { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.dia-eventos > div { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--linha-suave); }
+.dia-eventos > div:first-child { padding-top: 0; }
+.dia-eventos > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.dia-eventos strong { display: block; font-size: 15px; }
+.dia-eventos small { margin-top: 3px; font-size: 14px; color: var(--texto); }
+
+/* Reuniões — o valor está no encaminhamento, não no evento. */
+.encaminhamentos > div { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--linha-suave); }
+.enc-dot { width: 10px; height: 10px; background: #38bdf8; border-radius: 999px; }
+.enc-dot.atraso { background: #e05252; }
+.enc-dot.ok { background: #2d7a63; }
+.encaminhamentos strong { display: block; font-size: 14px; }
+.encaminhamentos small { margin-top: 3px; }
+
+/* Prestação de contas */
+.valor-pos { color: var(--green); font-weight: 600; white-space: nowrap; }
+.valor-neg { color: var(--texto); font-weight: 600; white-space: nowrap; }
+
+/* Cruzamento de dados */
+.cruzamento-caixa { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.cruzamento-caixa > svg { color: var(--violet); flex: 0 0 auto; }
+.cruzamento-caixa form { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.cruzamento-caixa input { flex: 1; min-width: 0; height: 42px; padding: 0 14px; }
+.sugestoes-wrap { margin-bottom: var(--gutter); }
+.sugestoes-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.sugestoes-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.sugestao { padding: 8px 14px; color: var(--muted); background: var(--superficie-2); border: 1px solid var(--line); border-radius: 999px; font-size: 13px; transition: all 180ms ease-in-out; }
+.sugestao:hover { color: var(--navy); border-color: var(--violet); background: var(--violeta-suave); }
+.resposta-card { border-left: 4px solid var(--violet); }
+.resposta-texto { margin-bottom: 18px; color: var(--texto); font-size: 16px; line-height: 1.6; }
+.procedencia { display: flex; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--linha-suave); }
+.procedencia svg { color: var(--violet); flex: 0 0 auto; }
+.procedencia strong { display: block; margin-bottom: 4px; font-size: 13px; }
+.procedencia p { margin: 0; font-size: 13px; }
+
+/* Exportações */
+.obrigatorio { display: inline; color: #b45309; font-size: 11px; font-weight: 600; text-transform: none; margin-right: 4px; }
+.registros-count { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+.proc { display: grid; gap: 6px; min-width: 110px; }
+
+/* Planos e módulos — a tela que faz disto um produto. */
+.planos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-bottom: var(--gutter); }
+.plano-card { text-align: left; color: inherit; transition: all 180ms ease-in-out; }
+.plano-card:hover { border-color: var(--linha-forte); }
+.plano-card.ativo { border-color: var(--cyan); box-shadow: 0 0 0 2px rgba(6,182,212,.18); }
+.plano-topo { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.plano-card p { min-height: 44px; font-size: 13px; }
+.plano-preco { display: block; margin-bottom: 4px; color: var(--texto-forte); font-size: 22px; font-weight: 700; }
+.modulo-grupo { margin-bottom: 20px; }
+.modulo-grupo .eyebrow { margin-bottom: 8px; }
+.modulo-linha { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--linha-suave); }
+.modulo-linha.fora { opacity: .62; }
+.modulo-icone { display: grid; place-items: center; width: 34px; height: 34px; color: var(--blue); background: var(--ciano-suave); border-radius: var(--radius); }
+.modulo-linha strong { display: block; font-size: 14px; font-weight: 600; }
+.modulo-linha small { margin-top: 3px; }
+.escala-lista > div { display: grid; grid-template-columns: 130px 1fr auto; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--linha-suave); }
+.escala-lista { margin-bottom: 20px; }
+
+/* Carteira do quadro eleitoral por status */
+.carteira-faixa { display: grid; grid-template-columns: repeat(4, 1fr) minmax(240px, 1.3fr); gap: 12px; margin-bottom: var(--gutter); }
+.carteira-item { padding: 16px; text-align: left; color: inherit; transition: all 180ms ease-in-out; }
+.carteira-item:hover { border-color: var(--linha-forte); }
+.carteira-item.ativo { border-color: var(--cyan); box-shadow: 0 0 0 2px rgba(6,182,212,.18); }
+.carteira-item strong { display: block; margin: 6px 0; color: var(--texto-forte); font-size: 26px; font-weight: 700; }
+/* Lacuna não é resultado: fica fora da distribuição e com tratamento de pendência. */
+.carteira-pendencia { display: grid; grid-template-columns: 20px 1fr 16px; align-items: center; gap: 12px; padding: 16px; text-align: left; color: inherit; background: var(--amber-suave); border: 1px dashed #e0c9a0; border-radius: var(--radius-lg); }
+.carteira-pendencia:hover { border-color: #c9a35c; }
+.carteira-pendencia.ativo { border-style: solid; border-color: #c9a35c; }
+.carteira-pendencia > svg { color: var(--amber); }
+.carteira-pendencia strong { display: block; font-size: 15px; }
+.carteira-pendencia small { margin-top: 3px; }
+.pill-vago { display: inline-flex; align-items: center; padding: 4px 10px; color: var(--muted); background: transparent; border: 1px dashed var(--linha-forte); border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+
+@media (max-width: 1100px) {
+  .atalhos-grid, .divisoes-grid, .municipios-grid, .planos-grid { grid-template-columns: repeat(2, 1fr); }
+  .carteira-faixa { grid-template-columns: repeat(2, 1fr); }
+  .carteira-pendencia { grid-column: 1 / -1; }
+}
+
+@media (max-width: 820px) {
+  .rota-layout { grid-template-columns: 1fr; }
+  .faixa-completude { grid-template-columns: 1fr; gap: 10px; }
+}
+
+@media (max-width: 560px) {
+  .atalhos-grid, .divisoes-grid, .municipios-grid, .planos-grid, .mudou-grid, .carteira-faixa { grid-template-columns: 1fr; }
+  .apuracao-nums { flex-wrap: wrap; gap: 16px; }
+  .bloqueio { flex-direction: column; align-items: flex-start; }
+  .aniversarios-lista .card { grid-template-columns: 1fr; gap: 12px; }
+  .dia-selo { width: fit-content; padding: 8px 16px; }
+  .dia-eventos > div { grid-template-columns: 1fr; gap: 8px; }
+  .escala-lista > div, .candidato-linha, .rota-lista > div { grid-template-columns: 1fr; gap: 8px; }
+  .modulo-linha { grid-template-columns: 34px 1fr; }
+  .modulo-linha > :last-child { grid-column: 2; justify-self: start; }
+}
+
+/* Campos internos da ficha do candidato */
+.campo-chips { padding: 14px 0; border-bottom: 1px solid var(--linha-suave); }
+.campo-chips > small { margin-bottom: 8px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.campo-chips .vinculo-lista { margin-top: 4px; }
+.observacao { margin-top: 14px; padding: 14px; background: var(--superficie-3); border: 1px solid var(--line); border-radius: var(--radius); }
+.observacao p { margin: 0 0 8px; color: var(--texto); font-size: 14px; }
+.observacao small { font-size: 12px; }
+
+/* Painel: composição da base por posição política */
+.barra-composicao { display: flex; height: 14px; gap: 3px; margin-bottom: 18px; }
+.barra-composicao i { display: block; border-radius: 3px; transition: flex-grow 400ms ease-in-out; }
+.faixa-green { background: #2d7a63; } .faixa-blue { background: #0ea5e9; }
+.faixa-neutral { background: var(--muted-2); } .faixa-red { background: #c2534f; }
+.legenda-composicao { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+.legenda-composicao button { display: flex; align-items: flex-start; gap: 9px; padding: 10px; text-align: left; color: inherit; background: var(--superficie-3); border: 1px solid var(--line); border-radius: var(--radius); transition: all 180ms ease-in-out; }
+.legenda-composicao button:hover { border-color: var(--linha-forte); background: var(--superficie-2); }
+.legenda-composicao i { width: 9px; height: 9px; margin-top: 6px; border-radius: 2px; flex: 0 0 auto; }
+.legenda-composicao strong { display: block; color: var(--texto-forte); font-size: 20px; font-weight: 700; }
+.legenda-composicao small { margin-top: 2px; font-size: 12px; }
+
+/* Card de pendência do painel: mesma linguagem do card da lista do quadro eleitoral. */
+.painel-pendencia { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; text-align: left; }
+.painel-pendencia .pendencia-numero { color: var(--amber); font-size: 40px; font-weight: 700; line-height: 1; }
+.painel-pendencia small { margin-top: 6px; font-size: 13px; }
+.painel-pendencia p { margin: 10px 0 0; font-size: 13px; }
+.pendencia-acao { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--amber); font-size: 13px; font-weight: 600; }
+
+/* Municípios com dossiê mais fraco */
+.fracos-lista button { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) 90px 42px 16px; align-items: center; gap: 12px; padding: 12px 0; text-align: left; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--linha-suave); }
+.fracos-lista button:hover { color: var(--blue); }
+.fracos-lista strong { display: block; font-size: 13px; }
+.fracos-lista small { margin-top: 2px; }
+.fracos-lista b { font-size: 14px; text-align: right; }
+
+@media (max-width: 560px) {
+  .fracos-lista button { grid-template-columns: 1fr auto; }
+  .fracos-lista .progress-wrap { grid-column: 1 / -1; }
+}
+
+/* ── Configurações ────────────────────────────────────────────────────────── */
+.settings-nav button { justify-content: flex-start; }
+.settings-form h3 { margin: 26px 0 12px; padding-top: 18px; border-top: 1px solid var(--linha-suave); }
+.settings-form h3:first-of-type { margin-top: 22px; }
+
+/* Seletor de tema: a amostra mostra o resultado, o rótulo explica quando usar. */
+.tema-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.tema-opcao { display: grid; gap: 8px; padding: 14px; text-align: left; color: inherit; background: var(--superficie-2); border: 1px solid var(--linha); border-radius: var(--radius-lg); transition: all 180ms ease-in-out; }
+.tema-opcao:hover { border-color: var(--linha-forte); }
+.tema-opcao.ativo { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--anel-foco); }
+.tema-opcao strong { font-size: 14px; }
+.tema-amostra { display: flex; height: 46px; border: 1px solid var(--linha); border-radius: var(--radius); overflow: hidden; }
+.tema-amostra i { width: 30%; }
+.tema-amostra b { flex: 1; }
+.amostra-claro i { background: #141a29; } .amostra-claro b { background: #f7f9fb; }
+.amostra-escuro i { background: #070c17; } .amostra-escuro b { background: #0b1120; }
+.amostra-sistema i { background: #141a29; }
+.amostra-sistema b { background: linear-gradient(105deg, #f7f9fb 0 50%, #0b1120 50% 100%); }
+
+.sessoes > div, .origem-lista > div { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--linha-suave); }
+.sessoes strong, .origem-lista strong { display: block; font-size: 14px; }
+.sessoes small, .origem-lista small { margin-top: 3px; }
+.origem-lista > div { justify-content: flex-start; }
+.origem-selo { display: grid; place-items: center; min-width: 62px; padding: 6px 10px; color: var(--blue); background: var(--ciano-suave); border-radius: var(--radius); font-size: 12px; font-weight: 700; }
+.acoes-dados { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.secondary-button.perigo { color: var(--red); border-color: var(--red); }
+.secondary-button.perigo:hover { background: var(--red-suave); border-color: var(--red); }
+
+@media (max-width: 820px) { .tema-grid { grid-template-columns: 1fr; } }
+
+/* Avaliação política editável na ficha — a fila de triagem precisava de saída. */
+.avaliacao-bloco { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: var(--gutter); margin-bottom: var(--gutter); }
+.avaliacao-bloco h2 { margin-bottom: 4px; }
+.avaliacao-bloco .section-description { margin: 0; }
+.avaliacao-opcoes { display: flex; flex-wrap: wrap; gap: 8px; }
+.avaliacao-opcoes button { padding: 5px; background: none; border: 1px solid transparent; border-radius: 999px; transition: all 180ms ease-in-out; }
+.avaliacao-opcoes button:hover { border-color: var(--linha-forte); }
+.avaliacao-opcoes button.ativo { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--anel-foco); }
+@media (max-width: 820px) { .avaliacao-bloco { grid-template-columns: 1fr; } }
+
+/* ── Agenda unificada ─────────────────────────────────────────────────────────
+   Uma cor por tipo de compromisso, usada em todas as cinco visões: chip de filtro,
+   marca na listagem, evento no calendário e barra do ano. Se o tipo mudar de cor
+   num lugar só, a leitura entre visões quebra. */
+.tipo-viagem   { --cor-tipo: #0ea5e9; }
+.tipo-visita   { --cor-tipo: #15803d; }
+.tipo-reuniao  { --cor-tipo: #8b5cf6; }
+.tipo-entrevista { --cor-tipo: #b45309; }
+:root[data-theme='dark'] .tipo-viagem { --cor-tipo: #38bdf8; }
+:root[data-theme='dark'] .tipo-visita { --cor-tipo: #4ade80; }
+:root[data-theme='dark'] .tipo-reuniao { --cor-tipo: #a78bfa; }
+:root[data-theme='dark'] .tipo-entrevista { --cor-tipo: #fbbf24; }
+
+.agenda-controles { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: var(--gutter); }
+.agenda-controles .segmented { flex-wrap: wrap; }
+.agenda-controles select, .agenda-controles input[type="date"] { margin-left: auto; }
+.filtros-tipo { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-tipo { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; color: var(--muted); background: var(--superficie-2); border: 1px solid var(--linha); border-radius: 999px; font-size: 13px; font-weight: 500; transition: all 180ms ease-in-out; }
+.chip-tipo::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--cor-tipo, var(--linha-forte)); }
+.chip-tipo:hover { border-color: var(--linha-forte); }
+.chip-tipo.ativo { color: var(--texto-forte); border-color: var(--cor-tipo, var(--cyan)); background: var(--superficie-3); }
+.marca-tipo { display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--cor-tipo, var(--linha-forte)); }
+
+/* Visão de dia: a hora à esquerda é a âncora de leitura. */
+.dia-linha button { width: 100%; display: grid; grid-template-columns: 54px 8px minmax(0,1fr) auto auto 16px; align-items: center; gap: 12px; padding: 14px 0; text-align: left; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--linha-suave); }
+.dia-linha button:hover { color: var(--blue); }
+.dia-linha time { color: var(--texto-forte); font-size: 14px; font-weight: 700; }
+.dia-linha strong { display: block; font-size: 14px; }
+.dia-linha small { margin-top: 3px; }
+
+/* No calendário o evento é botão: cada compromisso abre o próprio detalhe. */
+.calendar-cell .event { display: block; width: 100%; margin-top: 5px; padding: 6px 7px; text-align: left; color: var(--texto); background: var(--superficie-3); border: 0; border-left: 3px solid var(--cor-tipo, var(--linha-forte)); border-radius: 4px; font-size: 11px; }
+.calendar-cell .event:hover { background: var(--ciano-suave); }
+.calendar-cell .event b { display: block; margin-bottom: 2px; color: var(--muted); font-size: 10px; }
+
+.ano-barras { display: flex; gap: 3px; height: 6px; margin-top: 8px; }
+.ano-barras i { display: block; border-radius: 3px; background: var(--cor-tipo, var(--linha-forte)); }
+.year-grid button { transition: all 180ms ease-in-out; }
+.year-grid button:hover { border-color: var(--cyan); }
+
+.rotulo-bloco { margin-bottom: 8px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.pauta-lista { margin: 0; padding-left: 20px; color: var(--texto); font-size: 14px; }
+.pauta-lista li { padding: 3px 0; }
+
+@media (max-width: 820px) {
+  .agenda-controles select, .agenda-controles input[type="date"] { margin-left: 0; }
+  .dia-linha button { grid-template-columns: 54px 8px 1fr auto; }
+}
+
+/* Formulário de equipe: o rótulo auxiliar existe para separar cargo de permissão. */
+.ajuda-campo { margin-left: 6px; color: var(--muted-2); font-size: 11px; font-weight: 500; text-transform: none; letter-spacing: 0; }
+.descricao-perfil { margin-top: 6px; font-size: 12px; }
+.modal-form .toggle-row { padding: 12px 0; }
+
+/* Simulador de perfil — mostra a ocultação por permissão sem precisar de outra conta. */
+.perfil-grid { display: grid; gap: 10px; }
+.perfil-opcao { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px; text-align: left; color: inherit; transition: all 180ms ease-in-out; }
+.perfil-opcao:hover { border-color: var(--linha-forte); }
+.perfil-opcao.ativo { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--anel-foco); }
+.perfil-opcao strong { display: block; font-size: 14px; }
+.perfil-opcao small { margin-top: 3px; }
