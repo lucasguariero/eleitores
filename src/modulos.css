@@ -18,7 +18,6 @@
 .faixa-datas > svg { color: var(--muted); flex: 0 0 auto; }
 /* Sem tab lateral: a borda violeta de 4px é reservada ao que é derivado/inteligência
    (insight e resposta de cruzamento). Usá-la aqui esvaziaria o significado dela. */
-<<<<<<< HEAD
 
 /* Inteligência - cards de insight */
 .insights-list { display: grid; gap: 16px; }
@@ -28,8 +27,6 @@
 .insight-content p { font-size: 14px; color: var(--muted); margin: 0; }
 .insight-actions { display: flex; align-items: center; gap: 12px; }
 .insight-actions .primary-button { white-space: nowrap; }
-=======
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 .faixa-datas.tem { background: linear-gradient(100deg, #fff 60%, rgba(139,92,246,.05)); }
 .faixa-datas.tem > svg { color: var(--violet); }
 .faixa-datas > div { flex: 1; }
@@ -47,7 +44,6 @@
 .mudou-grid strong { display: block; margin-bottom: 4px; color: var(--texto-forte); font-size: 26px; font-weight: 700; }
 
 /* Municípios */
-<<<<<<< HEAD
 .divisoes-grid, .municipios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-top: var(--gutter); }
 .toolbar-card { margin-bottom: var(--gutter); }
 .filter-row { margin-bottom: 12px; }
@@ -67,9 +63,6 @@
 .barra-votos i.vencedor { background: var(--green); }
 .hero-actions .active { color: #f59e0b; }
 .profile-hero h1 .pill { margin-left: 10px; vertical-align: middle; font-size: 12px; padding: 5px 10px; line-height: 1; }
-=======
-.divisoes-grid, .municipios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 .divisao-num { display: grid; place-items: center; width: 28px; height: 28px; margin-bottom: 10px; color: white; background: var(--superficie-inversa); border-radius: 999px; font-size: 12px; font-weight: 700; }
 .divisao-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; }
 .divisao-nums strong { display: block; margin-top: 3px; font-size: 15px; }
@@ -80,12 +73,9 @@
 .municipio-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .municipio-nums strong { display: block; margin-top: 3px; font-size: 15px; }
 
-<<<<<<< HEAD
 /* Mesorregiões - usa mesmo estilo de cards de município */
 .meso-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-top: var(--gutter); }
 
-=======
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 /* Completude e pendências — o padrão que substitui a parede de "não informado". */
 .faixa-completude { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; margin-bottom: var(--gutter); padding: 16px var(--gutter); }
 .faixa-completude strong { display: block; margin-top: 2px; color: var(--texto-forte); font-size: 22px; font-weight: 700; }
@@ -128,7 +118,6 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 
 /* Aniversários */
 .aniversarios-lista { display: grid; gap: 12px; }
-<<<<<<< HEAD
 .aniversarios-lista .card { display: flex; gap: 20px; align-items: center; }
 .dia-selo { flex-shrink: 0; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; color: white; background: var(--superficie-inversa); border-radius: var(--radius); font-size: 12px; font-weight: 700; align-self: center; }
 .dia-eventos { flex: 1; display: flex; flex-direction: column; justify-content: center; }
@@ -137,14 +126,6 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 .dia-eventos > div:last-child { border-bottom: 0; padding-bottom: 0; }
 .dia-eventos strong { display: block; font-size: 15px; }
 .dia-eventos small { margin-top: 3px; font-size: 14px; color: var(--texto); }
-=======
-.aniversarios-lista .card { display: grid; grid-template-columns: 84px 1fr; gap: 20px; align-items: start; }
-.dia-selo { display: grid; place-items: center; padding: 10px; color: white; background: var(--superficie-inversa); border-radius: var(--radius); font-size: 13px; font-weight: 700; }
-.dia-eventos > div { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--linha-suave); }
-.dia-eventos > div:last-child { border-bottom: 0; padding-bottom: 0; }
-.dia-eventos strong { display: block; font-size: 14px; }
-.dia-eventos small { margin-top: 3px; }
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 
 /* Reuniões — o valor está no encaminhamento, não no evento. */
 .encaminhamentos > div { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--linha-suave); }
@@ -163,13 +144,9 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 .cruzamento-caixa > svg { color: var(--violet); flex: 0 0 auto; }
 .cruzamento-caixa form { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .cruzamento-caixa input { flex: 1; min-width: 0; height: 42px; padding: 0 14px; }
-<<<<<<< HEAD
 .sugestoes-wrap { margin-bottom: var(--gutter); }
 .sugestoes-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
 .sugestoes-row { display: flex; flex-wrap: wrap; gap: 8px; }
-=======
-.sugestoes-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--gutter); }
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 .sugestao { padding: 8px 14px; color: var(--muted); background: var(--superficie-2); border: 1px solid var(--line); border-radius: 999px; font-size: 13px; transition: all 180ms ease-in-out; }
 .sugestao:hover { color: var(--navy); border-color: var(--violet); background: var(--violeta-suave); }
 .resposta-card { border-left: 4px solid var(--violet); }
@@ -180,12 +157,8 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 .procedencia p { margin: 0; font-size: 13px; }
 
 /* Exportações */
-<<<<<<< HEAD
 .obrigatorio { display: inline; color: #b45309; font-size: 11px; font-weight: 600; text-transform: none; margin-right: 4px; }
 .registros-count { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
-=======
-.obrigatorio { color: #b45309; font-size: 11px; font-weight: 600; text-transform: none; }
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 .proc { display: grid; gap: 6px; min-width: 110px; }
 
 /* Planos e módulos — a tela que faz disto um produto. */

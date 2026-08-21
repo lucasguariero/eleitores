@@ -211,10 +211,7 @@ textarea { min-height: 88px; padding: 10px; resize: vertical; }
 .primary-button, .secondary-button, .filter-button, .text-button, .back-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 0 16px; border-radius: var(--radius); font-size:14px; font-weight: 500; transition: all 180ms ease-in-out; }
 .primary-button { color: var(--texto-sobre-primario); background: var(--navy); border: 1px solid var(--navy); box-shadow: var(--shadow); }
 .primary-button:hover { color: var(--texto-sobre-primario); background: var(--navy-light); border-color: var(--navy-light); box-shadow: 0 4px 10px rgba(15,23,42,.16); }
-<<<<<<< HEAD
 .primary-button:disabled { opacity: 0.5; cursor: not-allowed; }
-=======
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 .secondary-button, .filter-button { color: var(--muted); background: var(--superficie-2); border: 1px solid var(--line); box-shadow: var(--shadow); }
 .secondary-button:hover, .filter-button:hover { border-color: var(--linha-forte); background: var(--superficie-3); }
 .text-button, .back-button { min-height: auto; padding: 4px; color: var(--blue); background: transparent; border: 0; box-shadow: none; }
@@ -240,10 +237,7 @@ textarea { min-height: 88px; padding: 10px; resize: vertical; }
 
 .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); margin-bottom: var(--gutter); }
 .metrics-grid.three { grid-template-columns: repeat(3, 1fr); }
-<<<<<<< HEAD
 .metrics-grid.five { grid-template-columns: repeat(5, 1fr); }
-=======
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 /* Stitch: rótulo em label-md, número grande, ícone à direita. */
 .metric-card { display: flex; align-items: flex-start; flex-direction: row-reverse; justify-content: space-between; gap: 13px; padding: 20px; color: inherit; text-align: left; background: var(--superficie-2); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); transition: all 180ms ease-in-out; }
 button.metric-card:hover { border-color: var(--linha-forte); box-shadow: 0 4px 10px rgba(15,23,42,.1); }
@@ -251,14 +245,10 @@ button.metric-card:hover { border-color: var(--linha-forte); box-shadow: 0 4px 1
 .metric-card > div { flex: 1; }
 .metric-card small { margin-bottom: 8px; color: var(--muted); font-size:12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
 .metric-card strong { display: block; margin-bottom: 6px; color: var(--texto-forte); font-size:32px; font-weight: 700; line-height: 1.1; letter-spacing: -.02em; }
-<<<<<<< HEAD
 .metric-delta { color: var(--muted); font-size:12px; font-weight: 500; }
 .metric-delta.delta-green { color: var(--green); }
 .metric-delta.delta-amber { color: var(--amber); }
 .metric-delta.delta-red { color: #dc2626; }
-=======
-.metric-delta { color: var(--green); font-size:12px; font-weight: 500; }
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gutter); margin-bottom: var(--gutter); }
 .dashboard-grid.equal { grid-template-columns: repeat(2, 1fr); }
 .span-2 { min-width: 0; }
@@ -563,11 +553,7 @@ input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--blue); }
 .subtabs button.active,.profile-tabs button.active { color:var(--blue); background:var(--superficie-2); box-shadow:0 2px 8px rgba(35,65,105,.09); }
 .domain-hero { position:relative; overflow:hidden; }
 .domain-hero::after { content:''; position:absolute; right:-35px; top:-48px; width:170px; height:170px; border:28px solid rgba(76,112,172,.08); border-radius:50%; pointer-events:none; }
-<<<<<<< HEAD
 .domain-hero.territory { border-left-color:#2f8a72; background:linear-gradient(110deg,var(--superficie-2) 65%,var(--superficie-3)); }
-=======
-.domain-hero.territory { border-left-color:#2f8a72; background:linear-gradient(110deg,#fff 65%,#edf8f4); }
->>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 .portrait-placeholder { display:grid; place-items:center; gap:5px; min-width:86px; min-height:100px; padding:10px; background:var(--superficie-3); border:1px solid var(--linha); border-radius:8px; }
 .portrait-placeholder small { font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
 .hero-actions { display:flex; gap:8px; z-index:1; }

@@ -1,13 +1,17 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import {
-  Activity, AlertTriangle, ArrowLeft, ArrowRight, Bell, BriefcaseBusiness, Building2,
+  Activity, AlertTriangle, ArrowRight, Bell, BriefcaseBusiness, Building2,
   CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight,
   CircleHelp, Database, Download, FileText, Filter, Grid3X3,
   Handshake, Info, Layers3, LayoutDashboard, List, LockKeyhole, LogOut, Map,
   MapPin, Megaphone, Menu, MessageCircle, MoreHorizontal, Plus,
   RefreshCw, Search, Settings, Shield, ShieldCheck, SlidersHorizontal, Sparkles,
   Target, TrendingUp, UserCog, UsersRound, X, Link2, History,
+<<<<<<< HEAD
   Vote, BookOpenCheck, Home, Cake, Workflow, Receipt, Route, Lock, Sigma, Paperclip, Palette, Sun, Moon, Monitor, Star,
+=======
+  Vote, BookOpenCheck, Home, Cake, Workflow, Receipt, Route, Lock, Sigma, Paperclip, Palette, Sun, Moon, Monitor,
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   type LucideIcon,
 } from 'lucide-react'
 import { campaigns, electoralPeople, linkQueue, monthCells, priorityColors, relationships, team, territories, users, weekdays, type ElectoralPerson } from './data'
@@ -28,7 +32,11 @@ const useTema = () => useContext(TemaCtx)
 
 /** Ícone por módulo. Mora aqui porque produto.ts é configuração e não deve importar UI. */
 const iconesModulo: Record<string, LucideIcon> = {
+<<<<<<< HEAD
   'bem-vindo': Home, painel: LayoutDashboard, municipios: Building2, mesorregioes: Layers3, territorios: Map, eleicoes: Vote,
+=======
+  'bem-vindo': Home, painel: LayoutDashboard, municipios: Building2, territorios: Map, eleicoes: Vote,
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   'quadro-eleitoral': UsersRound, campanhas: Megaphone, agenda: CalendarDays, reunioes: Handshake,
   aniversarios: Cake, inteligencia: Sparkles, cruzamento: Workflow, relatorios: FileText,
   exportacoes: Download, prestacao: Receipt, 'base-nacional': Database, equipe: BriefcaseBusiness,
@@ -82,8 +90,13 @@ function PageHeader({ eyebrow, title, description, actions }: { eyebrow?: string
   )
 }
 
+<<<<<<< HEAD
 function Metric({ label, value, delta, icon: Icon, onClick, tone }: { label: string; value: string; delta: string; icon: LucideIcon; onClick?: () => void; tone?: 'green' | 'amber' | 'red' }) {
   const body = <><span className="metric-icon"><Icon size={18} /></span><div><small>{label}</small><strong>{value}</strong><span className={`metric-delta ${tone ? `delta-${tone}` : ''}`}>{delta}</span></div></>
+=======
+function Metric({ label, value, delta, icon: Icon, onClick }: { label: string; value: string; delta: string; icon: LucideIcon; onClick?: () => void }) {
+  const body = <><span className="metric-icon"><Icon size={18} /></span><div><small>{label}</small><strong>{value}</strong><span className="metric-delta">{delta}</span></div></>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   return onClick ? <button className="metric-card" onClick={onClick}>{body}</button> : <article className="metric-card">{body}</article>
 }
 
@@ -118,7 +131,11 @@ function Dashboard({ navigate }: { navigate: Navigate }) {
   const fracos = [...municipios].sort((a, b) => a.completude - b.completude).slice(0, 4)
   const dossieCompleto = municipios.filter(m => m.completude >= 80).length
   return <>
+<<<<<<< HEAD
     <PageHeader eyebrow="Análise" title="Painel Executivo" description="O que a base já diz — e onde ela ainda não foi olhada. Dados simulados e explicáveis." actions={<select aria-label="Período" value={period} onChange={e => setPeriod(e.target.value)}><option>Últimos 30 dias</option><option>Trimestre atual</option><option>Ciclo eleitoral</option></select>} />
+=======
+    <PageHeader eyebrow="Visão consolidada" title="Painel Executivo" description="O que a base já diz — e onde ela ainda não foi olhada. Dados simulados e explicáveis." actions={<select aria-label="Período" value={period} onChange={e => setPeriod(e.target.value)}><option>Últimos 30 dias</option><option>Trimestre atual</option><option>Ciclo eleitoral</option></select>} />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <div className="metrics-grid">
       <Metric label="Candidatos no quadro" value={electoralPeople.length.toLocaleString('pt-BR')} delta="+38 neste ciclo" icon={UsersRound} onClick={() => navigate('quadro-eleitoral')} />
       <Metric label="Municípios com dossiê" value={`${dossieCompleto}/${municipios.length}`} delta="acima de 80% dos campos" icon={Building2} onClick={() => navigate('municipios')} />
@@ -179,7 +196,11 @@ function ElectoralBoard({ navigate, route }: { navigate: Navigate; route: string
     if (!pessoa) return <EmptyState title="Candidato não encontrado" text={`Nenhum registro com o identificador ${profileId}. O link pode estar velho, ou o registro foi inativado.`} action={<button className="primary-button" onClick={() => navigate('quadro-eleitoral')}>Voltar à lista</button>} />
     return <ElectoralProfileExpanded person={pessoa} navigate={navigate} /> }
   return <>
+<<<<<<< HEAD
     <PageHeader eyebrow="Análise" title="Quadro Eleitoral" description="Quem concorreu ou concorre a eleição, atual e do passado. Candidatura e desempenho vêm do TSE; a avaliação política é da equipe." actions={<><button className="secondary-button"><Download size={16} /> Exportar visão</button><button className="primary-button" onClick={() => document.getElementById('busca-pessoa')?.focus()}><Search size={16} /> Localizar pessoa</button></>} />
+=======
+    <PageHeader eyebrow="Relacionamento" title="Quadro Eleitoral" description="Quem concorreu ou concorre a eleição, atual e do passado. Candidatura e desempenho vêm do TSE; a avaliação política é da equipe." actions={<><button className="secondary-button"><Download size={16} /> Exportar visão</button><button className="primary-button" onClick={() => document.getElementById('busca-pessoa')?.focus()}><Search size={16} /> Localizar pessoa</button></>} />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <div className="carteira-faixa">{tenant.escalaStatus.filter(s => s.tom !== 'pendente').map(s => { const n = electoralPeople.filter(p => statusDe(p.id) === s.valor).length; return <button key={s.valor} className={`card carteira-item ${status === s.valor ? 'ativo' : ''}`} onClick={() => { setStatus(status === s.valor ? 'Todos' : s.valor); setPage(1) }}><small>{s.valor}</small><strong>{n}</strong><Pill tone={tomStatus[s.valor] || 'neutral'}>{Math.round(n / electoralPeople.length * 100)}%</Pill></button> })}
       <button className={`card carteira-pendencia ${status === 'Não avaliado' ? 'ativo' : ''}`} onClick={() => { setStatus(status === 'Não avaliado' ? 'Todos' : 'Não avaliado'); setPage(1) }}><AlertTriangle size={17} /><div><strong>{semAvaliacao} sem avaliação</strong><small>lacuna, não é posição — fica fora da distribuição</small></div><ArrowRight size={15} /></button>
     </div>
@@ -203,7 +224,11 @@ function Territories({ navigate }: { navigate: Navigate }) {
   const selected = territories.find(item => item.id === selectedId) || territories[0]
   const shown = territories.filter(item => priority === 'Todas' || item.priority === priority)
   return <>
+<<<<<<< HEAD
     <PageHeader eyebrow="Análise" title="Territórios" description="Explore cobertura, potencial e oportunidades. O mapa filtra e atualiza a leitura ao lado." actions={<button className="primary-button"><Plus size={16} /> Criar agrupamento</button>} />
+=======
+    <PageHeader eyebrow="Inteligência territorial" title="Territórios" description="Explore cobertura, potencial e oportunidades. O mapa filtra e atualiza a leitura ao lado." actions={<button className="primary-button"><Plus size={16} /> Criar agrupamento</button>} />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <section className="card map-toolbar"><div><label>Prioridade<select value={priority} onChange={e => setPriority(e.target.value)}><option>Todas</option><option>Alta</option><option>Média</option><option>Estável</option></select></label><label>Camada<select><option>Cobertura política</option><option>Potencial eleitoral</option><option>Relacionamentos</option></select></label></div><div className="legend"><span><i className="legend-high" /> Prioridade alta</span><span><i className="legend-medium" /> Prioridade média</span><span><i className="legend-stable" /> Estável</span></div></section>
     <div className="territory-layout">
       <section className="card map-card"><div className="map-title"><div><span className="eyebrow">Mapa abstrato</span><h2>Recorte territorial contratado</h2></div><Pill tone="blue">Interativo</Pill></div><svg className="territory-map" viewBox="20 0 490 320" role="img" aria-label="Mapa abstrato dos territórios fictícios">{territories.map(item => <path key={item.id} d={item.path} fill={priority !== 'Todas' && item.priority !== priority ? '#DDE5EF' : priorityColors[item.priority]} className={selectedId === item.id ? 'selected' : ''} onClick={() => setSelectedId(item.id)} onKeyDown={event => (event.key === 'Enter' || event.key === ' ') && setSelectedId(item.id)} tabIndex={0} role="button" aria-label={`${item.name}, prioridade ${item.priority}`} />)}</svg><p className="map-hint"><MapPin size={15} /> Selecione uma região para atualizar indicadores e oportunidades.</p></section>
@@ -228,6 +253,7 @@ function Intelligence({ navigate }: { navigate: Navigate }) {
   const [dismissed, setDismissed] = useState<number[]>([])
   const insights = [
     { title: 'Campos do Norte precisa de agenda coordenada', text: 'É o maior território sem campanha ativa e reúne 18% dos candidatos sem contato recente.', level: 'Alta', action: 'Planejar agenda', route: 'territorios' },
+<<<<<<< HEAD
     { title: 'A cobertura avançou onde houve recorrência', text: 'Regiões com ao menos duas visitas mensais cresceram 11 pontos no índice de relacionamento.', level: 'Oportunidade', action: 'Ver histórico', route: 'reunioes' },
     { title: 'Três perfis ganharam tração eleitoral', text: 'A evolução simulada de votação e presença territorial indica prioridade de acompanhamento.', level: 'Sinal', action: 'Abrir quadro eleitoral', route: 'quadro-eleitoral' },
   ]
@@ -235,6 +261,15 @@ function Intelligence({ navigate }: { navigate: Navigate }) {
     <PageHeader eyebrow="Análise" title="Inteligência" description="Insights em linguagem simples, com evidências simuladas e próximo passo sugerido." actions={<button className="secondary-button"><RefreshCw size={16} /> Atualizar leitura</button>} />
     <section className="intelligence-intro"><div><Sparkles size={24} /><div><span className="eyebrow">Resumo executivo</span><h2>A operação avança, mas a cobertura está concentrada</h2><p>As ações recentes aumentaram o relacionamento em quatro territórios. Campos do Norte e Serra Clara ainda pedem uma agenda mais consistente.</p></div></div><span>Gerado a partir de 6 camadas fictícias</span></section>
     <div className="insights-list">{insights.map((insight, index) => dismissed.includes(index) ? null : <article className="card insight-card" key={insight.title}><button className="icon-button insight-info" aria-label="Mais informações"><Info size={17} /></button><div className="insight-content"><div className="pill-row"><Pill tone={insight.level === 'Alta' ? 'amber' : 'blue'}>{insight.level}</Pill><span className="evidence"><Layers3 size={14} /> 3 evidências relacionadas</span></div><h2>{insight.title}</h2><p>{insight.text}</p></div><div className="insight-actions"><button className="text-button" onClick={() => setDismissed(items => [...items, index])}>Dispensar</button><button className="primary-button" onClick={() => navigate(insight.route)}>{insight.action} <ArrowRight size={16} /></button></div></article>)}</div>
+=======
+    { title: 'A cobertura avançou onde houve recorrência', text: 'Regiões com ao menos duas visitas mensais cresceram 11 pontos no índice de relacionamento.', level: 'Oportunidade', action: 'Ver histórico', route: 'relacionamento' },
+    { title: 'Três perfis ganharam tração eleitoral', text: 'A evolução simulada de votação e presença territorial indica prioridade de acompanhamento.', level: 'Sinal', action: 'Abrir quadro eleitoral', route: 'quadro-eleitoral' },
+  ]
+  return <>
+    <PageHeader eyebrow="Leitura orientada à ação" title="Inteligência" description="Insights em linguagem simples, com evidências simuladas e próximo passo sugerido." actions={<button className="secondary-button"><RefreshCw size={16} /> Atualizar leitura</button>} />
+    <section className="intelligence-intro"><div><Sparkles size={24} /><div><span className="eyebrow">Resumo executivo</span><h2>A operação avança, mas a cobertura está concentrada</h2><p>As ações recentes aumentaram o relacionamento em quatro territórios. Campos do Norte e Serra Clara ainda pedem uma agenda mais consistente.</p></div></div><span>Gerado a partir de 6 camadas fictícias</span></section>
+    <div className="insights-list">{insights.map((insight, index) => dismissed.includes(index) ? null : <article className="card insight-card" key={insight.title}><div className="insight-rank">0{index + 1}</div><div><div className="pill-row"><Pill tone={insight.level === 'Alta' ? 'amber' : 'blue'}>{insight.level}</Pill><span className="evidence"><Layers3 size={14} /> 3 evidências relacionadas</span></div><h2>{insight.title}</h2><p>{insight.text}</p><div className="insight-actions"><button className="primary-button" onClick={() => navigate(insight.route)}>{insight.action} <ArrowRight size={16} /></button><button className="text-button" onClick={() => setDismissed(items => [...items, index])}>Dispensar por agora</button></div></div><button className="icon-button" aria-label="Mais informações"><Info size={17} /></button></article>)}</div>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     {dismissed.length === insights.length && <EmptyState title="Leitura concluída" text="Você revisou todos os insights desta rodada." action={<button className="primary-button" onClick={() => setDismissed([])}>Restaurar recomendações</button>} />}
     <section className="card method-card"><div><ShieldCheck size={20} /><div><strong>Como esta recomendação foi formada</strong><p>O protótipo cruza apenas dados fictícios de território, desempenho, agenda e relacionamento. Não há modelo externo nem decisão automática.</p></div></div><button className="text-button">Ver critérios <ChevronRight size={15} /></button></section>
   </>
@@ -243,6 +278,7 @@ function Intelligence({ navigate }: { navigate: Navigate }) {
 function Team() {
   const [novo, setNovo] = useState(false)
   const [criado, setCriado] = useState<string | null>(null)
+<<<<<<< HEAD
   const [ordem, setOrdem] = useState<'nome' | 'vinculo' | 'cargo' | 'area' | 'perfil' | 'status'>('nome')
   const [direcao, setDirecao] = useState<'asc' | 'desc'>('asc')
   const lista = [...team].sort((a, b) => {
@@ -260,6 +296,18 @@ function Team() {
     <div className="metrics-grid three"><Metric label="Integrantes" value={String(team.length)} delta="ativos no ciclo" icon={UsersRound} /><Metric label="Com acesso ao sistema" value={String(team.filter(p => p.hasAccess).length)} delta="contas habilitadas" icon={ShieldCheck} /><Metric label="Sem acesso" value={String(team.filter(p => !p.hasAccess).length)} delta="trabalham sem conta" icon={Lock} /></div>
 
     <div className="table-card"><table><thead><tr><th onClick={() => ordena('nome')} style={{cursor:'pointer'}}>Pessoa {ordem === 'nome' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('vinculo')} style={{cursor:'pointer'}}>Vínculo {ordem === 'vinculo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('cargo')} style={{cursor:'pointer'}}>Cargo no grupo {ordem === 'cargo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('area')} style={{cursor:'pointer'}}>Área {ordem === 'area' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('perfil')} style={{cursor:'pointer'}}>Perfil de acesso {ordem === 'perfil' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('status')} style={{cursor:'pointer'}}>Situação {ordem === 'status' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th></tr></thead><tbody>{lista.map(pessoa => <tr key={pessoa.name}>
+=======
+  const [form, setForm] = useState({ nome: '', email: '', vinculo: vinculosEquipe[0], cargo: cargosEquipe[0], area: 'Articulação', perfil: 'coordenacao', acesso: true })
+  const criar = (e: { preventDefault: () => void }) => { e.preventDefault(); setCriado(form.nome || 'Novo integrante'); setNovo(false); setTimeout(() => setCriado(null), 2600) }
+  return <>
+    <PageHeader eyebrow="Administração" title="Equipe" description="Quem trabalha no grupo político. O cargo diz o que a pessoa faz; o acesso ao sistema é decidido logo abaixo, e são coisas independentes." actions={<>{criado && <span className="confirmacao"><Check size={15} /> {criado} cadastrado</span>}<button className="primary-button" onClick={() => setNovo(true)}><Plus size={16} /> Cadastrar pessoa</button></>} />
+
+    <div className="domain-note"><Info size={18} /><div><strong>Cargo e perfil de acesso são campos diferentes, de propósito.</strong><p>Cargo é o que a pessoa faz no grupo — “Analista territorial”. Perfil é o que ela pode fazer no sistema — “Leitura executiva”. Amarrar um ao outro impediria dois analistas de terem permissões diferentes, que é o caso comum quando um é sênior e o outro entrou ontem.</p></div></div>
+
+    <div className="metrics-grid three"><Metric label="Integrantes" value={String(team.length)} delta="ativos no ciclo" icon={UsersRound} /><Metric label="Com acesso ao sistema" value={String(team.filter(p => p.hasAccess).length)} delta="contas habilitadas" icon={ShieldCheck} /><Metric label="Sem acesso" value={String(team.filter(p => !p.hasAccess).length)} delta="trabalham sem conta" icon={Lock} /></div>
+
+    <div className="table-card"><table><thead><tr><th>Pessoa</th><th>Vínculo</th><th>Cargo no grupo</th><th>Área</th><th>Perfil de acesso</th><th>Situação</th></tr></thead><tbody>{team.map(pessoa => <tr key={pessoa.name}>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
       <td><div className="person-cell"><Avatar initials={pessoa.initials} /><div><strong>{pessoa.name}</strong><small>{pessoa.area}</small></div></div></td>
       <td>{pessoa.bond}</td>
       <td><strong>{pessoa.role}</strong><small>o que faz no grupo</small></td>
@@ -291,6 +339,7 @@ function Team() {
 function UsersAccess() {
   const [permissions, setPermissions] = useState(false)
   const [status, setStatus] = useState('Todos os status')
+<<<<<<< HEAD
   const [ordem, setOrdem] = useState<'nome' | 'perfil' | 'escopo' | 'status' | 'acesso'>('nome')
   const [direcao, setDirecao] = useState<'asc' | 'desc'>('asc')
   const shown = users.filter(user => status === 'Todos os status' || user.status === status).sort((a, b) => {
@@ -298,6 +347,9 @@ function UsersAccess() {
     return direcao === 'asc' ? cmp : -cmp
   })
   const ordena = (col: 'nome' | 'perfil' | 'escopo' | 'status' | 'acesso') => { setOrdem(col); setDirecao(d => d === 'asc' ? 'desc' : 'asc') }
+=======
+  const shown = users.filter(user => status === 'Todos os status' || user.status === status)
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   // Guarda o nível escolhido, não um booleano: o select tem três opções e derivar
   // "Editor" de um true fazia a escolha do usuário voltar sozinha para "Leitor".
   const [levels, setLevels] = useState<Record<string, string>>({ painel: 'Leitor', 'quadro-eleitoral': 'Leitor', territorios: 'Leitor', campanhas: 'Sem acesso', relacionamento: 'Editor', inteligencia: 'Leitor', base: 'Sem acesso', administrar: 'Sem acesso' })
@@ -305,8 +357,13 @@ function UsersAccess() {
     <PageHeader eyebrow="Administração" title="Usuários e Acessos" description="Contas, e-mails, perfis, permissões, status e último acesso — um domínio próprio." actions={<button className="primary-button"><Plus size={16} /> Convidar usuário</button>} />
     <div className="domain-note"><LockKeyhole size={20} /><div><strong>Conta de acesso não é vínculo de equipe nem perfil eleitoral.</strong><p>Uma pessoa pode existir em mais de um domínio técnico, mas cada experiência tem finalidade e regras independentes.</p></div></div>
     <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input placeholder="Buscar por nome ou e-mail" /></div><select value={status} onChange={e => setStatus(e.target.value)}><option>Todos os status</option><option>Ativo</option><option>Convidado</option><option>Suspenso</option></select><button className="secondary-button" onClick={() => setPermissions(true)}><Shield size={16} /> Gerenciar perfis</button></section>
+<<<<<<< HEAD
     <div className="table-card"><table><thead><tr><th onClick={() => ordena('nome')} style={{cursor:'pointer'}}>Usuário {ordem === 'nome' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('perfil')} style={{cursor:'pointer'}}>Perfil de acesso {ordem === 'perfil' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('escopo')} style={{cursor:'pointer'}}>Escopo territorial {ordem === 'escopo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('status')} style={{cursor:'pointer'}}>Status {ordem === 'status' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('acesso')} style={{cursor:'pointer'}}>Último acesso {ordem === 'acesso' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{shown.map(user => <tr key={user.email}><td><strong>{user.name}</strong><small>{user.email}</small></td><td><Pill tone="blue">{user.profile}</Pill></td><td>{user.scope}</td><td><Pill tone={user.status === 'Ativo' ? 'green' : user.status === 'Convidado' ? 'blue' : 'red'}>{user.status}</Pill></td><td>{user.last}</td><td><button className="icon-button" aria-label="Mais ações"><MoreHorizontal size={17} /></button></td></tr>)}</tbody></table></div>
     <div style={{marginTop: '24px'}}><AuditPanel /></div>
+=======
+    <div className="table-card"><table><thead><tr><th>Usuário</th><th>Perfil de acesso</th><th>Escopo territorial</th><th>Status</th><th>Último acesso</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{shown.map(user => <tr key={user.email}><td><strong>{user.name}</strong><small>{user.email}</small></td><td><Pill tone="blue">{user.profile}</Pill></td><td>{user.scope}</td><td><Pill tone={user.status === 'Ativo' ? 'green' : user.status === 'Convidado' ? 'blue' : 'red'}>{user.status}</Pill></td><td>{user.last}</td><td><button className="icon-button" aria-label="Mais ações"><MoreHorizontal size={17} /></button></td></tr>)}</tbody></table></div>
+    <AuditPanel />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     {permissions && <Modal title="Perfil: Coordenação regional" description="Permissões por módulo distinguem leitura e edição. Cargo político nunca é usado como permissão." onClose={() => setPermissions(false)}><div className="permission-grid"><div><strong>Módulo</strong><strong>Nível</strong></div>{Object.entries(levels).map(([key, level]) => <label key={key}><span>{routeTitles[key] || key[0].toUpperCase() + key.slice(1)}</span><select value={level} aria-label={`Nível de acesso em ${routeTitles[key] || key}`} onChange={e => setLevels(current => ({ ...current, [key]: e.target.value }))}><option>Sem acesso</option><option>Leitor</option><option>Editor</option></select></label>)}</div><div className="modal-actions"><button className="secondary-button" onClick={() => setPermissions(false)}>Cancelar</button><button className="primary-button" onClick={() => setPermissions(false)}>Salvar permissões</button></div></Modal>}
   </>
 }
@@ -345,6 +402,7 @@ function ParametersValores({ navigate, abas }: { navigate: Navigate; abas: { lab
     <PageHeader eyebrow="Administração" title="Parametrizações" description="Regras, tipos, cargos, status, territórios, papéis, campos e valores configuráveis do produto." actions={<button className="secondary-button" onClick={() => navigate('configuracoes')}><Settings size={16} /> Configurações gerais</button>} />
     <SubTabs items={abas} active="parametrizacoes/valores" navigate={navigate} />
     <VocabularioStatus />
+<<<<<<< HEAD
     <div style={{marginTop: '24px'}} className="parameters-layout"><nav className="card parameter-nav" aria-label="Categorias de parametrização">{categories.map(category => { const Icon = category.icon; return <button className={selected.id === category.id ? 'active' : ''} key={category.id} onClick={() => setSelected(category)}><span><Icon size={18} /></span><div><strong>{category.title}</strong><small>{category.count} valores configurados</small></div><ChevronRight size={16} /></button> })}</nav><section className="card parameter-detail"><div className="card-heading"><div><span className="eyebrow">Categoria selecionada</span><h2>{selected.title}</h2></div><button className="primary-button" onClick={() => document.getElementById('new-parameter')?.focus()}><Plus size={16} /> Novo valor</button></div><p className="section-description">Valores usados de forma consistente nos cadastros e filtros. A estrutura do menu não é parametrizável.</p><div className="parameter-values">{currentValues.map((value, index) => <div key={value}><span className="drag-handle">⋮⋮</span><div><strong>{value}</strong><small>Código fictício: {selected.id.toUpperCase()}-{String(index + 1).padStart(2, '0')}</small></div><Pill tone="green">Ativo</Pill><button className="icon-button" aria-label="Mais ações"><MoreHorizontal size={17} /></button></div>)}</div><form className="inline-add" onSubmit={event => { event.preventDefault(); if (!newValue.trim()) return; setValues(current => ({ ...current, [selected.id]: [...currentValues, newValue.trim()] })); setNewValue('') }}><input id="new-parameter" value={newValue} onChange={e => setNewValue(e.target.value)} placeholder="Adicionar novo valor" /><button className="primary-button">Adicionar</button></form></section></div>
   </>
 }
@@ -363,6 +421,9 @@ function Historico({ navigate }: { navigate: Navigate }) {
     <PageHeader eyebrow="Relacionamento" title="Histórico" description="Registro de interações, visitas e contatos com candidatos e lideranças." actions={<><button className="secondary-button" onClick={() => navigate('painel')}><ArrowLeft size={16} /> Voltar</button><button className="secondary-button"><Download size={16} /> Exportar</button></>} />
     <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar por pessoa ou território" aria-label="Buscar" /></div><select value={filtroTipo} onChange={e => setFiltroTipo(e.target.value)}><option>Todos</option><option>Reunião</option><option>Visita</option><option>Contato</option></select></section>
     <div className="table-card"><table><thead><tr><th onClick={() => ordena('data')} style={{cursor:'pointer'}}>Data {ordem === 'data' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('tipo')} style={{cursor:'pointer'}}>Tipo {ordem === 'tipo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('pessoa')} style={{cursor:'pointer'}}>Pessoa {ordem === 'pessoa' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('territorio')} style={{cursor:'pointer'}}>Território {ordem === 'territorio' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th>Registrada por</th><th>Nota</th></tr></thead><tbody>{lista.map(r => <tr key={r.person + r.when}><td>{r.when}</td><td>{r.type}</td><td><strong>{r.person}</strong></td><td>{r.territory}</td><td>{r.by}</td><td><small>{r.note}</small></td></tr>)}</tbody></table></div>
+=======
+    <div className="parameters-layout"><nav className="card parameter-nav" aria-label="Categorias de parametrização">{categories.map(category => { const Icon = category.icon; return <button className={selected.id === category.id ? 'active' : ''} key={category.id} onClick={() => setSelected(category)}><span><Icon size={18} /></span><div><strong>{category.title}</strong><small>{category.count} valores configurados</small></div><ChevronRight size={16} /></button> })}</nav><section className="card parameter-detail"><div className="card-heading"><div><span className="eyebrow">Categoria selecionada</span><h2>{selected.title}</h2></div><button className="primary-button" onClick={() => document.getElementById('new-parameter')?.focus()}><Plus size={16} /> Novo valor</button></div><p className="section-description">Valores usados de forma consistente nos cadastros e filtros. A estrutura do menu não é parametrizável.</p><div className="parameter-values">{currentValues.map((value, index) => <div key={value}><span className="drag-handle">⋮⋮</span><div><strong>{value}</strong><small>Código fictício: {selected.id.toUpperCase()}-{String(index + 1).padStart(2, '0')}</small></div><Pill tone="green">Ativo</Pill><button className="icon-button" aria-label="Mais ações"><MoreHorizontal size={17} /></button></div>)}</div><form className="inline-add" onSubmit={event => { event.preventDefault(); if (!newValue.trim()) return; setValues(current => ({ ...current, [selected.id]: [...currentValues, newValue.trim()] })); setNewValue('') }}><input id="new-parameter" value={newValue} onChange={e => setNewValue(e.target.value)} placeholder="Adicionar novo valor" /><button className="primary-button">Adicionar</button></form></section></div>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   </>
 }
 
@@ -379,14 +440,22 @@ function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }
   ]
   const salvar = () => { setSalvo(true); setTimeout(() => setSalvo(false), 1800) }
   return <>
+<<<<<<< HEAD
     <PageHeader eyebrow="Configurações pessoais" title="Minha conta" description="Só o que afeta você neste dispositivo e nesta conta. O que vale para todo o ambiente — identidade, vocabulários, planos e retenção — mora em Administração → Parametrizações." actions={salvo ? <span className="confirmacao"><Check size={15} /> Alterações salvas</span> : undefined} />
+=======
+    <PageHeader eyebrow="Preferências pessoais" title="Minha conta" description="Só o que afeta você neste dispositivo e nesta conta. O que vale para todo o ambiente — identidade, vocabulários, planos e retenção — mora em Administração → Parametrizações." actions={salvo ? <span className="confirmacao"><Check size={15} /> Alterações salvas</span> : undefined} />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <div className="settings-layout">
       <nav className="card settings-nav" aria-label="Seções de configuração">{abas.map(a => { const Icone = a.icone; return <button key={a.id} className={aba === a.id ? 'active' : ''} onClick={() => navigate(`configuracoes/${a.id}`)}><Icone size={17} /> {a.label}</button> })}</nav>
       <section className="card settings-form">
 
         {aba === 'aparencia' && <>
           <div className="card-heading"><div><span className="eyebrow">Aparência</span><h2>Tema da interface</h2></div></div>
+<<<<<<< HEAD
           <p className="section-description">Três opções, não duas: "Seguir o sistema" respeita a preferência que você já declarou no seu computador, e muda junto com ele.</p>
+=======
+          <p className="section-description">Três opções, não duas: “Seguir o sistema” respeita a preferência que você já declarou no seu computador, e muda junto com ele.</p>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
           <div className="tema-grid" role="radiogroup" aria-label="Tema da interface">
             {([['sistema', 'Seguir o sistema', 'Acompanha o tema do seu computador'], ['claro', 'Claro', 'Fundo claro, ideal para sala iluminada'], ['escuro', 'Escuro', 'Menos cansativo em jornada longa']] as const).map(([id, titulo, texto]) =>
               <button key={id} role="radio" aria-checked={tema === id} className={`tema-opcao ${tema === id ? 'ativo' : ''}`} onClick={() => setTema(id)}>
@@ -517,12 +586,17 @@ function Reports({ route, navigate }: { route: string; navigate: Navigate }) {
   const tabs=[{label:'Visão geral',route:'relatorios/visao-geral'},{label:'Espelho comparativo',route:'relatorios/comparativo'},{label:'Consolidado',route:'relatorios/consolidado'}]
   const [candidate, setCandidate]=useState('Helena Prado Nunes')
   const [compare, setCompare]=useState(false)
+<<<<<<< HEAD
   return <><PageHeader eyebrow="Análise" title="Relatórios eleitorais" description="Leituras simuladas para comparar ciclos, candidaturas e desempenho municipal — sem gerar PDF real." actions={<button className="secondary-button"><Download size={16}/> Exportação demonstrativa</button>}/><SubTabs items={tabs} active={`relatorios/${view}`} navigate={navigate}/><section className="card report-filters"><select><option>Eleição fictícia 2026</option><option>Eleição fictícia 2024</option></select><select value={candidate} onChange={e=>setCandidate(e.target.value)}>{electoralPeople.slice(0,4).map(p=><option key={p.id}>{p.name}</option>)}</select><select><option>Todos os territórios</option>{territories.map(t=><option key={t.id}>{t.name}</option>)}</select><button className="filter-button"><Filter size={15}/> Aplicar</button></section>{view==='visao-geral'&&<><div className="metrics-grid"><Metric label="Votos consolidados" value="482.760" delta="+8,4% sobre o ciclo" icon={Vote}/><Metric label="Municípios líderes" value="18" delta="7 acima da meta" icon={MapPin}/><Metric label="Conversão estimada" value="71%" delta="faixa demonstrativa" icon={TrendingUp}/><Metric label="Alertas" value="4" delta="2 riscos críticos" icon={AlertTriangle}/></div><div className="dashboard-grid equal"><section className="card"><div className="card-heading"><div><span className="eyebrow">Evolução</span><h2>Curva de desempenho</h2></div><Pill tone="blue">{candidate.split(' ')[0]}</Pill></div><div className="line-chart"><svg viewBox="0 0 500 210"><polyline points="10,170 95,140 180,155 265,92 350,110 435,48 490,62"/><line x1="10" y1="185" x2="490" y2="185"/></svg></div></section><section className="card report-map"><div className="card-heading"><div><span className="eyebrow">Mapa de resultado</span><h2>Distribuição territorial</h2></div><label className="compare-switch"><input type="checkbox" checked={compare} onChange={e=>setCompare(e.target.checked)}/> Comparar</label></div><svg viewBox="0 0 520 320">{territories.map((t,i)=><path key={t.id} d={t.path} fill={compare?(i%2?'#8b5cf6':'#0ea5e9'):priorityColors[t.priority]} onClick={()=>navigate(`territorios/perfil/${t.id}`)}/>)}</svg><div className="map-caption">Clique em um território para abrir o detalhe municipal.</div></section></div></>}{view==='comparativo'&&<ComparisonReport navigate={navigate}/>} {view==='consolidado'&&<ConsolidatedReport navigate={navigate}/>}</>
+=======
+  return <><PageHeader eyebrow="Inteligência eleitoral" title="Relatórios eleitorais" description="Leituras simuladas para comparar ciclos, candidaturas e desempenho municipal — sem gerar PDF real." actions={<button className="secondary-button"><Download size={16}/> Exportação demonstrativa</button>}/><SubTabs items={tabs} active={`relatorios/${view}`} navigate={navigate}/><section className="card report-filters"><select><option>Eleição fictícia 2026</option><option>Eleição fictícia 2024</option></select><select value={candidate} onChange={e=>setCandidate(e.target.value)}>{electoralPeople.slice(0,4).map(p=><option key={p.id}>{p.name}</option>)}</select><select><option>Todos os territórios</option>{territories.map(t=><option key={t.id}>{t.name}</option>)}</select><button className="filter-button"><Filter size={15}/> Aplicar</button></section>{view==='visao-geral'&&<><div className="metrics-grid"><Metric label="Votos consolidados" value="482.760" delta="+8,4% sobre o ciclo" icon={Vote}/><Metric label="Municípios líderes" value="18" delta="7 acima da meta" icon={MapPin}/><Metric label="Conversão estimada" value="71%" delta="faixa demonstrativa" icon={TrendingUp}/><Metric label="Alertas" value="4" delta="2 riscos críticos" icon={AlertTriangle}/></div><div className="dashboard-grid equal"><section className="card"><div className="card-heading"><div><span className="eyebrow">Evolução</span><h2>Curva de desempenho</h2></div><Pill tone="blue">{candidate.split(' ')[0]}</Pill></div><div className="line-chart"><svg viewBox="0 0 500 210"><polyline points="10,170 95,140 180,155 265,92 350,110 435,48 490,62"/><line x1="10" y1="185" x2="490" y2="185"/></svg></div></section><section className="card report-map"><div className="card-heading"><div><span className="eyebrow">Mapa de resultado</span><h2>Distribuição territorial</h2></div><label className="compare-switch"><input type="checkbox" checked={compare} onChange={e=>setCompare(e.target.checked)}/> Comparar</label></div><svg viewBox="0 0 520 320">{territories.map((t,i)=><path key={t.id} d={t.path} fill={compare?(i%2?'#8b5cf6':'#0ea5e9'):priorityColors[t.priority]} onClick={()=>navigate(`territorios/perfil/${t.id}`)}/>)}</svg><div className="map-caption">Clique em um território para abrir o detalhe municipal.</div></section></div></>}{view==='comparativo'&&<ComparisonReport navigate={navigate}/>} {view==='consolidado'&&<ConsolidatedReport navigate={navigate}/>}</>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 }
 
 function ComparisonReport({navigate}:{navigate:Navigate}) { return <div className="comparison-grid">{electoralPeople.slice(0,3).map((p,i)=><section className={`card candidate-comparison c${i}`} key={p.id}><Avatar initials={p.initials} size="lg"/><h2>{p.name}</h2><p>{p.party} · {p.office}</p><strong className="big-number">{p.performance}</strong><Progress value={p.performance}/><dl><div><dt>Votos</dt><dd>{p.votes.toLocaleString('pt-BR')}</dd></div><div><dt>Municípios líderes</dt><dd>{14-i*3}</dd></div><div><dt>Crescimento</dt><dd>+{8-i*2},2%</dd></div></dl><button className="text-button" onClick={()=>navigate(`quadro-eleitoral/perfil/${p.id}`)}>Abrir perfil <ArrowRight size={14}/></button></section>)}</div> }
 function ConsolidatedReport({navigate}:{navigate:Navigate}) { return <section className="card"><div className="card-heading"><div><span className="eyebrow">Drill-down</span><h2>Desempenho municipal consolidado</h2></div><Pill tone="purple">63 municípios fictícios</Pill></div><div className="municipal-ranking">{territories.map((t,i)=><button key={t.id} onClick={()=>navigate(`territorios/perfil/${t.id}`)}><b>{i+1}</b><span><strong>{t.name}</strong><small>{t.electorate.toLocaleString('pt-BR')} eleitores simulados</small></span><Progress value={88-i*7}/><strong>{(88-i*7)}%</strong><ChevronRight size={16}/></button>)}</div></section> }
 
+<<<<<<< HEAD
 function NationalBaseHub({ navigate }: { navigate: Navigate }) {
   const [tab,setTab]=useState('cadastros'); const tabs=['cadastros','vinculos','eleicoes','territorios'];
   const [subRota, setSubRota] = useState('')
@@ -585,6 +659,13 @@ function NationalRecords({ navigate, modo }: { navigate: Navigate; modo?: 'lista
     </>
   }
   return <><div className="metrics-grid three"><Metric label="Pessoas curadas" value="2,8 mi" delta="volume fictício" icon={UsersRound}/><Metric label="Territórios" value="5.570" delta="catálogo demonstrativo" icon={Map}/><Metric label="Qualidade" value="98,7%" delta="regras simuladas" icon={ShieldCheck}/></div><section className="card"><div className="card-heading"><div><span className="eyebrow">Camadas permanentes</span><h2>Conjuntos curados</h2></div></div><div className="dataset-list">{conjuntos.map(x => <div key={x.id}><span className="dataset-icon"><Database size={17}/></span><div><strong>{x.nome}</strong><small>{x.descricao}</small></div><Pill tone={x.status === 'Atualizado' ? 'green' : 'amber'}>{x.status}</Pill><button className="icon-button" aria-label={`Abrir ${x.nome}`} onClick={() => window.location.hash = `base-nacional/${x.id}`}><ChevronRight size={16}/></button></div>)}</div></section></>}
+=======
+function NationalBaseHub() {
+  const [tab,setTab]=useState('cadastros'); const tabs=['cadastros','vinculos','eleicoes','territorios'];
+  return <><PageHeader eyebrow="Camada permanente TSE + IBGE" title="Base Nacional" description="Cadastros curados, vínculos de identidade, eleições, sincronizações e catálogo territorial — tudo simulado." actions={<button className="secondary-button"><RefreshCw size={16}/> Nova sincronização simulada</button>}/><div className="source-warning"><AlertTriangle size={18}/><div><strong>Ambiente demonstrativo</strong><p>Nenhum registro, arquivo ou serviço real está conectado.</p></div></div><div className="profile-tabs">{tabs.map(t=><button key={t} className={tab===t?'active':''} onClick={()=>setTab(t)}>{({cadastros:'Cadastros curados',vinculos:'Fila de vínculos',eleicoes:'Eleições e sincronizações',territorios:'Catálogo territorial'} as Record<string,string>)[t]}</button>)}</div>{tab==='cadastros'&&<NationalRecords/>}{tab==='vinculos'&&<LinkQueue/>}{tab==='eleicoes'&&<ElectionCatalog/>}{tab==='territorios'&&<TerritoryCatalog/>}</>
+}
+function NationalRecords(){return <><div className="metrics-grid three"><Metric label="Pessoas curadas" value="2,8 mi" delta="volume fictício" icon={UsersRound}/><Metric label="Territórios" value="5.570" delta="catálogo demonstrativo" icon={Map}/><Metric label="Qualidade" value="98,7%" delta="regras simuladas" icon={ShieldCheck}/></div><section className="card"><div className="card-heading"><div><span className="eyebrow">Camadas permanentes</span><h2>Conjuntos curados</h2></div></div><div className="dataset-list">{[['TSE','Candidaturas e resultados','Atualizado'],['IBGE','Malhas e indicadores','Atualizado'],['Curadoria interna','Identidades e exceções','18 pendências']].map(x=><div key={x[0]}><span className="dataset-icon"><Database size={17}/></span><div><strong>{x[0]}</strong><small>{x[1]}</small></div><Pill tone={x[2]==='Atualizado'?'green':'amber'}>{x[2]}</Pill><button className="icon-button" aria-label="Abrir conjunto"><ChevronRight size={16}/></button></div>)}</div></section></>}
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 function LinkQueue(){
   const [resolvidos,setResolvidos]=useState<Record<number,string>>({})
   const fila=linkQueue.filter(item=>!resolvidos[item.id])
@@ -627,9 +708,11 @@ function Municipios({ navigate }: { navigate: Navigate }) {
   const [divisao, setDivisao] = useState('Todas')
   const [busca, setBusca] = useState('')
   const [soFavoritos, setSoFavoritos] = useState(false)
+<<<<<<< HEAD
   const lista = municipios.filter(m => (divisao === 'Todas' || m.divisao === divisao) && m.nome.toLowerCase().includes(busca.toLowerCase()) && (!soFavoritos || m.favorito))
   const totalEleitores = municipios.reduce((soma, m) => soma + m.eleitores, 0)
   const consolidado = municipios.filter(m => m.completude >= 80).length
+  const parcial = municipios.filter(m => m.completude >= 40 && m.completude < 80).length
   const critico = municipios.filter(m => m.completude < 40).length
   return <>
     <PageHeader eyebrow="Análise" title="Municípios" description={`Dossiê por município: dados oficiais do IBGE e observações da equipe. ${tenant.divisaoTerritorial} é a divisão contratada.`} actions={<><button className="secondary-button"><RefreshCw size={16} /> Sincronizar IBGE</button><button className="primary-button"><Download size={16} /> Exportar</button></>} />
@@ -637,11 +720,24 @@ function Municipios({ navigate }: { navigate: Navigate }) {
       <Metric label="Municípios" value={String(municipios.length)} delta="recorte contratado" icon={Building2} />
       <Metric label="Eleitores" value={totalEleitores.toLocaleString('pt-BR')} delta="total no recorte" icon={UsersRound} />
       <Metric label="Dossiê consolidado" value={String(consolidado)} delta="acima de 80%" icon={Check} tone="green" />
-      <Metric label="Dossiê parcial" value={String(municipios.filter(m => m.completude >= 40 && m.completude < 80).length)} delta="entre 40% e 80%" icon={SlidersHorizontal} tone="amber" />
+      <Metric label="Dossiê parcial" value={String(parcial)} delta="entre 40% e 80%" icon={SlidersHorizontal} tone="amber" />
       <Metric label="Dossiê crítico" value={String(critico)} delta="abaixo de 40%" icon={AlertTriangle} onClick={() => setDivisao('Todas')} tone="red" />
     </div>
     <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar município" aria-label="Buscar município" /></div><select value={divisao} onChange={e => setDivisao(e.target.value)} aria-label={`Filtrar por ${tenant.divisaoTerritorial}`}><option>Todas</option>{divisoes.map(d => <option key={d.nome}>{d.nome}</option>)}</select><div className="segmented"><button className={!soFavoritos ? 'active' : ''} onClick={() => setSoFavoritos(false)}>Todos</button><button className={soFavoritos ? 'active' : ''} onClick={() => setSoFavoritos(true)}>Favoritos</button></div></section>
       {lista.length === 0 ? <EmptyState title="Nenhum município neste filtro" text="Ajuste a busca ou volte ao recorte completo." action={<button className="primary-button" onClick={() => { setBusca(''); setDivisao('Todas'); setSoFavoritos(false) }}>Limpar filtros</button>} /> : <div className="municipios-grid">{lista.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo} · {m.divisao}</small></div>{m.favorito && <Pill tone="amber">Favorito</Pill>}</div><div className="municipio-prefeito"><Avatar initials={m.prefeito.split(' ').slice(0, 2).map(n => n[0]).join('')} size="sm" /><span><strong>{m.prefeito}</strong><small>{m.partidoPrefeito}</small></span></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div>}
+=======
+  const [aba, setAba] = useState<'municipios' | 'divisoes'>('municipios')
+  const lista = municipios.filter(m => (divisao === 'Todas' || m.divisao === divisao) && m.nome.toLowerCase().includes(busca.toLowerCase()) && (!soFavoritos || m.favorito))
+  const semDossie = municipios.filter(m => m.completude < 40).length
+  return <>
+    <PageHeader eyebrow="Território" title="Municípios" description={`Dossiê por município: dados oficiais do IBGE e observações da equipe. ${tenant.divisaoTerritorial} é a divisão contratada.`} actions={<><button className="secondary-button"><RefreshCw size={16} /> Sincronizar IBGE</button><button className="primary-button"><Download size={16} /> Exportar</button></>} />
+    <div className="metrics-grid three"><Metric label="Municípios" value={String(municipios.length)} delta="recorte contratado" icon={Building2} /><Metric label="Dossiê completo" value={String(municipios.filter(m => m.completude >= 80).length)} delta="acima de 80% dos campos" icon={Check} /><Metric label="Dossiê crítico" value={String(semDossie)} delta="abaixo de 40% — pedem atenção" icon={AlertTriangle} onClick={() => setDivisao('Todas')} /></div>
+    <nav className="subtabs" aria-label="Visão dos municípios"><button className={aba === 'municipios' ? 'active' : ''} onClick={() => setAba('municipios')}>Municípios</button><button className={aba === 'divisoes' ? 'active' : ''} onClick={() => setAba('divisoes')}>{tenant.divisaoTerritorial}s</button></nav>
+    {aba === 'divisoes' ? <div className="divisoes-grid">{divisoes.map((d, i) => <article className="card" key={d.nome}><span className="divisao-num">{i + 1}</span><h3>{d.nome}</h3><small>{tenant.divisaoTerritorial}</small><div className="divisao-nums"><span><small>Municípios</small><strong>{d.municipios}</strong></span><span><small>População</small><strong>{d.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{d.eleitores.toLocaleString('pt-BR')}</strong></span></div><button className="secondary-button full" onClick={() => { setDivisao(d.nome); setAba('municipios') }}>Ver municípios</button></article>)}</div> : <>
+      <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar município" aria-label="Buscar município" /></div><select value={divisao} onChange={e => setDivisao(e.target.value)} aria-label={`Filtrar por ${tenant.divisaoTerritorial}`}><option>Todas</option>{divisoes.map(d => <option key={d.nome}>{d.nome}</option>)}</select><div className="segmented"><button className={!soFavoritos ? 'active' : ''} onClick={() => setSoFavoritos(false)}>Todos</button><button className={soFavoritos ? 'active' : ''} onClick={() => setSoFavoritos(true)}>Favoritos</button></div></section>
+      {lista.length === 0 ? <EmptyState title="Nenhum município neste filtro" text="Ajuste a busca ou volte ao recorte completo." action={<button className="primary-button" onClick={() => { setBusca(''); setDivisao('Todas'); setSoFavoritos(false) }}>Limpar filtros</button>} /> : <div className="municipios-grid">{lista.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo} · {m.divisao}</small></div>{m.favorito && <Pill tone="amber">Favorito</Pill>}</div><div className="municipio-prefeito"><Avatar initials={m.prefeito.split(' ').slice(0, 2).map(n => n[0]).join('')} size="sm" /><span><strong>{m.prefeito}</strong><small>{m.partidoPrefeito}</small></span></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div>}
+    </>}
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   </>
 }
 
@@ -656,6 +752,7 @@ function MunicipioFicha({ id, navigate }: { id: string; navigate: Navigate }) {
     !m.pistaPouso && { campo: 'Pistas de pouso próximas', porque: 'condiciona o deslocamento aéreo do ciclo' },
     m.completude < 90 && { campo: 'Observações políticas', porque: 'é o que orienta a abordagem local' },
   ].filter(Boolean) as { campo: string; porque: string }[]
+<<<<<<< HEAD
   const [favorito, setFavorito] = useState(m.favorito || false)
   const [filtroCandidato, setFiltroCandidato] = useState('Todos')
   const statusMunicipio = m.completude >= 80 ? 'consolidado' : m.completude >= 40 ? 'parcial' : 'crítico'
@@ -669,17 +766,27 @@ function MunicipioFicha({ id, navigate }: { id: string; navigate: Navigate }) {
   return <>
     <button className="back-button" onClick={() => navigate('municipios')}><ChevronLeft size={16} /> Voltar aos municípios</button>
     <section className="profile-hero card domain-hero territory"><div><span className="eyebrow">Dossiê municipal · Cód. {m.codigo}</span><h1>{m.nome} <Pill tone={statusTone}>{statusMunicipio}</Pill></h1><p>{m.divisao} · {m.distanciaCapital} km da capital</p></div><div className="hero-actions"><button className="secondary-button" onClick={() => navigate(`municipios/perfil/${proximo.id}`)}>Próximo município <ChevronRight size={15} /></button><button className={`secondary-button ${favorito ? 'active' : ''}`} onClick={() => setFavorito(!favorito)}><Star size={15} fill={favorito ? '#f59e0b' : 'none'} /></button><button className="secondary-button"><Download size={15} /> Exportar PDF</button><button className="primary-button"><Plus size={15} /> Editar dossiê</button></div></section>
+=======
+  return <>
+    <button className="back-button" onClick={() => navigate('municipios')}><ChevronLeft size={16} /> Voltar aos municípios</button>
+    <section className="profile-hero card domain-hero territory"><div><span className="eyebrow">Dossiê municipal · Cód. {m.codigo}</span><h1>{m.nome}</h1><p>{m.divisao} · {m.distanciaCapital} km da capital</p></div><div className="hero-actions"><button className="secondary-button" onClick={() => navigate(`municipios/perfil/${proximo.id}`)}>Próximo município <ChevronRight size={15} /></button><button className="secondary-button"><Download size={15} /> Exportar PDF</button><button className="primary-button"><Plus size={15} /> Editar dossiê</button></div></section>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <FaixaCompletude valor={m.completude} atualizadoPor="Sofia Linhares" quando="09 ago 2026" />
     <div className="detail-layout"><div className="detail-stack">
       <section className="card"><div className="card-heading"><div><span className="eyebrow">Origem oficial</span><h2>Dados do IBGE e do TSE</h2></div><Pill tone="blue"><ShieldCheck size={12} /> Sinc. 12/08/2026</Pill></div><div className="info-grid"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Número de eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span><span><small>{tenant.divisaoTerritorial}</small><strong>{m.divisao}</strong></span><span><small>Distância até a capital</small><strong>{m.distanciaCapital} km</strong></span><span><small>Prefeito(a)</small><strong>{m.prefeito} · {m.partidoPrefeito}</strong></span><span><small>Vice-prefeito(a)</small><strong>{m.vice}</strong></span></div></section>
       <section className="card"><div className="card-heading"><div><span className="eyebrow">Preenchido pela equipe</span><h2>Dados internos</h2></div><button className="icon-button" aria-label="Editar dados internos"><Plus size={16} /></button></div><div className="info-grid"><span><small>Aniversário da cidade</small><strong>{m.aniversario}</strong></span><span><small>Padroeira</small><strong className={m.padroeira ? '' : 'vazio'}>{m.padroeira || 'a preencher'}</strong></span><span><small>Pistas de pouso próximas</small><strong className={m.pistaPouso ? '' : 'vazio'}>{m.pistaPouso || 'a preencher'}</strong></span><span><small>Última observação</small><strong>Sofia Linhares · 09 ago</strong></span></div></section>
+<<<<<<< HEAD
       <AccordionBlock title="Candidatos vinculados" icon={UsersRound} open>
         <div className="filter-row"><select value={filtroCandidato} onChange={e => setFiltroCandidato(e.target.value)}><option>Todos</option><option>Aliado</option><option>Aliado parcial</option><option>Neutro</option><option>Adversário</option><option>Não avaliado</option></select></div>
         <div className="vinculo-lista">{candidatosFiltrados.map(p => <button key={p.id} onClick={() => navigate(`quadro-eleitoral/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{p.office}</small></span><StatusPill valor={statusDe(p.id)} /><ChevronRight size={15} /></button>)}</div>
       </AccordionBlock>
       <AccordionBlock title="Resultados das eleições" icon={Vote}>
-        <div className="resultados-ano">{resultados.map(r => { const total = r.candidatos.reduce((s, x) => s + x.votos, 0); return <div key={r.ano} className="resultado-ano"><h4>{r.ano} <small>{total.toLocaleString('pt-BR')} votos</small></h4>{r.candidatos.map((c, i) => <div key={i} className="resultado-candidato"><span className="candidato-info"><strong>{c.nome}</strong><small>{c.partido}</small></span><span className="candidato-votos"><b>{c.votos.toLocaleString('pt-BR')} votos</b><small>{Math.round(c.votos / total * 100)}%</small></span><div className="barra-votos"><i style={{ width: `${c.votos / r.candidatos[0].votos * 100}%` }} className={c.elegido ? 'vencedor' : ''} /></div>{c.elegido && <Pill tone="green">Eleito</Pill>}</div>)}</div> })}</div>
+        <div className="resultados-ano">{resultados.map(r => { const total = r.candidatos.reduce((s, x) => s + x.votos, 0); return <div key={r.ano} className="resultado-ano"><h4>{r.ano} <small>{total.toLocaleString('pt-BR')} votos</small></h4>{r.candidatos.map((c, i) => <div key={i} className="resultado-candidato"><span className="candidato-info"><strong>{c.nome}</strong><small>{c.partido}</small></span><span className="candidato-votos"><b>{c.votos.toLocaleString('pt-BR')} votos</b><small>{Math.round(c.votos / total * 100)}%</small></span><div className="barra-votos"><i style={{ width: `${c.votos / r.candidatos[0].votos * 100}%` }} className={c.eleito ? 'vencedor' : ''} /></div>{c.eleito && <Pill tone="green">Eleito</Pill>}</div>)}</div> })}</div>
       </AccordionBlock>
+=======
+      <AccordionBlock title="Candidatos vinculados" icon={UsersRound} open><div className="vinculo-lista">{electoralPeople.slice(0, 4).map(p => <button key={p.id} onClick={() => navigate(`quadro-eleitoral/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{p.office}</small></span><StatusPill valor={statusDe(p.id)} /><ChevronRight size={15} /></button>)}</div></AccordionBlock>
+      <AccordionBlock title="Resultados das eleições no município" icon={Vote}><div className="result-comparison">{['2020', '2022', '2024'].map((ano, i) => <div key={ano}><strong>{ano}</strong><span><i style={{ width: `${58 + i * 12}%` }} /></span><b>{24 + i * 7} mil votos</b></div>)}</div></AccordionBlock>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     </div><aside className="detail-aside"><BlocoCompletar pendentes={pendentes} /></aside></div>
   </>
 }
@@ -694,6 +801,7 @@ function BlocoCompletar({ pendentes }: { pendentes: { campo: string; porque: str
   return <section className="card bloco-completar"><div className="card-heading"><div><span className="eyebrow">Pendências</span><h2>Completar cadastro</h2></div><Pill tone="amber">{pendentes.length}</Pill></div><p className="section-description">O que falta, e por que cada campo importa para a estratégia.</p>{pendentes.map(p => <div key={p.campo}><strong>{p.campo}</strong><small>{p.porque}</small></div>)}<button className="primary-button full">Completar agora <ArrowRight size={15} /></button></section>
 }
 
+<<<<<<< HEAD
 function Mesorregioes({ navigate }: { navigate: Navigate }) {
   const { tenant } = useTenant()
   const [busca, setBusca] = useState('')
@@ -733,6 +841,7 @@ function MesorregiaoProfile({ id, navigate }: { id: string; navigate: Navigate }
     ? Math.round(municipiosDaDivisao.reduce((soma, m) => soma + m.completude, 0) / municipiosDaDivisao.length)
     : 0
   const consolidado = municipiosDaDivisao.filter(m => m.completude >= 80).length
+  const parcial = municipiosDaDivisao.filter(m => m.completude >= 40 && m.completude < 80).length
   const critico = municipiosDaDivisao.filter(m => m.completude < 40).length
   return <>
     <button className="back-button" onClick={() => navigate('mesorregioes')}><ChevronLeft size={16} /> Voltar às mesorregiões</button>
@@ -759,6 +868,13 @@ function Eleicoes() {
       <Metric label="Eleitores" value={apuracao.eleitores.toLocaleString('pt-BR')} delta="total no recorte" icon={UsersRound} />
       <Metric label="Urnas apuradas" value={`${apuracao.apuradas}%`} delta="apurados" icon={Check} tone="green" />
     </div>
+=======
+function Eleicoes() {
+  const [aberto, setAberto] = useState(0)
+  return <>
+    <PageHeader eyebrow="Território" title="Eleições" description="Apuração e resultados por cargo, turno e município — simulação sobre dados fictícios." actions={<button className="secondary-button"><RefreshCw size={16} /> Sincronizar TSE</button>} />
+    <section className="card apuracao-faixa"><div><span className="eyebrow">Recorte contratado</span><h2>Estado fictício do Horizonte</h2></div><div className="apuracao-nums"><span><small>Municípios apurados</small><strong>{municipios.length}</strong></span><span><small>Eleitores</small><strong>{apuracao.eleitores.toLocaleString('pt-BR')}</strong></span><span><small>Urnas apuradas</small><strong>{apuracao.apuradas}%</strong></span></div><Pill tone="green"><Check size={12} /> Dados atualizados</Pill></section>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <section className="card report-filters"><select aria-label="Ano"><option>2026</option><option>2024</option></select><select aria-label="Cargo"><option>Todos os cargos</option><option>Governador</option><option>Prefeito</option></select><select aria-label="Turno"><option>Todos os turnos</option><option>1º turno</option><option>2º turno</option></select><select aria-label="Município"><option>Todos os municípios</option>{municipios.map(m => <option key={m.id}>{m.nome}</option>)}</select><button className="filter-button"><Filter size={15} /> Aplicar</button></section>
     {apuracao.cargos.map((c, i) => <section className="card cargo-bloco" key={c.cargo}><button className="cargo-cabeca" onClick={() => setAberto(aberto === i ? -1 : i)}><span><Vote size={17} /> {c.cargo}</span><ChevronDown size={17} className={aberto === i ? 'open' : ''} /></button>{aberto === i && <div className="turnos-grid">{c.turnos.map(t => <div key={t.turno}><div className="turno-cabeca"><strong>{t.turno}</strong><Pill tone="green">{t.apurado}% apurado</Pill></div>{t.nomes.map(n => <div className="candidato-linha" key={n.nome}><Avatar initials={n.nome.split(' ').slice(0, 2).map(x => x[0]).join('')} size="sm" /><span><strong>{n.nome}</strong><small>{n.partido}</small></span><Pill tone={n.eleito ? 'green' : 'neutral'}>{n.eleito ? 'Eleito' : 'Não eleito'}</Pill><b>{n.pct.toLocaleString('pt-BR')}%</b><small>{n.votos.toLocaleString('pt-BR')} votos</small><Progress value={n.pct} /></div>)}</div>)}</div>}</section>)}
   </>
@@ -779,7 +895,11 @@ function AgendaModulo({ navigate }: { navigate: Navigate }) {
   const visoes = [['dia', 'Dia'], ['mes', 'Mês'], ['ano', 'Ano'], ['lista', 'Listagem'], ['rota', 'Rota de viagem']] as const
 
   return <>
+<<<<<<< HEAD
     <PageHeader eyebrow="Análise" title="Agenda" description="Viagens, visitas, reuniões e entrevistas num só lugar. Reunião é um tipo de compromisso, não um módulo à parte — e qualquer tipo pode gerar encaminhamento com dono e prazo." actions={<button className="primary-button"><Plus size={16} /> Novo compromisso</button>} />
+=======
+    <PageHeader eyebrow="Relacionamento" title="Agenda" description="Viagens, visitas, reuniões e entrevistas num só lugar. Reunião é um tipo de compromisso, não um módulo à parte — e qualquer tipo pode gerar encaminhamento com dono e prazo." actions={<button className="primary-button"><Plus size={16} /> Novo compromisso</button>} />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
 
     <div className="metrics-grid">
       <Metric label="Compromissos no mês" value={String(doMes.length)} delta={tipo === 'Todos' ? 'todos os tipos' : `só ${tipo.toLowerCase()}`} icon={CalendarDays} />
@@ -875,7 +995,11 @@ function Aniversarios({ navigate }: { navigate: Navigate }) {
   const lista = aniversarios.filter(a => categoria === 'Todas' || a.categoria === categoria)
   const dias = [...new Set(lista.map(a => a.dia))].sort((a, b) => a - b)
   return <>
+<<<<<<< HEAD
     <PageHeader eyebrow="Análise" title="Aniversários" description="Datas de candidatos, municípios e padroeiras — e a presença que cada uma pode gerar." actions={<button className="secondary-button"><Download size={16} /> Exportar PDF</button>} />
+=======
+    <PageHeader eyebrow="Relacionamento" title="Aniversários" description="Datas de candidatos, municípios e padroeiras — e a presença que cada uma pode gerar." actions={<button className="secondary-button"><Download size={16} /> Exportar PDF</button>} />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <div className="metrics-grid three"><Metric label="Datas no mês" value={String(aniversarios.length)} delta="agosto de 2026" icon={Cake} /><Metric label="Com presença agendada" value={String(aniversarios.filter(a => a.agendado).length)} delta="já na agenda" icon={Check} /><Metric label="Sem agendamento" value={String(aniversarios.filter(a => !a.agendado).length)} delta="oportunidade aberta" icon={AlertTriangle} /></div>
     <section className="card toolbar-card"><select value={categoria} onChange={e => setCategoria(e.target.value)} aria-label="Categoria"><option>Todas</option><option>Candidato</option><option>Município</option><option>Padroeira</option></select><select aria-label="Mês"><option>Agosto 2026</option><option>Setembro 2026</option></select></section>
     <div className="aniversarios-lista">{dias.map(dia => <section className="card" key={dia}><div className="dia-selo">Dia {dia}</div><div className="dia-eventos">{lista.filter(a => a.dia === dia).map(a => <div key={a.nome}><Pill tone={a.categoria === 'Candidato' ? 'blue' : a.categoria === 'Padroeira' ? 'purple' : 'neutral'}>{a.categoria}</Pill><div><strong>{a.nome}</strong><small>{a.detalhe}</small></div>{a.agendado ? <Pill tone="green"><Check size={12} /> Presença agendada</Pill> : <button className="secondary-button" onClick={() => navigate('agenda')}><CalendarDays size={14} /> Agendar presença</button>}</div>)}</div></section>)}</div>
@@ -884,6 +1008,7 @@ function Aniversarios({ navigate }: { navigate: Navigate }) {
 
 function PrestacaoContas() {
   const [filtro, setFiltro] = useState('Todos')
+<<<<<<< HEAD
   const [ordem, setOrdem] = useState<'data' | 'descricao' | 'categoria' | 'campanha' | 'documento' | 'situacao' | 'valor'>('data')
   const [direcao, setDirecao] = useState<'asc' | 'desc'>('desc')
   const lista = contas.lancamentos.filter(l => filtro === 'Todos' || l.situacao === filtro).sort((a, b) => {
@@ -893,12 +1018,21 @@ function PrestacaoContas() {
   const semDoc = contas.lancamentos.filter(l => !l.documento).length
   const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
   const ordena = (col: 'data' | 'descricao' | 'categoria' | 'campanha' | 'documento' | 'situacao' | 'valor') => { setOrdem(col); setDirecao(d => d === 'asc' ? 'desc' : 'asc') }
+=======
+  const lista = contas.lancamentos.filter(l => filtro === 'Todos' || l.situacao === filtro)
+  const semDoc = contas.lancamentos.filter(l => !l.documento).length
+  const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   return <>
     <PageHeader eyebrow="Gestão" title="Prestação de contas" description={`Receitas, despesas e documentos do ${contas.periodo}. Valores fictícios, sem vínculo com qualquer prestação real.`} actions={<><button className="secondary-button"><Download size={16} /> Exportar</button><button className="primary-button"><Plus size={16} /> Novo lançamento</button></>} />
     <div className="source-warning"><AlertTriangle size={18} /><div><strong>Demonstração</strong><p>Esta tela não substitui o sistema oficial de prestação de contas eleitorais nem gera peça contábil válida.</p></div></div>
     <div className="metrics-grid"><Metric label="Receitas" value={brl(contas.receitas)} delta="no período" icon={TrendingUp} /><Metric label="Despesas" value={brl(contas.despesas)} delta="no período" icon={Receipt} /><Metric label="Saldo" value={brl(contas.saldo)} delta="disponível" icon={Sigma} /><Metric label="Sem comprovante" value={String(semDoc)} delta="bloqueiam o fechamento" icon={Paperclip} onClick={() => setFiltro('Sem comprovante')} /></div>
     <section className="card toolbar-card"><div className="segmented">{['Todos', 'Conferido', 'Em conferência', 'Sem comprovante'].map(v => <button key={v} className={filtro === v ? 'active' : ''} onClick={() => setFiltro(v)}>{v}</button>)}</div></section>
+<<<<<<< HEAD
     {lista.length === 0 ? <EmptyState title="Nada neste filtro" text="Nenhum lançamento com essa situação no período." action={<button className="primary-button" onClick={() => setFiltro('Todos')}>Ver todos</button>} /> : <div className="table-card"><table><thead><tr><th onClick={() => ordena('data')} style={{cursor:'pointer'}}>Data {ordem === 'data' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('descricao')} style={{cursor:'pointer'}}>Descrição {ordem === 'descricao' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('categoria')} style={{cursor:'pointer'}}>Categoria {ordem === 'categoria' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('campanha')} style={{cursor:'pointer'}}>Campanha {ordem === 'campanha' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('documento')} style={{cursor:'pointer'}}>Documento {ordem === 'documento' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('situacao')} style={{cursor:'pointer'}}>Situação {ordem === 'situacao' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('valor')} style={{cursor:'pointer'}}>Valor {ordem === 'valor' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th></tr></thead><tbody>{lista.map(l => <tr key={l.id}><td>{l.data}</td><td><strong>{l.descricao}</strong></td><td>{l.categoria}</td><td>{l.campanha}</td><td>{l.documento ? <Pill tone="green"><Paperclip size={11} /> Anexado</Pill> : <Pill tone="red">Faltando</Pill>}</td><td><Pill tone={l.situacao === 'Conferido' ? 'green' : l.situacao === 'Sem comprovante' ? 'red' : 'amber'}>{l.situacao}</Pill></td><td className={l.valor < 0 ? 'valor-neg' : 'valor-pos'}>{brl(l.valor)}</td></tr>)}</tbody></table></div>}
+=======
+    {lista.length === 0 ? <EmptyState title="Nada neste filtro" text="Nenhum lançamento com essa situação no período." action={<button className="primary-button" onClick={() => setFiltro('Todos')}>Ver todos</button>} /> : <div className="table-card"><table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Campanha</th><th>Documento</th><th>Situação</th><th>Valor</th></tr></thead><tbody>{lista.map(l => <tr key={l.id}><td>{l.data}</td><td><strong>{l.descricao}</strong></td><td>{l.categoria}</td><td>{l.campanha}</td><td>{l.documento ? <Pill tone="green"><Paperclip size={11} /> Anexado</Pill> : <Pill tone="red">Faltando</Pill>}</td><td><Pill tone={l.situacao === 'Conferido' ? 'green' : l.situacao === 'Sem comprovante' ? 'red' : 'amber'}>{l.situacao}</Pill></td><td className={l.valor < 0 ? 'valor-neg' : 'valor-pos'}>{brl(l.valor)}</td></tr>)}</tbody></table></div>}
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   </>
 }
 
@@ -909,7 +1043,11 @@ function Cruzamento() {
   return <>
     <PageHeader eyebrow="Análise" title="Cruzamento de dados" description="Perguntas em linguagem natural sobre as bases do sistema. A resposta sempre declara de onde saiu." actions={<Pill tone="purple"><Sparkles size={12} /> Camada derivada</Pill>} />
     <section className="card cruzamento-caixa"><Workflow size={20} /><form onSubmit={e => { e.preventDefault(); setAtivo(0) }}><input value={pergunta} onChange={e => setPergunta(e.target.value)} placeholder="Pergunte sobre candidatos, municípios, agenda ou eleições" aria-label="Pergunta para cruzamento" /><button className="primary-button">Cruzar</button></form></section>
+<<<<<<< HEAD
     <div className="sugestoes-wrap"><span className="sugestoes-label">Experimente perguntar:</span><div className="sugestoes-row">{sugestoesCruzamento.map((s, i) => <button key={s} className="sugestao" onClick={() => { setPergunta(s); setAtivo(i % cruzamentos.length) }}>{s}</button>)}</div></div>
+=======
+    <div className="sugestoes-row">{sugestoesCruzamento.map((s, i) => <button key={s} className="sugestao" onClick={() => { setPergunta(s); setAtivo(i % cruzamentos.length) }}>{s}</button>)}</div>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <section className="card resposta-card"><div className="card-heading"><div><span className="eyebrow">Pergunta</span><h2>{c.pergunta}</h2></div><Pill tone={c.confianca === 'Alta' ? 'green' : 'amber'}>Confiança {c.confianca.toLowerCase()}</Pill></div>
       <p className="resposta-texto">{c.resposta}</p>
       <div className="table-card"><table><thead><tr><th>Município</th><th>Presença</th><th>Lacuna</th></tr></thead><tbody>{c.linhas.map(l => <tr key={l[0]}><td><strong>{l[0]}</strong></td><td>{l[1]}</td><td>{l[2]}</td></tr>)}</tbody></table></div>
@@ -920,22 +1058,35 @@ function Cruzamento() {
 
 function Exportacoes() {
   const [modulo, setModulo] = useState('')
+<<<<<<< HEAD
   const [periodo, setPeriodo] = useState('todos')
   // O produto real gera o arquivo em segundo plano. Uma barra que anda torna isso crível —
   // e deixa visível que "Baixar" só aparece quando termina.
   const [progresso, setProgresso] = useState(38)
   const registros = modulo ? Math.floor(Math.random() * 5000) + 500 : 0
+=======
+  // O produto real gera o arquivo em segundo plano. Uma barra que anda torna isso crível —
+  // e deixa visível que "Baixar" só aparece quando termina.
+  const [progresso, setProgresso] = useState(38)
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const t = setInterval(() => setProgresso(p => (p >= 96 ? 38 : p + 2)), 700)
     return () => clearInterval(t)
   }, [])
   return <>
+<<<<<<< HEAD
     <PageHeader eyebrow="Análise" title="Exportações" description="Extração em massa por módulo, seção e campo. Este módulo se chamava Dados — o nome não dizia o que ele faz." />
     <section className="card"><div className="card-heading"><div><span className="eyebrow">Nova exportação</span><h2>Filtros da extração</h2></div></div>
       <div className="form-grid"><label>Módulo <span className="obrigatorio">(obrigatório)</span><select value={modulo} onChange={e => setModulo(e.target.value)}><option value="">Selecione um módulo</option>{modulos.map(m => <option key={m.id}>{m.label}</option>)}</select></label><label>Seções<select disabled={!modulo}><option>Todas as seções</option></select></label><label>Campos<select disabled={!modulo}><option>Todos os campos</option></select></label><label>Formato<select><option>Planilha (XLSX)</option><option>PDF</option></select></label><label>Período<select value={periodo} onChange={e => setPeriodo(e.target.value)}><option value="todos">Todo o período</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="ano">Ano atual</option></select></label></div>
       <p className="section-description">Deixar seções e campos em branco exporta tudo. O arquivo é gerado em segundo plano — você é avisado quando ficar pronto.</p>
       {modulo && <p className="registros-count"><strong>{registros.toLocaleString('pt-BR')}</strong> registros serão exportados</p>}
+=======
+    <PageHeader eyebrow="Análise" title="Exportações" description="Extração em massa por módulo, seção e campo. Este módulo se chamava “Dados” — o nome não dizia o que ele faz." />
+    <section className="card"><div className="card-heading"><div><span className="eyebrow">Nova exportação</span><h2>Filtros da extração</h2></div></div>
+      <div className="form-grid"><label>Módulo <span className="obrigatorio">obrigatório</span><select value={modulo} onChange={e => setModulo(e.target.value)}><option value="">Selecione um módulo</option>{modulos.map(m => <option key={m.id}>{m.label}</option>)}</select></label><label>Seções<select disabled={!modulo}><option>Todas as seções</option></select></label><label>Campos<select disabled={!modulo}><option>Todos os campos</option></select></label><label>Formato<select><option>Planilha (XLSX)</option><option>PDF</option></select></label></div>
+      <p className="section-description">Deixar seções e campos em branco exporta tudo. O arquivo é gerado em segundo plano — você é avisado quando ficar pronto.</p>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
       <button className="primary-button" disabled={!modulo}><Download size={16} /> Exportar</button></section>
     <section className="card"><div className="card-heading"><div><span className="eyebrow">Histórico</span><h2>Minhas exportações</h2></div></div><div className="table-card"><table><thead><tr><th>Solicitado</th><th>Usuário</th><th>Módulo</th><th>Formato</th><th>Situação</th><th>Tamanho</th><th><span className="sr-only">Ação</span></th></tr></thead><tbody>{exportacoes.map(e => <tr key={e.id}><td>{e.solicitado}</td><td>{e.usuario}</td><td>{e.modulo}</td><td>{e.formato}</td><td>{e.situacao === 'Processando' ? <div className="proc"><Pill tone="blue"><RefreshCw size={11} className="spin" /> Processando</Pill><Progress value={progresso} label={`${progresso}%`} /></div> : <Pill tone={e.situacao === 'Concluído' ? 'green' : 'neutral'}>{e.situacao}</Pill>}</td><td>{e.tamanho}</td><td>{e.situacao === 'Concluído' ? <button className="text-button"><Download size={14} /> Baixar</button> : e.situacao === 'Expirado' ? <small>arquivo expirou em 7 dias</small> : <small>—</small>}</td></tr>)}</tbody></table></div></section>
   </>
@@ -958,7 +1109,11 @@ function PlanosModulos() {
 function VocabularioStatus() {
   const { tenant } = useTenant()
   return <section className="card"><div className="card-heading"><div><span className="eyebrow">Vocabulário do cliente</span><h2>Escala de status político</h2></div><button className="secondary-button"><Plus size={15} /> Novo valor</button></div>
+<<<<<<< HEAD
     <p className="section-description">A régua com que a equipe classifica pessoas é do cliente, não do produto. "Não avaliado" é lacuna e fica fora da distribuição de resultado.</p>
+=======
+    <p className="section-description">A régua com que a equipe classifica pessoas é do cliente, não do produto. “Não avaliado” é lacuna e fica fora da distribuição de resultado.</p>
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <div className="escala-lista">{tenant.escalaStatus.map(s => <div key={s.valor}><Pill tone={s.tom === 'pendente' ? 'neutral' : s.tom}>{s.valor}</Pill><small>{s.descricao}</small>{s.tom === 'pendente' && <Pill tone="amber">lacuna</Pill>}</div>)}</div>
     <div className="info-grid"><span><small>Divisão territorial contratada</small><strong>{tenant.divisaoTerritorial}</strong></span><span><small>Candidato principal</small><strong>{tenant.candidatoPrincipal}</strong></span><span><small>Partido de referência</small><strong>{tenant.partidoReferencia}</strong></span></div>
   </section>
@@ -980,7 +1135,11 @@ function ModuloBloqueado({ id, navigate }: { id: string; navigate: Navigate }) {
   const modulo = modulos.find(m => m.id === id)
   if (!modulo) return <EmptyState title="Módulo desconhecido" text="Esta rota não corresponde a nenhum módulo do produto." action={<button className="primary-button" onClick={() => navigate('painel')}>Voltar ao painel</button>} />
   const plano = planos.find(p => p.id === modulo.plano)!
+<<<<<<< HEAD
   return <><PageHeader eyebrow="Do seu plano" title={modulo.label} description={modulo.descricao} />
+=======
+  return <><PageHeader eyebrow="Fora do seu plano" title={modulo.label} description={modulo.descricao} />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
     <section className="card bloqueio"><span className="bloqueio-icone"><Lock size={22} /></span>
       <div><h2>Disponível no plano {plano.nome}</h2><p>{plano.resumo}</p>
         <p className="bloqueio-preco">{plano.preco} · seu plano atual é {planos.find(p => p.id === tenant.plano)?.nome}</p></div>
@@ -1039,7 +1198,10 @@ function App() {
       case 'painel': return <Dashboard navigate={navigate} />
       case 'quadro-eleitoral': return <ElectoralBoard navigate={navigate} route={route} />
       case 'municipios': return route.includes('/perfil/') ? <MunicipioFicha id={route.split('/')[2]} navigate={navigate} /> : <Municipios navigate={navigate} />
+<<<<<<< HEAD
       case 'mesorregioes': return route.includes('/perfil/') ? <MesorregiaoProfile id={route.split('/')[2]} navigate={navigate} /> : <Mesorregioes navigate={navigate} />
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
       case 'territorios': return route.includes('/perfil/') ? <TerritoryProfile id={route.split('/')[2]} navigate={navigate} /> : <Territories navigate={navigate} />
       case 'eleicoes': return <Eleicoes />
       case 'campanhas': return <Campaigns />
@@ -1047,15 +1209,25 @@ function App() {
       case 'aniversarios': return <Aniversarios navigate={navigate} />
       case 'inteligencia': return <Intelligence navigate={navigate} />
       case 'cruzamento': return <Cruzamento />
+<<<<<<< HEAD
       case 'relatorio': return <Reports route={route} navigate={navigate} />
       case 'exportacoes': return <Exportacoes />
       case 'prestacao': return <PrestacaoContas />
       case 'base-nacional': return <NationalBaseHub navigate={navigate} />
+=======
+      case 'relatorios': return <Reports route={route} navigate={navigate} />
+      case 'exportacoes': return <Exportacoes />
+      case 'prestacao': return <PrestacaoContas />
+      case 'base-nacional': return <NationalBaseHub />
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
       case 'equipe': return <Team />
       case 'usuarios': return <UsersAccess />
       case 'parametrizacoes': return <Parameters navigate={navigate} route={route} />
       case 'configuracoes': return <SettingsPage route={route} navigate={navigate} />
+<<<<<<< HEAD
       case 'reunioes': return <Historico navigate={navigate} />
+=======
+>>>>>>> 272acb0232a7b3ff0de23644e36d1f48ca436cbe
       default: return <BemVindo navigate={navigate} />
     }
   }, [route, tenant])
