@@ -338,6 +338,33 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 .year-grid button { transition: all 180ms ease-in-out; }
 .year-grid button:hover { border-color: var(--cyan); }
 
+/* Abas de situação */
+.situacao-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--linha-suave); width: 100%; }
+.situacao-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; color: var(--muted); background: var(--superficie-2); border: 1px solid var(--linha); border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 180ms ease-in-out; }
+.situacao-tab:hover { border-color: var(--linha-forte); }
+.situacao-tab.active { color: var(--texto-forte); border-color: var(--blue); background: var(--ciano-suave); }
+.situacao-tab .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; font-size: 11px; font-weight: 700; background: var(--superficie-3); border-radius: 10px; }
+
+/* Busca e filtros */
+.agenda-busca { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--linha-suave); width: 100%; }
+.agenda-busca .busca-input { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 200px; padding: 8px 12px; background: var(--superficie-2); border: 1px solid var(--linha); border-radius: 8px; }
+.agenda-busca .busca-input:focus-within { border-color: var(--cyan); }
+.agenda-busca .busca-input svg { color: var(--muted); flex-shrink: 0; }
+.agenda-busca .busca-input input { flex: 1; border: none; background: transparent; color: var(--texto); font-size: 14px; outline: none; }
+.agenda-busca select { min-width: 180px; }
+
+/* Formulário de compromisso */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 13px; font-weight: 600; color: var(--texto-forte); }
+.form-group input, .form-group select, .form-group textarea { padding: 10px 12px; font-size: 14px; }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.toggle-label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.toggle-label input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+.toggle-label span { font-size: 14px; color: var(--texto); }
+.help-text { font-size: 12px; color: var(--muted); }
+
 .rotulo-bloco { margin-bottom: 8px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
 .pauta-lista { margin: 0; padding-left: 20px; color: var(--texto); font-size: 14px; }
 .pauta-lista li { padding: 3px 0; }

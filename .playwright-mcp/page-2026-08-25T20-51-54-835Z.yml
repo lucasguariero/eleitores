@@ -1,0 +1,271 @@
+- generic [active] [ref=f22e1]:
+  - generic [ref=f22e2]:
+    - generic [ref=f22e3]:
+      - navigation [ref=f22e5]:
+        - link [ref=f22e7] [cursor=pointer]:
+          - /url: https://uniao-dev.k8s.acto.com.br
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f22e8]
+        - list [ref=f22e9]:
+          - listitem [ref=f22e10]:
+            - link "BEM-VINDO" [ref=f22e11] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br
+          - listitem [ref=f22e15]:
+            - link "LIDERANÇAS" [ref=f22e16] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+          - listitem [ref=f22e20]:
+            - link "MUNICÍPIOS" [ref=f22e21] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+          - listitem [ref=f22e25]:
+            - link "ELEIÇÕES" [ref=f22e26] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+          - listitem [ref=f22e30]:
+            - link "DASHBOARD" [ref=f22e31] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+          - listitem [ref=f22e35]:
+            - link "RELATÓRIOS" [ref=f22e36] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+          - listitem [ref=f22e40]:
+            - link "DADOS" [ref=f22e41] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dados
+          - listitem [ref=f22e45]:
+            - link "ANIVERSÁRIOS" [ref=f22e46] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+          - listitem [ref=f22e50]:
+            - link "CONFIGURAÇÕES" [ref=f22e51] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+        - generic [ref=f22e56]:
+          - button "Notificações" [ref=f22e60] [cursor=pointer]
+          - button "Menu do usuário" [ref=f22e65] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=f22e66]
+      - main [ref=f22e67]:
+        - generic [ref=f22e69]:
+          - generic [ref=f22e70]:
+            - generic [ref=f22e71]:
+              - heading "ELEIÇÕES" [level=1] [ref=f22e72]
+              - paragraph [ref=f22e73]: Cadastre eleições e sincronize os candidatos oficiais do TSE para a UF configurada no sistema.
+            - link "NOVA ELEIÇÃO" [ref=f22e76] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/create
+          - generic [ref=f22e80]:
+            - tablist [ref=f22e81]:
+              - tab "CONFIGURAR LIDERANÇA" [ref=f22e82] [cursor=pointer]
+              - tab "PESSOAS TSE" [ref=f22e86] [cursor=pointer]
+              - tab "INTEGRAÇÃO TSE" [ref=f22e90] [cursor=pointer]
+              - tab "USUÁRIOS" [ref=f22e94] [cursor=pointer]
+              - tab "CONFIGURAR AGENDA" [ref=f22e98] [cursor=pointer]
+              - tab "CONFIGURAR MUNICÍPIOS" [ref=f22e102] [cursor=pointer]
+            - generic [ref=f22e108]:
+              - generic [ref=f22e109]:
+                - table [ref=f22e111]:
+                  - rowgroup [ref=f22e112]:
+                    - row [ref=f22e113]:
+                      - columnheader "Marcar/desmarcar todos os itens para ações em massa." [ref=f22e114]:
+                        - generic [ref=f22e116]:
+                          - checkbox "Marcar/desmarcar todos os itens para ações em massa." [ref=f22e117]
+                          - generic [ref=f22e118]: Marcar/desmarcar todos os itens para ações em massa.
+                      - columnheader [ref=f22e119]:
+                        - button "ANO" [ref=f22e120] [cursor=pointer]
+                      - columnheader "TIPO" [ref=f22e124]
+                      - columnheader "STATUS" [ref=f22e127]
+                      - columnheader "Ações" [ref=f22e130]
+                  - rowgroup [ref=f22e131]:
+                    - row [ref=f22e132]:
+                      - cell "Marcar/desmarcar o item 544 para ações em massa." [ref=f22e133]:
+                        - generic [ref=f22e135]:
+                          - checkbox "Marcar/desmarcar o item 544 para ações em massa." [ref=f22e136]
+                          - generic [ref=f22e137]: Marcar/desmarcar o item 544 para ações em massa.
+                      - cell [ref=f22e138]:
+                        - link "2022" [ref=f22e140] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/544/edit
+                      - cell [ref=f22e146]:
+                        - link "ELEICAO ORDINARIA" [ref=f22e148] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/544/edit
+                      - cell [ref=f22e155]:
+                        - link "PENDENTE" [ref=f22e157] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/544/edit
+                      - cell [ref=f22e164]:
+                        - generic [ref=f22e166]:
+                          - button "Sincronizar" [ref=f22e167] [cursor=pointer]
+                          - button [ref=f22e173] [cursor=pointer]
+                    - row [ref=f22e176]:
+                      - cell "Marcar/desmarcar o item 545 para ações em massa." [ref=f22e177]:
+                        - generic [ref=f22e179]:
+                          - checkbox "Marcar/desmarcar o item 545 para ações em massa." [ref=f22e180]
+                          - generic [ref=f22e181]: Marcar/desmarcar o item 545 para ações em massa.
+                      - cell [ref=f22e182]:
+                        - link "2022" [ref=f22e184] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/545/edit
+                      - cell [ref=f22e190]:
+                        - link "ELEICAO ORDINARIA" [ref=f22e192] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/545/edit
+                      - cell [ref=f22e199]:
+                        - link "PENDENTE" [ref=f22e201] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/545/edit
+                      - cell [ref=f22e208]:
+                        - generic [ref=f22e210]:
+                          - button "Sincronizar" [ref=f22e211] [cursor=pointer]
+                          - button [ref=f22e217] [cursor=pointer]
+                    - row [ref=f22e220]:
+                      - cell "Marcar/desmarcar o item 546 para ações em massa." [ref=f22e221]:
+                        - generic [ref=f22e223]:
+                          - checkbox "Marcar/desmarcar o item 546 para ações em massa." [ref=f22e224]
+                          - generic [ref=f22e225]: Marcar/desmarcar o item 546 para ações em massa.
+                      - cell [ref=f22e226]:
+                        - link "2022" [ref=f22e228] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/546/edit
+                      - cell [ref=f22e234]:
+                        - link "ELEICAO ORDINARIA" [ref=f22e236] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/546/edit
+                      - cell [ref=f22e243]:
+                        - link "PENDENTE" [ref=f22e245] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/546/edit
+                      - cell [ref=f22e252]:
+                        - generic [ref=f22e254]:
+                          - button "Sincronizar" [ref=f22e255] [cursor=pointer]
+                          - button [ref=f22e261] [cursor=pointer]
+                    - row [ref=f22e264]:
+                      - cell "Marcar/desmarcar o item 547 para ações em massa." [ref=f22e265]:
+                        - generic [ref=f22e267]:
+                          - checkbox "Marcar/desmarcar o item 547 para ações em massa." [ref=f22e268]
+                          - generic [ref=f22e269]: Marcar/desmarcar o item 547 para ações em massa.
+                      - cell [ref=f22e270]:
+                        - link "2022" [ref=f22e272] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/547/edit
+                      - cell [ref=f22e278]:
+                        - link "ELEICAO ORDINARIA" [ref=f22e280] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/547/edit
+                      - cell [ref=f22e287]:
+                        - link "PENDENTE" [ref=f22e289] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/547/edit
+                      - cell [ref=f22e296]:
+                        - generic [ref=f22e298]:
+                          - button "Sincronizar" [ref=f22e299] [cursor=pointer]
+                          - button [ref=f22e305] [cursor=pointer]
+                    - row [ref=f22e308]:
+                      - cell "Marcar/desmarcar o item 619 para ações em massa." [ref=f22e309]:
+                        - generic [ref=f22e311]:
+                          - checkbox "Marcar/desmarcar o item 619 para ações em massa." [ref=f22e312]
+                          - generic [ref=f22e313]: Marcar/desmarcar o item 619 para ações em massa.
+                      - cell [ref=f22e314]:
+                        - link "2024" [ref=f22e316] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/619/edit
+                      - cell [ref=f22e322]:
+                        - link "ELEICAO ORDINARIA" [ref=f22e324] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/619/edit
+                      - cell [ref=f22e331]:
+                        - link "PENDENTE" [ref=f22e333] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/619/edit
+                      - cell [ref=f22e340]:
+                        - generic [ref=f22e342]:
+                          - button "Sincronizar" [ref=f22e343] [cursor=pointer]
+                          - button [ref=f22e349] [cursor=pointer]
+                    - row [ref=f22e352]:
+                      - cell "Marcar/desmarcar o item 620 para ações em massa." [ref=f22e353]:
+                        - generic [ref=f22e355]:
+                          - checkbox "Marcar/desmarcar o item 620 para ações em massa." [ref=f22e356]
+                          - generic [ref=f22e357]: Marcar/desmarcar o item 620 para ações em massa.
+                      - cell [ref=f22e358]:
+                        - link "2024" [ref=f22e360] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/620/edit
+                      - cell [ref=f22e366]:
+                        - link "ELEICAO ORDINARIA" [ref=f22e368] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/620/edit
+                      - cell [ref=f22e375]:
+                        - link "PENDENTE" [ref=f22e377] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/620/edit
+                      - cell [ref=f22e384]:
+                        - generic [ref=f22e386]:
+                          - button "Sincronizar" [ref=f22e387] [cursor=pointer]
+                          - button [ref=f22e393] [cursor=pointer]
+                    - row [ref=f22e396]:
+                      - cell "Marcar/desmarcar o item 621 para ações em massa." [ref=f22e397]:
+                        - generic [ref=f22e399]:
+                          - checkbox "Marcar/desmarcar o item 621 para ações em massa." [ref=f22e400]
+                          - generic [ref=f22e401]: Marcar/desmarcar o item 621 para ações em massa.
+                      - cell [ref=f22e402]:
+                        - link "2012" [ref=f22e404] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/621/edit
+                      - cell [ref=f22e410]:
+                        - link "MUNICIPAL" [ref=f22e412] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/621/edit
+                      - cell [ref=f22e419]:
+                        - link "PENDENTE" [ref=f22e421] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/621/edit
+                      - cell [ref=f22e428]:
+                        - generic [ref=f22e430]:
+                          - button "Sincronizar" [ref=f22e431] [cursor=pointer]
+                          - button [ref=f22e437] [cursor=pointer]
+                    - row [ref=f22e440]:
+                      - cell "Marcar/desmarcar o item 622 para ações em massa." [ref=f22e441]:
+                        - generic [ref=f22e443]:
+                          - checkbox "Marcar/desmarcar o item 622 para ações em massa." [ref=f22e444]
+                          - generic [ref=f22e445]: Marcar/desmarcar o item 622 para ações em massa.
+                      - cell [ref=f22e446]:
+                        - link "2014" [ref=f22e448] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/622/edit
+                      - cell [ref=f22e454]:
+                        - link "FEDERAL" [ref=f22e456] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/622/edit
+                      - cell [ref=f22e463]:
+                        - link "PENDENTE" [ref=f22e465] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/tse-eleicaos/622/edit
+                      - cell [ref=f22e472]:
+                        - generic [ref=f22e474]:
+                          - button "Sincronizar" [ref=f22e475] [cursor=pointer]
+                          - button [ref=f22e481] [cursor=pointer]
+                - navigation "Paginação" [ref=f22e484]:
+                  - generic [ref=f22e485]: Exibindo 1 a 8 de 8 resultados
+                  - generic [ref=f22e488]:
+                    - generic [ref=f22e489]: por página
+                    - combobox "por página" [ref=f22e492]:
+                      - option "5"
+                      - option "10" [selected]
+                      - option "25"
+                      - option "50"
+                      - option "Todas"
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+    - complementary [ref=f22e493]:
+      - link [ref=f22e497] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f22e498]
+      - navigation [ref=f22e499]:
+        - list [ref=f22e500]:
+          - listitem [ref=f22e501]:
+            - list [ref=f22e502]:
+              - listitem [ref=f22e503]:
+                - link "BEM-VINDO" [ref=f22e504] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=f22e508]:
+                - link "LIDERANÇAS" [ref=f22e509] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=f22e513]:
+                - link "MUNICÍPIOS" [ref=f22e514] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=f22e518]:
+                - link "ELEIÇÕES" [ref=f22e519] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=f22e523]:
+                - link "DASHBOARD" [ref=f22e524] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=f22e528]:
+                - link "RELATÓRIOS" [ref=f22e529] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=f22e533]:
+                - link "DADOS" [ref=f22e534] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=f22e538]:
+                - link "ANIVERSÁRIOS" [ref=f22e539] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=f22e543]:
+                - link "CONFIGURAÇÕES" [ref=f22e544] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status

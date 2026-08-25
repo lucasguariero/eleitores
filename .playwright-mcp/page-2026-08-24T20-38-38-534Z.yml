@@ -1,0 +1,33 @@
+- generic [ref=e1]:
+  - main [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=e8]
+          - heading "Faça login" [level=1] [ref=e9]
+        - generic [ref=e10]:
+          - generic [ref=e11]:
+            - generic [ref=e14]:
+              - generic [ref=e17]:
+                - text: E-mail
+                - superscript [ref=e18]: "*"
+              - textbox "E-mail*" [active] [ref=e22]
+            - generic [ref=e25]:
+              - generic [ref=e28]:
+                - text: Senha
+                - superscript [ref=e29]: "*"
+              - generic [ref=e31]:
+                - textbox "Senha*" [ref=e33]
+                - button "Mostrar senha" [ref=e36] [cursor=pointer]
+            - generic [ref=e45]:
+              - checkbox "Lembre de mim" [ref=e46]
+              - generic [ref=e47]: Lembre de mim
+          - button "Login" [ref=e50] [cursor=pointer]
+      - generic:
+        - dialog
+      - generic:
+        - dialog
+      - generic:
+        - dialog
+  - generic:
+    - status

@@ -1,0 +1,422 @@
+- generic [active] [ref=f7e1]:
+  - generic [ref=f7e2]:
+    - generic [ref=f7e3]:
+      - navigation [ref=f7e5]:
+        - link [ref=f7e7] [cursor=pointer]:
+          - /url: https://uniao-dev.k8s.acto.com.br
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f7e8]
+        - list [ref=f7e9]:
+          - listitem [ref=f7e10]:
+            - link "BEM-VINDO" [ref=f7e11] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br
+          - listitem [ref=f7e15]:
+            - link "LIDERANÇAS" [ref=f7e16] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+          - listitem [ref=f7e20]:
+            - link "MUNICÍPIOS" [ref=f7e21] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+          - listitem [ref=f7e25]:
+            - link "ELEIÇÕES" [ref=f7e26] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+          - listitem [ref=f7e30]:
+            - link "DASHBOARD" [ref=f7e31] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+          - listitem [ref=f7e35]:
+            - link "RELATÓRIOS" [ref=f7e36] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+          - listitem [ref=f7e40]:
+            - link "DADOS" [ref=f7e41] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dados
+          - listitem [ref=f7e45]:
+            - link "ANIVERSÁRIOS" [ref=f7e46] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+          - listitem [ref=f7e50]:
+            - link "CONFIGURAÇÕES" [ref=f7e51] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+        - generic [ref=f7e56]:
+          - button "Notificações" [ref=f7e60] [cursor=pointer]
+          - button "Menu do usuário" [ref=f7e65] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=f7e66]
+      - main [ref=f7e67]:
+        - generic [ref=f7e69]:
+          - generic [ref=f7e70]:
+            - heading "CADASTRO DE LIDERANÇAS" [level=1] [ref=f7e72]
+            - generic [ref=f7e74]:
+              - button "NOVA LIDERANÇA" [ref=f7e75] [cursor=pointer]
+              - button "EXPORTAR LIDERANÇAS" [ref=f7e79] [cursor=pointer]
+              - button "IMPORTAR LIDERANÇAS" [ref=f7e83] [cursor=pointer]
+          - generic [ref=f7e88]:
+            - generic [ref=f7e89]:
+              - generic [ref=f7e92]:
+                - generic [ref=f7e93]:
+                  - generic [ref=f7e94]: Pesquisar
+                  - searchbox "Pesquisar" [ref=f7e100]
+                - button "Filtrar 0" [ref=f7e103] [cursor=pointer]:
+                  - generic [ref=f7e104]: Filtrar
+                  - generic [ref=f7e107]: "0"
+                - button "Alternar colunas" [ref=f7e113] [cursor=pointer]
+              - table [ref=f7e118]:
+                - rowgroup [ref=f7e119]:
+                  - row [ref=f7e120]:
+                    - columnheader "Marcar/desmarcar todos os itens para ações em massa." [ref=f7e121]:
+                      - generic [ref=f7e123]:
+                        - checkbox "Marcar/desmarcar todos os itens para ações em massa." [ref=f7e124]
+                        - generic [ref=f7e125]: Marcar/desmarcar todos os itens para ações em massa.
+                    - columnheader [ref=f7e126]:
+                      - button "NOME DE URNA/APELIDO" [ref=f7e127] [cursor=pointer]
+                    - columnheader [ref=f7e131]:
+                      - button "CARGO" [ref=f7e132] [cursor=pointer]
+                    - columnheader "PARTIDO" [ref=f7e136]
+                    - columnheader "CIDADE" [ref=f7e139]
+                    - columnheader "Ações" [ref=f7e142]
+                - rowgroup [ref=f7e143]:
+                  - row [ref=f7e144]:
+                    - cell "Marcar/desmarcar o item 4696 para ações em massa." [ref=f7e145]:
+                      - generic [ref=f7e147]:
+                        - checkbox "Marcar/desmarcar o item 4696 para ações em massa." [ref=f7e148]
+                        - generic [ref=f7e149]: Marcar/desmarcar o item 4696 para ações em massa.
+                    - cell [ref=f7e150]:
+                      - link "ABDON DO GÁS ABDON MACHADO DA PALMA" [ref=f7e152] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4696/edit
+                        - generic [ref=f7e153]:
+                          - generic [ref=f7e154]: ABDON DO GÁS
+                          - paragraph [ref=f7e160]: ABDON MACHADO DA PALMA
+                    - cell [ref=f7e161]:
+                      - link "LIDERANÇA" [ref=f7e163] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4696/edit
+                    - cell [ref=f7e172]:
+                      - link "REPUBLICANOS" [ref=f7e174] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4696/edit
+                    - cell [ref=f7e183]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e185] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4696/edit
+                        - generic [ref=f7e186]:
+                          - generic [ref=f7e187]: NENHUMA
+                          - paragraph [ref=f7e193]: 0 CIDADE(S)
+                    - cell [ref=f7e194]:
+                      - generic [ref=f7e196]:
+                        - button [ref=f7e197] [cursor=pointer]
+                        - button [ref=f7e200] [cursor=pointer]
+                  - row [ref=f7e203]:
+                    - cell "Marcar/desmarcar o item 4572 para ações em massa." [ref=f7e204]:
+                      - generic [ref=f7e206]:
+                        - checkbox "Marcar/desmarcar o item 4572 para ações em massa." [ref=f7e207]
+                        - generic [ref=f7e208]: Marcar/desmarcar o item 4572 para ações em massa.
+                    - cell [ref=f7e209]:
+                      - link "ABELZINHO JOSE NILTON SANTANA BORGES" [ref=f7e211] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4572/edit
+                        - generic [ref=f7e212]:
+                          - generic [ref=f7e213]: ABELZINHO
+                          - paragraph [ref=f7e219]: JOSE NILTON SANTANA BORGES
+                    - cell [ref=f7e220]:
+                      - link "VEREADOR" [ref=f7e222] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4572/edit
+                    - cell [ref=f7e231]:
+                      - link "MDB" [ref=f7e233] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4572/edit
+                    - cell [ref=f7e242]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e244] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4572/edit
+                        - generic [ref=f7e245]:
+                          - generic [ref=f7e246]: NENHUMA
+                          - paragraph [ref=f7e252]: 0 CIDADE(S)
+                    - cell [ref=f7e253]:
+                      - generic [ref=f7e255]:
+                        - button [ref=f7e256] [cursor=pointer]
+                        - button [ref=f7e259] [cursor=pointer]
+                  - row [ref=f7e262]:
+                    - cell "Marcar/desmarcar o item 4766 para ações em massa." [ref=f7e263]:
+                      - generic [ref=f7e265]:
+                        - checkbox "Marcar/desmarcar o item 4766 para ações em massa." [ref=f7e266]
+                        - generic [ref=f7e267]: Marcar/desmarcar o item 4766 para ações em massa.
+                    - cell [ref=f7e268]:
+                      - link "ABNADABE ABNADABE DE OLIVEIRA BRITO" [ref=f7e270] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4766/edit
+                        - generic [ref=f7e271]:
+                          - generic [ref=f7e272]: ABNADABE
+                          - paragraph [ref=f7e278]: ABNADABE DE OLIVEIRA BRITO
+                    - cell [ref=f7e279]:
+                      - link "VEREADOR" [ref=f7e281] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4766/edit
+                    - cell [ref=f7e290]:
+                      - link "PSB" [ref=f7e292] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4766/edit
+                    - cell [ref=f7e301]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e303] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4766/edit
+                        - generic [ref=f7e304]:
+                          - generic [ref=f7e305]: NENHUMA
+                          - paragraph [ref=f7e311]: 0 CIDADE(S)
+                    - cell [ref=f7e312]:
+                      - generic [ref=f7e314]:
+                        - button [ref=f7e315] [cursor=pointer]
+                        - button [ref=f7e318] [cursor=pointer]
+                  - row "Marcar/desmarcar o item 4541 para ações em massa. ABRAÃO LACEDA ABRAÃO LACEDA LIDERANÇA NENHUMA 0 CIDADE(S)" [ref=f7e321]:
+                    - cell "Marcar/desmarcar o item 4541 para ações em massa." [ref=f7e322]:
+                      - generic [ref=f7e324]:
+                        - checkbox "Marcar/desmarcar o item 4541 para ações em massa." [ref=f7e325]
+                        - generic [ref=f7e326]: Marcar/desmarcar o item 4541 para ações em massa.
+                    - cell [ref=f7e327]:
+                      - link "ABRAÃO LACEDA ABRAÃO LACEDA" [ref=f7e329] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4541/edit
+                        - generic [ref=f7e330]:
+                          - generic [ref=f7e331]: ABRAÃO LACEDA
+                          - paragraph [ref=f7e337]: ABRAÃO LACEDA
+                    - cell [ref=f7e338]:
+                      - link "LIDERANÇA" [ref=f7e340] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4541/edit
+                    - cell [ref=f7e349]:
+                      - link [ref=f7e351] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4541/edit
+                    - cell [ref=f7e353]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e355] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4541/edit
+                        - generic [ref=f7e356]:
+                          - generic [ref=f7e357]: NENHUMA
+                          - paragraph [ref=f7e363]: 0 CIDADE(S)
+                    - cell [ref=f7e364]:
+                      - generic [ref=f7e366]:
+                        - button [ref=f7e367] [cursor=pointer]
+                        - button [ref=f7e370] [cursor=pointer]
+                  - row "Marcar/desmarcar o item 4247 para ações em massa. ACIOLI VIANA ACIOLI VIANA LIDERANÇA NENHUMA 0 CIDADE(S)" [ref=f7e373]:
+                    - cell "Marcar/desmarcar o item 4247 para ações em massa." [ref=f7e374]:
+                      - generic [ref=f7e376]:
+                        - checkbox "Marcar/desmarcar o item 4247 para ações em massa." [ref=f7e377]
+                        - generic [ref=f7e378]: Marcar/desmarcar o item 4247 para ações em massa.
+                    - cell [ref=f7e379]:
+                      - link "ACIOLI VIANA ACIOLI VIANA" [ref=f7e381] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4247/edit
+                        - generic [ref=f7e382]:
+                          - generic [ref=f7e383]: ACIOLI VIANA
+                          - paragraph [ref=f7e389]: ACIOLI VIANA
+                    - cell [ref=f7e390]:
+                      - link "LIDERANÇA" [ref=f7e392] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4247/edit
+                    - cell [ref=f7e401]:
+                      - link [ref=f7e403] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4247/edit
+                    - cell [ref=f7e405]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e407] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4247/edit
+                        - generic [ref=f7e408]:
+                          - generic [ref=f7e409]: NENHUMA
+                          - paragraph [ref=f7e415]: 0 CIDADE(S)
+                    - cell [ref=f7e416]:
+                      - generic [ref=f7e418]:
+                        - button [ref=f7e419] [cursor=pointer]
+                        - button [ref=f7e422] [cursor=pointer]
+                  - row [ref=f7e425]:
+                    - cell "Marcar/desmarcar o item 4213 para ações em massa." [ref=f7e426]:
+                      - generic [ref=f7e428]:
+                        - checkbox "Marcar/desmarcar o item 4213 para ações em massa." [ref=f7e429]
+                        - generic [ref=f7e430]: Marcar/desmarcar o item 4213 para ações em massa.
+                    - cell [ref=f7e431]:
+                      - link "ACM NETO ANTONIO CARLOS PEIXOTO DE MAGALHÃES NETO" [ref=f7e433] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4213/edit
+                        - generic [ref=f7e434]:
+                          - generic [ref=f7e435]: ACM NETO
+                          - paragraph [ref=f7e441]: ANTONIO CARLOS PEIXOTO DE MAGALHÃES NETO
+                    - cell [ref=f7e442]:
+                      - link "EX-DEPUTADO FEDERAL, EX-PREFEITO" [ref=f7e444] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4213/edit
+                    - cell [ref=f7e453]:
+                      - link "UNIÃO" [ref=f7e455] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4213/edit
+                    - cell [ref=f7e464]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e466] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4213/edit
+                        - generic [ref=f7e467]:
+                          - generic [ref=f7e468]: NENHUMA
+                          - paragraph [ref=f7e474]: 0 CIDADE(S)
+                    - cell [ref=f7e475]:
+                      - generic [ref=f7e477]:
+                        - button [ref=f7e478] [cursor=pointer]
+                        - button [ref=f7e481] [cursor=pointer]
+                  - row [ref=f7e484]:
+                    - cell "Marcar/desmarcar o item 4896 para ações em massa." [ref=f7e485]:
+                      - generic [ref=f7e487]:
+                        - checkbox "Marcar/desmarcar o item 4896 para ações em massa." [ref=f7e488]
+                        - generic [ref=f7e489]: Marcar/desmarcar o item 4896 para ações em massa.
+                    - cell [ref=f7e490]:
+                      - link "ADAILTON DO BOM PREÇO ADAILTON DE LIMA E SILVA" [ref=f7e492] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4896/edit
+                        - generic [ref=f7e493]:
+                          - generic [ref=f7e494]: ADAILTON DO BOM PREÇO
+                          - paragraph [ref=f7e500]: ADAILTON DE LIMA E SILVA
+                    - cell [ref=f7e501]:
+                      - link "CANDIDATO A DEPUTADO ESTADUAL" [ref=f7e503] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4896/edit
+                    - cell [ref=f7e512]:
+                      - link "UNIÃO" [ref=f7e514] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4896/edit
+                    - cell [ref=f7e523]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e525] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4896/edit
+                        - generic [ref=f7e526]:
+                          - generic [ref=f7e527]: NENHUMA
+                          - paragraph [ref=f7e533]: 0 CIDADE(S)
+                    - cell [ref=f7e534]:
+                      - generic [ref=f7e536]:
+                        - button [ref=f7e537] [cursor=pointer]
+                        - button [ref=f7e540] [cursor=pointer]
+                  - row [ref=f7e543]:
+                    - cell "Marcar/desmarcar o item 4235 para ações em massa." [ref=f7e544]:
+                      - generic [ref=f7e546]:
+                        - checkbox "Marcar/desmarcar o item 4235 para ações em massa." [ref=f7e547]
+                        - generic [ref=f7e548]: Marcar/desmarcar o item 4235 para ações em massa.
+                    - cell [ref=f7e549]:
+                      - link "ADAILTON GAMA ADAILTON SANTOS GAMA" [ref=f7e551] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4235/edit
+                        - generic [ref=f7e552]:
+                          - generic [ref=f7e553]: ADAILTON GAMA
+                          - paragraph [ref=f7e559]: ADAILTON SANTOS GAMA
+                    - cell [ref=f7e560]:
+                      - link "EX-VICE-PREFEITO" [ref=f7e562] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4235/edit
+                    - cell [ref=f7e571]:
+                      - link "PSB" [ref=f7e573] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4235/edit
+                    - cell [ref=f7e582]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e584] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4235/edit
+                        - generic [ref=f7e585]:
+                          - generic [ref=f7e586]: NENHUMA
+                          - paragraph [ref=f7e592]: 0 CIDADE(S)
+                    - cell [ref=f7e593]:
+                      - generic [ref=f7e595]:
+                        - button [ref=f7e596] [cursor=pointer]
+                        - button [ref=f7e599] [cursor=pointer]
+                  - row "Marcar/desmarcar o item 4659 para ações em massa. ADAILTON SANTOS ADAILTON SANTOS LIDERANÇA NENHUMA 0 CIDADE(S)" [ref=f7e602]:
+                    - cell "Marcar/desmarcar o item 4659 para ações em massa." [ref=f7e603]:
+                      - generic [ref=f7e605]:
+                        - checkbox "Marcar/desmarcar o item 4659 para ações em massa." [ref=f7e606]
+                        - generic [ref=f7e607]: Marcar/desmarcar o item 4659 para ações em massa.
+                    - cell [ref=f7e608]:
+                      - link "ADAILTON SANTOS ADAILTON SANTOS" [ref=f7e610] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4659/edit
+                        - generic [ref=f7e611]:
+                          - generic [ref=f7e612]: ADAILTON SANTOS
+                          - paragraph [ref=f7e618]: ADAILTON SANTOS
+                    - cell [ref=f7e619]:
+                      - link "LIDERANÇA" [ref=f7e621] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4659/edit
+                    - cell [ref=f7e630]:
+                      - link [ref=f7e632] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4659/edit
+                    - cell [ref=f7e634]:
+                      - link "NENHUMA 0 CIDADE(S)" [ref=f7e636] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4659/edit
+                        - generic [ref=f7e637]:
+                          - generic [ref=f7e638]: NENHUMA
+                          - paragraph [ref=f7e644]: 0 CIDADE(S)
+                    - cell [ref=f7e645]:
+                      - generic [ref=f7e647]:
+                        - button [ref=f7e648] [cursor=pointer]
+                        - button [ref=f7e651] [cursor=pointer]
+                  - row [ref=f7e654]:
+                    - cell "Marcar/desmarcar o item 3624 para ações em massa." [ref=f7e655]:
+                      - generic [ref=f7e657]:
+                        - checkbox "Marcar/desmarcar o item 3624 para ações em massa." [ref=f7e658]
+                        - generic [ref=f7e659]: Marcar/desmarcar o item 3624 para ações em massa.
+                    - cell [ref=f7e660]:
+                      - link "ADALBERTO ADALBERTO ALVES LUZ" [ref=f7e662] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/3624/edit
+                        - generic [ref=f7e663]:
+                          - generic [ref=f7e664]: ADALBERTO
+                          - paragraph [ref=f7e670]: ADALBERTO ALVES LUZ
+                    - cell [ref=f7e671]:
+                      - link "EX-PREFEITO" [ref=f7e673] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/3624/edit
+                    - cell [ref=f7e682]:
+                      - link "PTB" [ref=f7e684] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/3624/edit
+                    - cell [ref=f7e693]:
+                      - link "ITUAÇU 1 CIDADE(S)" [ref=f7e695] [cursor=pointer]:
+                        - /url: https://uniao-dev.k8s.acto.com.br/liderancas/3624/edit
+                        - generic [ref=f7e696]:
+                          - generic [ref=f7e697]: ITUAÇU
+                          - paragraph [ref=f7e703]: 1 CIDADE(S)
+                    - cell [ref=f7e704]:
+                      - generic [ref=f7e706]:
+                        - button [ref=f7e707] [cursor=pointer]
+                        - button [ref=f7e710] [cursor=pointer]
+              - navigation "Paginação" [ref=f7e713]:
+                - generic [ref=f7e714]: Exibindo 1 a 10 de 1,888 resultados
+                - generic [ref=f7e717]:
+                  - generic [ref=f7e718]: por página
+                  - combobox "por página" [ref=f7e721]:
+                    - option "5"
+                    - option "10" [selected]
+                    - option "25"
+                    - option "50"
+                    - option "Todas"
+                - list [ref=f7e722]:
+                  - listitem [ref=f7e723]:
+                    - button "Ir para página 1" [ref=f7e724] [cursor=pointer]:
+                      - generic [ref=f7e725]: "1"
+                  - listitem [ref=f7e726]:
+                    - button "Ir para página 2" [ref=f7e727] [cursor=pointer]:
+                      - generic [ref=f7e728]: "2"
+                  - listitem [ref=f7e729]:
+                    - button "Ir para página 3" [ref=f7e730] [cursor=pointer]:
+                      - generic [ref=f7e731]: "3"
+                  - listitem [ref=f7e732]:
+                    - button "Ir para página 4" [ref=f7e733] [cursor=pointer]:
+                      - generic [ref=f7e734]: "4"
+                  - listitem [ref=f7e735]:
+                    - button "..." [disabled] [ref=f7e736]
+                  - listitem [ref=f7e738]:
+                    - button "Ir para página 188" [ref=f7e739] [cursor=pointer]:
+                      - generic [ref=f7e740]: "188"
+                  - listitem [ref=f7e741]:
+                    - button "Ir para página 189" [ref=f7e742] [cursor=pointer]:
+                      - generic [ref=f7e743]: "189"
+                  - listitem [ref=f7e744]:
+                    - button "Próxima" [ref=f7e745] [cursor=pointer]
+            - generic:
+              - dialog
+            - generic:
+              - dialog
+            - generic:
+              - dialog
+            - generic:
+              - dialog
+            - generic:
+              - dialog
+    - complementary [ref=f7e748]:
+      - link [ref=f7e752] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f7e753]
+      - navigation [ref=f7e754]:
+        - list [ref=f7e755]:
+          - listitem [ref=f7e756]:
+            - list [ref=f7e757]:
+              - listitem [ref=f7e758]:
+                - link "BEM-VINDO" [ref=f7e759] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=f7e763]:
+                - link "LIDERANÇAS" [ref=f7e764] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=f7e768]:
+                - link "MUNICÍPIOS" [ref=f7e769] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=f7e773]:
+                - link "ELEIÇÕES" [ref=f7e774] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=f7e778]:
+                - link "DASHBOARD" [ref=f7e779] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=f7e783]:
+                - link "RELATÓRIOS" [ref=f7e784] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=f7e788]:
+                - link "DADOS" [ref=f7e789] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=f7e793]:
+                - link "ANIVERSÁRIOS" [ref=f7e794] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=f7e798]:
+                - link "CONFIGURAÇÕES" [ref=f7e799] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status

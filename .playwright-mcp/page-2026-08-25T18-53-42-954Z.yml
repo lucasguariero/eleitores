@@ -1,0 +1,138 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - navigation [ref=f2e5]:
+        - link [ref=f2e7] [cursor=pointer]:
+          - /url: https://uniao-dev.k8s.acto.com.br
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f2e8]
+        - list [ref=f2e9]:
+          - listitem [ref=f2e10]:
+            - link "BEM-VINDO" [ref=f2e11] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br
+          - listitem [ref=f2e15]:
+            - link "LIDERANÇAS" [ref=f2e16] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+          - listitem [ref=f2e20]:
+            - link "MUNICÍPIOS" [ref=f2e21] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+          - listitem [ref=f2e25]:
+            - link "ELEIÇÕES" [ref=f2e26] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+          - listitem [ref=f2e30]:
+            - link "DASHBOARD" [ref=f2e31] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+          - listitem [ref=f2e35]:
+            - link "RELATÓRIOS" [ref=f2e36] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+          - listitem [ref=f2e40]:
+            - link "DADOS" [ref=f2e41] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dados
+          - listitem [ref=f2e45]:
+            - link "ANIVERSÁRIOS" [ref=f2e46] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+          - listitem [ref=f2e50]:
+            - link "CONFIGURAÇÕES" [ref=f2e51] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+        - generic [ref=f2e56]:
+          - button "Notificações" [ref=f2e60] [cursor=pointer]
+          - button "Menu do usuário" [ref=f2e65] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=f2e66]
+      - main [ref=f2e67]:
+        - generic [ref=f2e68]:
+          - generic [ref=f2e69]:
+            - heading "Editar CONFIGURAÇÃO" [level=1] [ref=f2e72]
+            - generic [ref=f2e73]:
+              - tablist [ref=f2e74]:
+                - tab "CONFIGURAR LIDERANÇA" [ref=f2e75] [cursor=pointer]
+                - tab "PESSOAS TSE" [ref=f2e79] [cursor=pointer]
+                - tab "INTEGRAÇÃO TSE" [ref=f2e83] [cursor=pointer]
+                - tab "USUÁRIOS" [ref=f2e87] [cursor=pointer]
+                - tab "CONFIGURAR AGENDA" [ref=f2e91] [cursor=pointer]
+                - tab "CONFIGURAR MUNICÍPIOS" [ref=f2e95] [cursor=pointer]
+              - generic [ref=f2e100]:
+                - generic [ref=f2e103]:
+                  - tablist "Configuracoes" [ref=f2e104]:
+                    - tab "PARTIDOS" [ref=f2e105] [cursor=pointer]
+                    - tab "CARGOS" [ref=f2e107] [cursor=pointer]
+                    - tab "ATRIBUTOS" [ref=f2e109] [cursor=pointer]
+                    - tab "ÁREAS" [ref=f2e111] [cursor=pointer]
+                    - tab "GRUPOS" [ref=f2e113] [cursor=pointer]
+                  - tabpanel "PARTIDOS Mover Excluir NOME DO PARTIDO* PARTIDO A Mover Excluir NOME DO PARTIDO* PARTIDO B ADICIONAR PARTIDO" [ref=f2e115]:
+                    - generic [ref=f2e119]:
+                      - generic [ref=f2e120]: PARTIDOS
+                      - generic [ref=f2e124]:
+                        - list [ref=f2e125]:
+                          - generic [ref=f2e126]:
+                            - listitem [ref=f2e127]:
+                              - generic [ref=f2e128]:
+                                - list [ref=f2e129]:
+                                  - listitem [ref=f2e130]:
+                                    - button "Mover" [ref=f2e131] [cursor=pointer]
+                                - list [ref=f2e135]:
+                                  - listitem [ref=f2e136]:
+                                    - button "Excluir" [ref=f2e137] [cursor=pointer]
+                              - generic [ref=f2e145]:
+                                - generic [ref=f2e148]:
+                                  - text: NOME DO PARTIDO
+                                  - superscript [ref=f2e149]: "*"
+                                - textbox "NOME DO PARTIDO*" [ref=f2e153]: PARTIDO A
+                            - listitem [ref=f2e154]:
+                              - generic [ref=f2e155]:
+                                - list [ref=f2e156]:
+                                  - listitem [ref=f2e157]:
+                                    - button "Mover" [ref=f2e158] [cursor=pointer]
+                                - list [ref=f2e162]:
+                                  - listitem [ref=f2e163]:
+                                    - button "Excluir" [ref=f2e164] [cursor=pointer]
+                              - generic [ref=f2e172]:
+                                - generic [ref=f2e175]:
+                                  - text: NOME DO PARTIDO
+                                  - superscript [ref=f2e176]: "*"
+                                - textbox "NOME DO PARTIDO*" [ref=f2e180]: PARTIDO B
+                        - button "ADICIONAR PARTIDO" [ref=f2e182] [cursor=pointer]
+                - generic [ref=f2e185]:
+                  - button "Salvar alterações" [ref=f2e186] [cursor=pointer]
+                  - button "Cancelar" [ref=f2e188] [cursor=pointer]
+          - generic:
+            - dialog
+          - generic:
+            - dialog
+          - generic:
+            - dialog
+    - complementary [ref=f2e190]:
+      - link [ref=f2e194] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f2e195]
+      - navigation [ref=f2e196]:
+        - list [ref=f2e197]:
+          - listitem [ref=f2e198]:
+            - list [ref=f2e199]:
+              - listitem [ref=f2e200]:
+                - link "BEM-VINDO" [ref=f2e201] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=f2e205]:
+                - link "LIDERANÇAS" [ref=f2e206] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=f2e210]:
+                - link "MUNICÍPIOS" [ref=f2e211] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=f2e215]:
+                - link "ELEIÇÕES" [ref=f2e216] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=f2e220]:
+                - link "DASHBOARD" [ref=f2e221] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=f2e225]:
+                - link "RELATÓRIOS" [ref=f2e226] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=f2e230]:
+                - link "DADOS" [ref=f2e231] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=f2e235]:
+                - link "ANIVERSÁRIOS" [ref=f2e236] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=f2e240]:
+                - link "CONFIGURAÇÕES" [ref=f2e241] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status

@@ -1,0 +1,367 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - navigation [ref=f2e5]:
+        - link [ref=f2e7] [cursor=pointer]:
+          - /url: https://uniao-dev.k8s.acto.com.br
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f2e8]
+        - list [ref=f2e9]:
+          - listitem [ref=f2e10]:
+            - link "BEM-VINDO" [ref=f2e11] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br
+          - listitem [ref=f2e15]:
+            - link "LIDERANÇAS" [ref=f2e16] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+          - listitem [ref=f2e20]:
+            - link "MUNICÍPIOS" [ref=f2e21] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+          - listitem [ref=f2e25]:
+            - link "ELEIÇÕES" [ref=f2e26] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+          - listitem [ref=f2e30]:
+            - link "DASHBOARD" [ref=f2e31] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+          - listitem [ref=f2e35]:
+            - link "RELATÓRIOS" [ref=f2e36] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+          - listitem [ref=f2e40]:
+            - link "DADOS" [ref=f2e41] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dados
+          - listitem [ref=f2e45]:
+            - link "ANIVERSÁRIOS" [ref=f2e46] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+          - listitem [ref=f2e50]:
+            - link "CONFIGURAÇÕES" [ref=f2e51] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+        - generic [ref=f2e56]:
+          - button "Notificações" [ref=f2e60] [cursor=pointer]
+          - button "Menu do usuário" [ref=f2e65] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=f2e66]
+      - main [ref=f2e67]:
+        - generic [ref=f2e69]:
+          - generic [ref=f2e70]:
+            - generic [ref=f2e71]:
+              - heading "USUÁRIOS" [level=1] [ref=f2e72]
+              - paragraph [ref=f2e73]: Gerencie quem acessa o sistema e visualize as lideranças criadas por cada usuário.
+            - generic [ref=f2e75]:
+              - link "CRIAR USUÁRIO" [ref=f2e76] [cursor=pointer]:
+                - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/create
+              - button "EXPORTAR USUÁRIOS" [ref=f2e80] [cursor=pointer]
+          - generic [ref=f2e84]:
+            - tablist [ref=f2e85]:
+              - tab "CONFIGURAR LIDERANÇA" [ref=f2e86] [cursor=pointer]
+              - tab "PESSOAS TSE" [ref=f2e90] [cursor=pointer]
+              - tab "INTEGRAÇÃO TSE" [ref=f2e94] [cursor=pointer]
+              - tab "USUÁRIOS" [ref=f2e98] [cursor=pointer]
+              - tab "CONFIGURAR AGENDA" [ref=f2e102] [cursor=pointer]
+              - tab "CONFIGURAR MUNICÍPIOS" [ref=f2e106] [cursor=pointer]
+            - generic [ref=f2e112]:
+              - generic [ref=f2e113]:
+                - generic [ref=f2e117]:
+                  - generic [ref=f2e118]: Pesquisar
+                  - searchbox "Pesquisar" [ref=f2e124]
+                - table [ref=f2e126]:
+                  - rowgroup [ref=f2e127]:
+                    - row [ref=f2e128]:
+                      - columnheader "Marcar/desmarcar todos os itens para ações em massa." [ref=f2e129]:
+                        - generic [ref=f2e131]:
+                          - checkbox "Marcar/desmarcar todos os itens para ações em massa." [ref=f2e132]
+                          - generic [ref=f2e133]: Marcar/desmarcar todos os itens para ações em massa.
+                      - columnheader [ref=f2e134]:
+                        - button "USUÁRIO" [ref=f2e135] [cursor=pointer]
+                      - columnheader [ref=f2e139]:
+                        - button "TIPO DE USUÁRIO" [ref=f2e140] [cursor=pointer]
+                      - columnheader [ref=f2e144]:
+                        - button "LIDERANÇAS CRIADAS" [ref=f2e145] [cursor=pointer]
+                      - columnheader "Ações" [ref=f2e149]
+                  - rowgroup [ref=f2e150]:
+                    - row [ref=f2e151]:
+                      - cell "Marcar/desmarcar o item 1 para ações em massa." [ref=f2e152]:
+                        - generic [ref=f2e154]:
+                          - checkbox "Marcar/desmarcar o item 1 para ações em massa." [ref=f2e155]
+                          - generic [ref=f2e156]: Marcar/desmarcar o item 1 para ações em massa.
+                      - cell [ref=f2e157]:
+                        - link "AD ADMIN ADMIN@ADMIN.COM" [ref=f2e159] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/1/edit
+                          - generic [ref=f2e165]:
+                            - generic [ref=f2e166]: AD
+                            - generic [ref=f2e167]:
+                              - generic [ref=f2e168]: ADMIN
+                              - generic [ref=f2e169]: ADMIN@ADMIN.COM
+                      - cell [ref=f2e170]:
+                        - link "MASTER" [ref=f2e172] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/1/edit
+                      - cell [ref=f2e181]:
+                        - link "—" [ref=f2e183] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/1/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e189]: —
+                      - cell [ref=f2e190]:
+                        - button [ref=f2e195] [cursor=pointer]
+                    - row [ref=f2e198]:
+                      - cell "Marcar/desmarcar o item 2 para ações em massa." [ref=f2e199]:
+                        - generic [ref=f2e201]:
+                          - checkbox "Marcar/desmarcar o item 2 para ações em massa." [ref=f2e202]
+                          - generic [ref=f2e203]: Marcar/desmarcar o item 2 para ações em massa.
+                      - cell [ref=f2e204]:
+                        - link "EM EMANUEL EMANUEL.FREITAS@ACTO.COM.BR" [ref=f2e206] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/2/edit
+                          - generic [ref=f2e212]:
+                            - generic [ref=f2e213]: EM
+                            - generic [ref=f2e214]:
+                              - generic [ref=f2e215]: EMANUEL
+                              - generic [ref=f2e216]: EMANUEL.FREITAS@ACTO.COM.BR
+                      - cell [ref=f2e217]:
+                        - link "MASTER" [ref=f2e219] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/2/edit
+                      - cell [ref=f2e228]:
+                        - link "—" [ref=f2e230] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/2/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e236]: —
+                      - cell [ref=f2e237]:
+                        - button [ref=f2e242] [cursor=pointer]
+                    - row [ref=f2e245]:
+                      - cell "Marcar/desmarcar o item 4 para ações em massa." [ref=f2e246]:
+                        - generic [ref=f2e248]:
+                          - checkbox "Marcar/desmarcar o item 4 para ações em massa." [ref=f2e249]
+                          - generic [ref=f2e250]: Marcar/desmarcar o item 4 para ações em massa.
+                      - cell [ref=f2e251]:
+                        - link "LA LILIAN ALTA LIUALTA@HOTMAIL.COM" [ref=f2e253] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/4/edit
+                          - generic [ref=f2e259]:
+                            - generic [ref=f2e260]: LA
+                            - generic [ref=f2e261]:
+                              - generic [ref=f2e262]: LILIAN ALTA
+                              - generic [ref=f2e263]: LIUALTA@HOTMAIL.COM
+                      - cell [ref=f2e264]:
+                        - link "EDITOR" [ref=f2e266] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/4/edit
+                      - cell [ref=f2e276]:
+                        - link "—" [ref=f2e278] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/4/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e284]: —
+                      - cell [ref=f2e285]:
+                        - button [ref=f2e290] [cursor=pointer]
+                    - row [ref=f2e293]:
+                      - cell "Marcar/desmarcar o item 7 para ações em massa." [ref=f2e294]:
+                        - generic [ref=f2e296]:
+                          - checkbox "Marcar/desmarcar o item 7 para ações em massa." [ref=f2e297]
+                          - generic [ref=f2e298]: Marcar/desmarcar o item 7 para ações em massa.
+                      - cell [ref=f2e299]:
+                        - link "AS ARYSA SOUZA ARYSAS@GMAIL.COM" [ref=f2e301] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/7/edit
+                          - generic [ref=f2e307]:
+                            - generic [ref=f2e308]: AS
+                            - generic [ref=f2e309]:
+                              - generic [ref=f2e310]: ARYSA SOUZA
+                              - generic [ref=f2e311]: ARYSAS@GMAIL.COM
+                      - cell [ref=f2e312]:
+                        - link "MASTER" [ref=f2e314] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/7/edit
+                      - cell [ref=f2e323]:
+                        - link "—" [ref=f2e325] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/7/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e331]: —
+                      - cell [ref=f2e332]:
+                        - button [ref=f2e337] [cursor=pointer]
+                    - row [ref=f2e340]:
+                      - cell "Marcar/desmarcar o item 9 para ações em massa." [ref=f2e341]:
+                        - generic [ref=f2e343]:
+                          - checkbox "Marcar/desmarcar o item 9 para ações em massa." [ref=f2e344]
+                          - generic [ref=f2e345]: Marcar/desmarcar o item 9 para ações em massa.
+                      - cell [ref=f2e346]:
+                        - link "JG JESSICA GONÇALVES JESSICA_CG@OUTLOOK.COM" [ref=f2e348] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/9/edit
+                          - generic [ref=f2e354]:
+                            - generic [ref=f2e355]: JG
+                            - generic [ref=f2e356]:
+                              - generic [ref=f2e357]: JESSICA GONÇALVES
+                              - generic [ref=f2e358]: JESSICA_CG@OUTLOOK.COM
+                      - cell [ref=f2e359]:
+                        - link "MASTER" [ref=f2e361] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/9/edit
+                      - cell [ref=f2e370]:
+                        - link "106" [ref=f2e372] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/9/edit
+                      - cell [ref=f2e379]:
+                        - generic [ref=f2e381]:
+                          - button "Ver lideranças" [ref=f2e382] [cursor=pointer]
+                          - button [ref=f2e389] [cursor=pointer]
+                    - row [ref=f2e392]:
+                      - cell "Marcar/desmarcar o item 10 para ações em massa." [ref=f2e393]:
+                        - generic [ref=f2e395]:
+                          - checkbox "Marcar/desmarcar o item 10 para ações em massa." [ref=f2e396]
+                          - generic [ref=f2e397]: Marcar/desmarcar o item 10 para ações em massa.
+                      - cell [ref=f2e398]:
+                        - link "AN ACM NETO ACMNETO@TERRA.COM" [ref=f2e400] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/10/edit
+                          - generic [ref=f2e406]:
+                            - generic [ref=f2e407]: AN
+                            - generic [ref=f2e408]:
+                              - generic [ref=f2e409]: ACM NETO
+                              - generic [ref=f2e410]: ACMNETO@TERRA.COM
+                      - cell [ref=f2e411]:
+                        - link "MASTER" [ref=f2e413] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/10/edit
+                      - cell [ref=f2e422]:
+                        - link "—" [ref=f2e424] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/10/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e430]: —
+                      - cell [ref=f2e431]:
+                        - button [ref=f2e436] [cursor=pointer]
+                    - row [ref=f2e439]:
+                      - cell "Marcar/desmarcar o item 11 para ações em massa." [ref=f2e440]:
+                        - generic [ref=f2e442]:
+                          - checkbox "Marcar/desmarcar o item 11 para ações em massa." [ref=f2e443]
+                          - generic [ref=f2e444]: Marcar/desmarcar o item 11 para ações em massa.
+                      - cell [ref=f2e445]:
+                        - link "LR LUCIANO RIBEIRO LUCIANO@LUCIANORIBEIRO.ADV.BR" [ref=f2e447] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/11/edit
+                          - generic [ref=f2e453]:
+                            - generic [ref=f2e454]: LR
+                            - generic [ref=f2e455]:
+                              - generic [ref=f2e456]: LUCIANO RIBEIRO
+                              - generic [ref=f2e457]: LUCIANO@LUCIANORIBEIRO.ADV.BR
+                      - cell [ref=f2e458]:
+                        - link "MASTER" [ref=f2e460] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/11/edit
+                      - cell [ref=f2e469]:
+                        - link "—" [ref=f2e471] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/11/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e477]: —
+                      - cell [ref=f2e478]:
+                        - button [ref=f2e483] [cursor=pointer]
+                    - row [ref=f2e486]:
+                      - cell "Marcar/desmarcar o item 12 para ações em massa." [ref=f2e487]:
+                        - generic [ref=f2e489]:
+                          - checkbox "Marcar/desmarcar o item 12 para ações em massa." [ref=f2e490]
+                          - generic [ref=f2e491]: Marcar/desmarcar o item 12 para ações em massa.
+                      - cell [ref=f2e492]:
+                        - link "MT MARCO TÚLIO MARQUINHOSCAFE12@GMAIL.COM" [ref=f2e494] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/12/edit
+                          - generic [ref=f2e500]:
+                            - generic [ref=f2e501]: MT
+                            - generic [ref=f2e502]:
+                              - generic [ref=f2e503]: MARCO TÚLIO
+                              - generic [ref=f2e504]: MARQUINHOSCAFE12@GMAIL.COM
+                      - cell [ref=f2e505]:
+                        - link "VISUALIZADOR" [ref=f2e507] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/12/edit
+                      - cell [ref=f2e517]:
+                        - link "—" [ref=f2e519] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/12/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e525]: —
+                      - cell [ref=f2e526]:
+                        - button [ref=f2e531] [cursor=pointer]
+                    - row [ref=f2e534]:
+                      - cell "Marcar/desmarcar o item 13 para ações em massa." [ref=f2e535]:
+                        - generic [ref=f2e537]:
+                          - checkbox "Marcar/desmarcar o item 13 para ações em massa." [ref=f2e538]
+                          - generic [ref=f2e539]: Marcar/desmarcar o item 13 para ações em massa.
+                      - cell [ref=f2e540]:
+                        - link "MP MARCELO PEDREIRA MARCELOPEDREIRA11@GMAIL.COM" [ref=f2e542] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/13/edit
+                          - generic [ref=f2e548]:
+                            - generic [ref=f2e549]: MP
+                            - generic [ref=f2e550]:
+                              - generic [ref=f2e551]: MARCELO PEDREIRA
+                              - generic [ref=f2e552]: MARCELOPEDREIRA11@GMAIL.COM
+                      - cell [ref=f2e553]:
+                        - link "VISUALIZADOR" [ref=f2e555] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/13/edit
+                      - cell [ref=f2e565]:
+                        - link "—" [ref=f2e567] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/13/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e573]: —
+                      - cell [ref=f2e574]:
+                        - button [ref=f2e579] [cursor=pointer]
+                    - row [ref=f2e582]:
+                      - cell "Marcar/desmarcar o item 14 para ações em massa." [ref=f2e583]:
+                        - generic [ref=f2e585]:
+                          - checkbox "Marcar/desmarcar o item 14 para ações em massa." [ref=f2e586]
+                          - generic [ref=f2e587]: Marcar/desmarcar o item 14 para ações em massa.
+                      - cell [ref=f2e588]:
+                        - link "RB REINALDO BRAGA REINALDOBRAGAF@UOL.COM.BR" [ref=f2e590] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/14/edit
+                          - generic [ref=f2e596]:
+                            - generic [ref=f2e597]: RB
+                            - generic [ref=f2e598]:
+                              - generic [ref=f2e599]: REINALDO BRAGA
+                              - generic [ref=f2e600]: REINALDOBRAGAF@UOL.COM.BR
+                      - cell [ref=f2e601]:
+                        - link "VISUALIZADOR" [ref=f2e603] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/14/edit
+                      - cell [ref=f2e613]:
+                        - link "—" [ref=f2e615] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/users/14/edit
+                          - generic "Nenhuma liderança cadastrada por este usuário" [ref=f2e621]: —
+                      - cell [ref=f2e622]:
+                        - button [ref=f2e627] [cursor=pointer]
+                - navigation "Paginação" [ref=f2e630]:
+                  - generic [ref=f2e631]: Exibindo 1 a 10 de 28 resultados
+                  - generic [ref=f2e634]:
+                    - generic [ref=f2e635]: por página
+                    - combobox "por página" [ref=f2e638]:
+                      - option "5"
+                      - option "10" [selected]
+                      - option "25"
+                      - option "50"
+                      - option "Todas"
+                  - list [ref=f2e639]:
+                    - listitem [ref=f2e640]:
+                      - button "Ir para página 1" [ref=f2e641] [cursor=pointer]:
+                        - generic [ref=f2e642]: "1"
+                    - listitem [ref=f2e643]:
+                      - button "Ir para página 2" [ref=f2e644] [cursor=pointer]:
+                        - generic [ref=f2e645]: "2"
+                    - listitem [ref=f2e646]:
+                      - button "Ir para página 3" [ref=f2e647] [cursor=pointer]:
+                        - generic [ref=f2e648]: "3"
+                    - listitem [ref=f2e649]:
+                      - button "Próxima" [ref=f2e650] [cursor=pointer]
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+    - complementary [ref=f2e653]:
+      - link [ref=f2e657] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f2e658]
+      - navigation [ref=f2e659]:
+        - list [ref=f2e660]:
+          - listitem [ref=f2e661]:
+            - list [ref=f2e662]:
+              - listitem [ref=f2e663]:
+                - link "BEM-VINDO" [ref=f2e664] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=f2e668]:
+                - link "LIDERANÇAS" [ref=f2e669] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=f2e673]:
+                - link "MUNICÍPIOS" [ref=f2e674] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=f2e678]:
+                - link "ELEIÇÕES" [ref=f2e679] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=f2e683]:
+                - link "DASHBOARD" [ref=f2e684] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=f2e688]:
+                - link "RELATÓRIOS" [ref=f2e689] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=f2e693]:
+                - link "DADOS" [ref=f2e694] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=f2e698]:
+                - link "ANIVERSÁRIOS" [ref=f2e699] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=f2e703]:
+                - link "CONFIGURAÇÕES" [ref=f2e704] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status

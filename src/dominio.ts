@@ -259,10 +259,12 @@ export type Compromisso = {
   municipio: string
   responsavel: string
   participantes: number
-  situacao: 'Marcado' | 'Cumprido' | 'Descumprido'
+  situacao: 'Marcado' | 'Cumprido' | 'Descumprido' | 'Sugestão'
   vinculo?: string
   pauta?: string[]
   encaminhamentos: Encaminhamento[]
+  informacoesAdicionais?: string
+  sugestao?: boolean
 }
 
 export const compromissos: Compromisso[] = [

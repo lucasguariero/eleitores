@@ -1,0 +1,370 @@
+- generic [active] [ref=f18e1]:
+  - generic [ref=f18e2]:
+    - generic [ref=f18e3]:
+      - navigation [ref=f18e5]:
+        - link [ref=f18e7] [cursor=pointer]:
+          - /url: https://uniao-dev.k8s.acto.com.br
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f18e8]
+        - list [ref=f18e9]:
+          - listitem [ref=f18e10]:
+            - link "BEM-VINDO" [ref=f18e11] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br
+          - listitem [ref=f18e15]:
+            - link "LIDERANÇAS" [ref=f18e16] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+          - listitem [ref=f18e20]:
+            - link "MUNICÍPIOS" [ref=f18e21] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+          - listitem [ref=f18e25]:
+            - link "ELEIÇÕES" [ref=f18e26] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+          - listitem [ref=f18e30]:
+            - link "DASHBOARD" [ref=f18e31] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+          - listitem [ref=f18e35]:
+            - link "RELATÓRIOS" [ref=f18e36] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+          - listitem [ref=f18e40]:
+            - link "DADOS" [ref=f18e41] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dados
+          - listitem [ref=f18e45]:
+            - link "ANIVERSÁRIOS" [ref=f18e46] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+          - listitem [ref=f18e50]:
+            - link "CONFIGURAÇÕES" [ref=f18e51] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+        - generic [ref=f18e56]:
+          - button "Notificações" [ref=f18e60] [cursor=pointer]
+          - button "Menu do usuário" [ref=f18e65] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=f18e66]
+      - main [ref=f18e67]:
+        - generic [ref=f18e69]:
+          - generic [ref=f18e71]:
+            - heading "PESSOAS TSE" [level=1] [ref=f18e72]
+            - paragraph [ref=f18e73]: Pessoas trazidas pela sincronização com o TSE que ainda não são lideranças cadastradas. Não aparecem no módulo Lideranças.
+          - generic [ref=f18e74]:
+            - tablist [ref=f18e75]:
+              - tab "CONFIGURAR LIDERANÇA" [ref=f18e76] [cursor=pointer]
+              - tab "PESSOAS TSE" [ref=f18e80] [cursor=pointer]
+              - tab "INTEGRAÇÃO TSE" [ref=f18e84] [cursor=pointer]
+              - tab "USUÁRIOS" [ref=f18e88] [cursor=pointer]
+              - tab "CONFIGURAR AGENDA" [ref=f18e92] [cursor=pointer]
+              - tab "CONFIGURAR MUNICÍPIOS" [ref=f18e96] [cursor=pointer]
+            - generic [ref=f18e102]:
+              - generic [ref=f18e103]:
+                - generic [ref=f18e107]:
+                  - generic [ref=f18e108]: Pesquisar
+                  - searchbox "Pesquisar" [ref=f18e114]
+                - table [ref=f18e116]:
+                  - rowgroup [ref=f18e117]:
+                    - row [ref=f18e118]:
+                      - columnheader [ref=f18e119]:
+                        - button "NOME" [ref=f18e120] [cursor=pointer]
+                      - columnheader "CARGO" [ref=f18e124]
+                      - columnheader "TÍTULO ELEITORAL" [ref=f18e127]
+                      - columnheader "E-MAIL" [ref=f18e130]
+                      - columnheader "TELEFONE" [ref=f18e133]
+                      - columnheader [ref=f18e136]:
+                        - button "ATUALIZADO EM" [ref=f18e137] [cursor=pointer]
+                      - columnheader "Ação" [ref=f18e141]
+                  - rowgroup [ref=f18e142]:
+                    - row "ABENOR CARDOSO DA SILVA VEREADOR 073238100540 — 28/07/2026 12:52 Editar" [ref=f18e143]:
+                      - cell [ref=f18e144]:
+                        - link "ABENOR CARDOSO DA SILVA" [ref=f18e146] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/108/edit
+                      - cell [ref=f18e152]:
+                        - link "VEREADOR" [ref=f18e154] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/108/edit
+                      - cell [ref=f18e161]:
+                        - link "073238100540" [ref=f18e163] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/108/edit
+                      - cell [ref=f18e169]:
+                        - link "—" [ref=f18e171] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/108/edit
+                      - cell [ref=f18e177]:
+                        - link [ref=f18e179] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/108/edit
+                      - cell [ref=f18e181]:
+                        - link "28/07/2026 12:52" [ref=f18e183] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/108/edit
+                      - cell [ref=f18e189]:
+                        - link "Editar" [ref=f18e192] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/108/edit
+                    - row "ABRAÃO OLIVEIRA DOS SANTOS VEREADOR 084783750531 — 28/07/2026 13:01 Editar" [ref=f18e197]:
+                      - cell [ref=f18e198]:
+                        - link "ABRAÃO OLIVEIRA DOS SANTOS" [ref=f18e200] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/543/edit
+                      - cell [ref=f18e206]:
+                        - link "VEREADOR" [ref=f18e208] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/543/edit
+                      - cell [ref=f18e215]:
+                        - link "084783750531" [ref=f18e217] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/543/edit
+                      - cell [ref=f18e223]:
+                        - link "—" [ref=f18e225] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/543/edit
+                      - cell [ref=f18e231]:
+                        - link [ref=f18e233] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/543/edit
+                      - cell [ref=f18e235]:
+                        - link "28/07/2026 13:01" [ref=f18e237] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/543/edit
+                      - cell [ref=f18e243]:
+                        - link "Editar" [ref=f18e246] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/543/edit
+                    - row "ADAILTON BISPO DA SILVA VEREADOR 078264560515 — 28/07/2026 13:00 Editar" [ref=f18e251]:
+                      - cell [ref=f18e252]:
+                        - link "ADAILTON BISPO DA SILVA" [ref=f18e254] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/469/edit
+                      - cell [ref=f18e260]:
+                        - link "VEREADOR" [ref=f18e262] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/469/edit
+                      - cell [ref=f18e269]:
+                        - link "078264560515" [ref=f18e271] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/469/edit
+                      - cell [ref=f18e277]:
+                        - link "—" [ref=f18e279] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/469/edit
+                      - cell [ref=f18e285]:
+                        - link [ref=f18e287] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/469/edit
+                      - cell [ref=f18e289]:
+                        - link "28/07/2026 13:00" [ref=f18e291] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/469/edit
+                      - cell [ref=f18e297]:
+                        - link "Editar" [ref=f18e300] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/469/edit
+                    - row "ADAILTON GAMA DOS SANTOS VEREADOR 073859940507 — 28/07/2026 12:52 Editar" [ref=f18e305]:
+                      - cell [ref=f18e306]:
+                        - link "ADAILTON GAMA DOS SANTOS" [ref=f18e308] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/99/edit
+                      - cell [ref=f18e314]:
+                        - link "VEREADOR" [ref=f18e316] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/99/edit
+                      - cell [ref=f18e323]:
+                        - link "073859940507" [ref=f18e325] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/99/edit
+                      - cell [ref=f18e331]:
+                        - link "—" [ref=f18e333] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/99/edit
+                      - cell [ref=f18e339]:
+                        - link [ref=f18e341] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/99/edit
+                      - cell [ref=f18e343]:
+                        - link "28/07/2026 12:52" [ref=f18e345] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/99/edit
+                      - cell [ref=f18e351]:
+                        - link "Editar" [ref=f18e354] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/99/edit
+                    - row "ADAILTON RAMOS MAGALHÃES PREFEITO 006313550582 — 28/07/2026 12:57 Editar" [ref=f18e359]:
+                      - cell [ref=f18e360]:
+                        - link "ADAILTON RAMOS MAGALHÃES" [ref=f18e362] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/340/edit
+                      - cell [ref=f18e368]:
+                        - link "PREFEITO" [ref=f18e370] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/340/edit
+                      - cell [ref=f18e377]:
+                        - link "006313550582" [ref=f18e379] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/340/edit
+                      - cell [ref=f18e385]:
+                        - link "—" [ref=f18e387] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/340/edit
+                      - cell [ref=f18e393]:
+                        - link [ref=f18e395] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/340/edit
+                      - cell [ref=f18e397]:
+                        - link "28/07/2026 12:57" [ref=f18e399] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/340/edit
+                      - cell [ref=f18e405]:
+                        - link "Editar" [ref=f18e408] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/340/edit
+                    - row "ADAILZA SANTANA ALVES VEREADOR 023395892135 — 28/07/2026 12:56 Editar" [ref=f18e413]:
+                      - cell [ref=f18e414]:
+                        - link "ADAILZA SANTANA ALVES" [ref=f18e416] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/279/edit
+                      - cell [ref=f18e422]:
+                        - link "VEREADOR" [ref=f18e424] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/279/edit
+                      - cell [ref=f18e431]:
+                        - link "023395892135" [ref=f18e433] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/279/edit
+                      - cell [ref=f18e439]:
+                        - link "—" [ref=f18e441] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/279/edit
+                      - cell [ref=f18e447]:
+                        - link [ref=f18e449] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/279/edit
+                      - cell [ref=f18e451]:
+                        - link "28/07/2026 12:56" [ref=f18e453] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/279/edit
+                      - cell [ref=f18e459]:
+                        - link "Editar" [ref=f18e462] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/279/edit
+                    - row "ADALBERTO FRANCISCO DE JESUS VEREADOR 110038630507 — 28/07/2026 12:51 Editar" [ref=f18e467]:
+                      - cell [ref=f18e468]:
+                        - link "ADALBERTO FRANCISCO DE JESUS" [ref=f18e470] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/20/edit
+                      - cell [ref=f18e476]:
+                        - link "VEREADOR" [ref=f18e478] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/20/edit
+                      - cell [ref=f18e485]:
+                        - link "110038630507" [ref=f18e487] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/20/edit
+                      - cell [ref=f18e493]:
+                        - link "—" [ref=f18e495] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/20/edit
+                      - cell [ref=f18e501]:
+                        - link [ref=f18e503] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/20/edit
+                      - cell [ref=f18e505]:
+                        - link "28/07/2026 12:51" [ref=f18e507] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/20/edit
+                      - cell [ref=f18e513]:
+                        - link "Editar" [ref=f18e516] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/20/edit
+                    - row "ADALBERTO PEREIRA DE SOUZA VEREADOR 052319100558 — 28/07/2026 12:58 Editar" [ref=f18e521]:
+                      - cell [ref=f18e522]:
+                        - link "ADALBERTO PEREIRA DE SOUZA" [ref=f18e524] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/364/edit
+                      - cell [ref=f18e530]:
+                        - link "VEREADOR" [ref=f18e532] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/364/edit
+                      - cell [ref=f18e539]:
+                        - link "052319100558" [ref=f18e541] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/364/edit
+                      - cell [ref=f18e547]:
+                        - link "—" [ref=f18e549] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/364/edit
+                      - cell [ref=f18e555]:
+                        - link [ref=f18e557] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/364/edit
+                      - cell [ref=f18e559]:
+                        - link "28/07/2026 12:58" [ref=f18e561] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/364/edit
+                      - cell [ref=f18e567]:
+                        - link "Editar" [ref=f18e570] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/364/edit
+                    - row "ADAUTO ROCHA SANTOS VEREADOR 117514330507 — 28/07/2026 13:05 Editar" [ref=f18e575]:
+                      - cell [ref=f18e576]:
+                        - link "ADAUTO ROCHA SANTOS" [ref=f18e578] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/717/edit
+                      - cell [ref=f18e584]:
+                        - link "VEREADOR" [ref=f18e586] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/717/edit
+                      - cell [ref=f18e593]:
+                        - link "117514330507" [ref=f18e595] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/717/edit
+                      - cell [ref=f18e601]:
+                        - link "—" [ref=f18e603] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/717/edit
+                      - cell [ref=f18e609]:
+                        - link [ref=f18e611] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/717/edit
+                      - cell [ref=f18e613]:
+                        - link "28/07/2026 13:05" [ref=f18e615] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/717/edit
+                      - cell [ref=f18e621]:
+                        - link "Editar" [ref=f18e624] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/717/edit
+                    - row "ADEGILSON CARVALHO DA SILVA VEREADOR 114069660523 — 28/07/2026 12:53 Editar" [ref=f18e629]:
+                      - cell [ref=f18e630]:
+                        - link "ADEGILSON CARVALHO DA SILVA" [ref=f18e632] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/131/edit
+                      - cell [ref=f18e638]:
+                        - link "VEREADOR" [ref=f18e640] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/131/edit
+                      - cell [ref=f18e647]:
+                        - link "114069660523" [ref=f18e649] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/131/edit
+                      - cell [ref=f18e655]:
+                        - link "—" [ref=f18e657] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/131/edit
+                      - cell [ref=f18e663]:
+                        - link [ref=f18e665] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/131/edit
+                      - cell [ref=f18e667]:
+                        - link "28/07/2026 12:53" [ref=f18e669] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/131/edit
+                      - cell [ref=f18e675]:
+                        - link "Editar" [ref=f18e678] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/pessoas-tses/131/edit
+                - navigation "Paginação" [ref=f18e683]:
+                  - generic [ref=f18e684]: Exibindo 1 a 10 de 800 resultados
+                  - generic [ref=f18e687]:
+                    - generic [ref=f18e688]: por página
+                    - combobox "por página" [ref=f18e691]:
+                      - option "5"
+                      - option "10" [selected]
+                      - option "25"
+                      - option "50"
+                      - option "Todas"
+                  - list [ref=f18e692]:
+                    - listitem [ref=f18e693]:
+                      - button "Ir para página 1" [ref=f18e694] [cursor=pointer]:
+                        - generic [ref=f18e695]: "1"
+                    - listitem [ref=f18e696]:
+                      - button "Ir para página 2" [ref=f18e697] [cursor=pointer]:
+                        - generic [ref=f18e698]: "2"
+                    - listitem [ref=f18e699]:
+                      - button "Ir para página 3" [ref=f18e700] [cursor=pointer]:
+                        - generic [ref=f18e701]: "3"
+                    - listitem [ref=f18e702]:
+                      - button "Ir para página 4" [ref=f18e703] [cursor=pointer]:
+                        - generic [ref=f18e704]: "4"
+                    - listitem [ref=f18e705]:
+                      - button "..." [disabled] [ref=f18e706]
+                    - listitem [ref=f18e708]:
+                      - button "Ir para página 79" [ref=f18e709] [cursor=pointer]:
+                        - generic [ref=f18e710]: "79"
+                    - listitem [ref=f18e711]:
+                      - button "Ir para página 80" [ref=f18e712] [cursor=pointer]:
+                        - generic [ref=f18e713]: "80"
+                    - listitem [ref=f18e714]:
+                      - button "Próxima" [ref=f18e715] [cursor=pointer]
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+    - complementary [ref=f18e718]:
+      - link [ref=f18e722] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f18e723]
+      - navigation [ref=f18e724]:
+        - list [ref=f18e725]:
+          - listitem [ref=f18e726]:
+            - list [ref=f18e727]:
+              - listitem [ref=f18e728]:
+                - link "BEM-VINDO" [ref=f18e729] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=f18e733]:
+                - link "LIDERANÇAS" [ref=f18e734] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=f18e738]:
+                - link "MUNICÍPIOS" [ref=f18e739] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=f18e743]:
+                - link "ELEIÇÕES" [ref=f18e744] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=f18e748]:
+                - link "DASHBOARD" [ref=f18e749] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=f18e753]:
+                - link "RELATÓRIOS" [ref=f18e754] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=f18e758]:
+                - link "DADOS" [ref=f18e759] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=f18e763]:
+                - link "ANIVERSÁRIOS" [ref=f18e764] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=f18e768]:
+                - link "CONFIGURAÇÕES" [ref=f18e769] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status

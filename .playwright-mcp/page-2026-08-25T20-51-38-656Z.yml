@@ -1,0 +1,343 @@
+- generic [active] [ref=f19e1]:
+  - generic [ref=f19e2]:
+    - generic [ref=f19e3]:
+      - navigation [ref=f19e5]:
+        - link [ref=f19e7] [cursor=pointer]:
+          - /url: https://uniao-dev.k8s.acto.com.br
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f19e8]
+        - list [ref=f19e9]:
+          - listitem [ref=f19e10]:
+            - link "BEM-VINDO" [ref=f19e11] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br
+          - listitem [ref=f19e15]:
+            - link "LIDERANÇAS" [ref=f19e16] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+          - listitem [ref=f19e20]:
+            - link "MUNICÍPIOS" [ref=f19e21] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+          - listitem [ref=f19e25]:
+            - link "ELEIÇÕES" [ref=f19e26] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+          - listitem [ref=f19e30]:
+            - link "DASHBOARD" [ref=f19e31] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+          - listitem [ref=f19e35]:
+            - link "RELATÓRIOS" [ref=f19e36] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+          - listitem [ref=f19e40]:
+            - link "DADOS" [ref=f19e41] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dados
+          - listitem [ref=f19e45]:
+            - link "ANIVERSÁRIOS" [ref=f19e46] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+          - listitem [ref=f19e50]:
+            - link "CONFIGURAÇÕES" [ref=f19e51] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+        - generic [ref=f19e56]:
+          - button "Notificações" [ref=f19e60] [cursor=pointer]
+          - button "Menu do usuário" [ref=f19e65] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=f19e66]
+      - main [ref=f19e67]:
+        - generic [ref=f19e68]:
+          - generic [ref=f19e69]:
+            - heading "CONFIGURAR AGENDA" [level=1] [ref=f19e72]
+            - generic [ref=f19e73]:
+              - tablist [ref=f19e74]:
+                - tab "CONFIGURAR LIDERANÇA" [ref=f19e75] [cursor=pointer]
+                - tab "PESSOAS TSE" [ref=f19e79] [cursor=pointer]
+                - tab "INTEGRAÇÃO TSE" [ref=f19e83] [cursor=pointer]
+                - tab "USUÁRIOS" [ref=f19e87] [cursor=pointer]
+                - tab "CONFIGURAR AGENDA" [ref=f19e91] [cursor=pointer]
+                - tab "CONFIGURAR MUNICÍPIOS" [ref=f19e95] [cursor=pointer]
+              - generic [ref=f19e99]:
+                - generic [ref=f19e100]:
+                  - generic [ref=f19e101]:
+                    - generic [ref=f19e103]:
+                      - generic [ref=f19e104]:
+                        - heading "EDITORES" [level=3] [ref=f19e105]
+                        - paragraph [ref=f19e106]: Usuários que podem criar, editar e excluir registros da agenda. Ao adicionar um editor, ele passa a ser visualizador automaticamente.
+                      - button "ADICIONAR EDITOR" [ref=f19e107] [cursor=pointer]
+                    - list [ref=f19e113]:
+                      - listitem [ref=f19e114]:
+                        - generic [ref=f19e115]:
+                          - generic [ref=f19e116]: JG
+                          - generic [ref=f19e117]:
+                            - generic [ref=f19e118]: Jessica Gonçalves
+                            - generic [ref=f19e119]: jessica_cg@outlook.com
+                        - button "Remover" [ref=f19e120] [cursor=pointer]
+                      - listitem [ref=f19e123]:
+                        - generic [ref=f19e124]:
+                          - generic [ref=f19e125]: LA
+                          - generic [ref=f19e126]:
+                            - generic [ref=f19e127]: Lilian Alta
+                            - generic [ref=f19e128]: liualta@hotmail.com
+                        - button "Remover" [ref=f19e129] [cursor=pointer]
+                      - listitem [ref=f19e132]:
+                        - generic [ref=f19e133]:
+                          - generic [ref=f19e134]: EM
+                          - generic [ref=f19e135]:
+                            - generic [ref=f19e136]: Emanuel
+                            - generic [ref=f19e137]: emanuel.freitas@acto.com.br
+                        - button "Remover" [ref=f19e138] [cursor=pointer]
+                      - listitem [ref=f19e141]:
+                        - generic [ref=f19e142]:
+                          - generic [ref=f19e143]: EV
+                          - generic [ref=f19e144]:
+                            - generic [ref=f19e145]: EVANDRO
+                            - generic [ref=f19e146]: evandro@acto.com.br
+                        - button "Remover" [ref=f19e147] [cursor=pointer]
+                      - listitem [ref=f19e150]:
+                        - generic [ref=f19e151]:
+                          - generic [ref=f19e152]: EM
+                          - generic [ref=f19e153]:
+                            - generic [ref=f19e154]: Eduardo Molina
+                            - generic [ref=f19e155]: eduardo.molina@acto.com.br
+                        - button "Remover" [ref=f19e156] [cursor=pointer]
+                  - generic [ref=f19e159]:
+                    - generic [ref=f19e161]:
+                      - generic [ref=f19e162]:
+                        - heading "VISUALIZADORES" [level=3] [ref=f19e163]
+                        - paragraph [ref=f19e164]: Usuários que podem visualizar o módulo Agenda no menu. A lista é gerenciada manualmente. Editores não podem ser removidos aqui — remova-os antes na sessão Editores.
+                      - button "ADICIONAR VISUALIZADOR" [ref=f19e165] [cursor=pointer]
+                    - list [ref=f19e171]:
+                      - listitem [ref=f19e172]:
+                        - generic [ref=f19e173]:
+                          - generic [ref=f19e174]: AN
+                          - generic [ref=f19e175]:
+                            - generic [ref=f19e176]: ACM NETO
+                            - generic [ref=f19e177]: acmneto@terra.com
+                        - button "Remover" [ref=f19e179] [cursor=pointer]
+                      - listitem [ref=f19e182]:
+                        - generic [ref=f19e183]:
+                          - generic [ref=f19e184]: AD
+                          - generic [ref=f19e185]:
+                            - generic [ref=f19e186]: Admin
+                            - generic [ref=f19e187]: admin@admin.com
+                        - button "Remover" [ref=f19e189] [cursor=pointer]
+                      - listitem [ref=f19e192]:
+                        - generic [ref=f19e193]:
+                          - generic [ref=f19e194]: AM
+                          - generic [ref=f19e195]:
+                            - generic [ref=f19e196]: Adriano Marques
+                            - generic [ref=f19e197]: adriano@acto.com.br
+                        - button "Remover" [ref=f19e199] [cursor=pointer]
+                      - listitem [ref=f19e202]:
+                        - generic [ref=f19e203]:
+                          - generic [ref=f19e204]: AU
+                          - generic [ref=f19e205]:
+                            - generic [ref=f19e206]: Aline Uzeda
+                            - generic [ref=f19e207]: aline_uzeda@hotmail.com
+                        - button "Remover" [ref=f19e209] [cursor=pointer]
+                      - listitem [ref=f19e212]:
+                        - generic [ref=f19e213]:
+                          - generic [ref=f19e214]: AD
+                          - generic [ref=f19e215]:
+                            - generic [ref=f19e216]: Alvaro Dantas
+                            - generic [ref=f19e217]: alvaroodantas@gmail.com
+                        - button "Remover" [ref=f19e219] [cursor=pointer]
+                      - listitem [ref=f19e222]:
+                        - generic [ref=f19e223]:
+                          - generic [ref=f19e224]: AA
+                          - generic [ref=f19e225]:
+                            - generic [ref=f19e226]: Ana Alves
+                            - generic [ref=f19e227]: anasantosalves@hotmail.com
+                        - button "Remover" [ref=f19e229] [cursor=pointer]
+                      - listitem [ref=f19e232]:
+                        - generic [ref=f19e233]:
+                          - generic [ref=f19e234]: AS
+                          - generic [ref=f19e235]:
+                            - generic [ref=f19e236]: Arysa Souza
+                            - generic [ref=f19e237]: arysas@gmail.com
+                        - button "Remover" [ref=f19e239] [cursor=pointer]
+                      - listitem [ref=f19e242]:
+                        - generic [ref=f19e243]:
+                          - generic [ref=f19e244]: BL
+                          - generic [ref=f19e245]:
+                            - generic [ref=f19e246]: Beatriz Lago
+                            - generic [ref=f19e247]: beatrizlago19@gmail.com
+                        - button "Remover" [ref=f19e249] [cursor=pointer]
+                      - listitem [ref=f19e252]:
+                        - generic [ref=f19e253]:
+                          - generic [ref=f19e254]: CC
+                          - generic [ref=f19e255]:
+                            - generic [ref=f19e256]: Caio Cesar
+                            - generic [ref=f19e257]: caio.cesar08@hotmail.com
+                        - button "Remover" [ref=f19e259] [cursor=pointer]
+                      - listitem [ref=f19e262]:
+                        - generic [ref=f19e263]:
+                          - generic [ref=f19e264]: CT
+                          - generic [ref=f19e265]:
+                            - generic [ref=f19e266]: Claude Teste
+                            - generic [ref=f19e267]: claude.teste@acto.com.br
+                        - button "Remover" [ref=f19e269] [cursor=pointer]
+                      - listitem [ref=f19e272]:
+                        - generic [ref=f19e273]:
+                          - generic [ref=f19e274]: EM
+                          - generic [ref=f19e275]:
+                            - generic [ref=f19e276]: Eduardo Molina
+                            - generic [ref=f19e277]: eduardo.molina@acto.com.br
+                        - generic [ref=f19e278]:
+                          - generic [ref=f19e279]: Também é editor
+                          - button "Remover" [ref=f19e280] [cursor=pointer]
+                      - listitem [ref=f19e283]:
+                        - generic [ref=f19e284]:
+                          - generic [ref=f19e285]: EM
+                          - generic [ref=f19e286]:
+                            - generic [ref=f19e287]: Emanuel
+                            - generic [ref=f19e288]: emanuel.freitas@acto.com.br
+                        - generic [ref=f19e289]:
+                          - generic [ref=f19e290]: Também é editor
+                          - button "Remover" [ref=f19e291] [cursor=pointer]
+                      - listitem [ref=f19e294]:
+                        - generic [ref=f19e295]:
+                          - generic [ref=f19e296]: EN
+                          - generic [ref=f19e297]:
+                            - generic [ref=f19e298]: Enrique
+                            - generic [ref=f19e299]: enrique.prieto@acto.com.br
+                        - button "Remover" [ref=f19e301] [cursor=pointer]
+                      - listitem [ref=f19e304]:
+                        - generic [ref=f19e305]:
+                          - generic [ref=f19e306]: EV
+                          - generic [ref=f19e307]:
+                            - generic [ref=f19e308]: EVANDRO
+                            - generic [ref=f19e309]: evandro@acto.com.br
+                        - generic [ref=f19e310]:
+                          - generic [ref=f19e311]: Também é editor
+                          - button "Remover" [ref=f19e312] [cursor=pointer]
+                      - listitem [ref=f19e315]:
+                        - generic [ref=f19e316]:
+                          - generic [ref=f19e317]: JG
+                          - generic [ref=f19e318]:
+                            - generic [ref=f19e319]: Jessica Gonçalves
+                            - generic [ref=f19e320]: jessica_cg@outlook.com
+                        - generic [ref=f19e321]:
+                          - generic [ref=f19e322]: Também é editor
+                          - button "Remover" [ref=f19e323] [cursor=pointer]
+                      - listitem [ref=f19e326]:
+                        - generic [ref=f19e327]:
+                          - generic [ref=f19e328]: LA
+                          - generic [ref=f19e329]:
+                            - generic [ref=f19e330]: Lilian Alta
+                            - generic [ref=f19e331]: liualta@hotmail.com
+                        - generic [ref=f19e332]:
+                          - generic [ref=f19e333]: Também é editor
+                          - button "Remover" [ref=f19e334] [cursor=pointer]
+                      - listitem [ref=f19e337]:
+                        - generic [ref=f19e338]:
+                          - generic [ref=f19e339]: LC
+                          - generic [ref=f19e340]:
+                            - generic [ref=f19e341]: Lilian Coelho
+                            - generic [ref=f19e342]: lilian.villasboas17@gmail.com
+                        - button "Remover" [ref=f19e344] [cursor=pointer]
+                      - listitem [ref=f19e347]:
+                        - generic [ref=f19e348]:
+                          - generic [ref=f19e349]: LM
+                          - generic [ref=f19e350]:
+                            - generic [ref=f19e351]: Lucas Moreno
+                            - generic [ref=f19e352]: lucasmorenoascom@gmail.com
+                        - button "Remover" [ref=f19e354] [cursor=pointer]
+                      - listitem [ref=f19e357]:
+                        - generic [ref=f19e358]:
+                          - generic [ref=f19e359]: LR
+                          - generic [ref=f19e360]:
+                            - generic [ref=f19e361]: Luciano Ribeiro
+                            - generic [ref=f19e362]: luciano@lucianoribeiro.adv.br
+                        - button "Remover" [ref=f19e364] [cursor=pointer]
+                      - listitem [ref=f19e367]:
+                        - generic [ref=f19e368]:
+                          - generic [ref=f19e369]: MP
+                          - generic [ref=f19e370]:
+                            - generic [ref=f19e371]: Marcelo Pedreira
+                            - generic [ref=f19e372]: marcelopedreira11@gmail.com
+                        - button "Remover" [ref=f19e374] [cursor=pointer]
+                      - listitem [ref=f19e377]:
+                        - generic [ref=f19e378]:
+                          - generic [ref=f19e379]: MT
+                          - generic [ref=f19e380]:
+                            - generic [ref=f19e381]: Marco Túlio
+                            - generic [ref=f19e382]: marquinhoscafe12@gmail.com
+                        - button "Remover" [ref=f19e384] [cursor=pointer]
+                      - listitem [ref=f19e387]:
+                        - generic [ref=f19e388]:
+                          - generic [ref=f19e389]: MA
+                          - generic [ref=f19e390]:
+                            - generic [ref=f19e391]: matheus
+                            - generic [ref=f19e392]: matheus.ariel@acto.com.br
+                        - button "Remover" [ref=f19e394] [cursor=pointer]
+                      - listitem [ref=f19e397]:
+                        - generic [ref=f19e398]:
+                          - generic [ref=f19e399]: "NO"
+                          - generic [ref=f19e400]:
+                            - generic [ref=f19e401]: Naila Oliveira
+                            - generic [ref=f19e402]: nailaaraujooliveiraa@gmail.com
+                        - button "Remover" [ref=f19e404] [cursor=pointer]
+                      - listitem [ref=f19e407]:
+                        - generic [ref=f19e408]:
+                          - generic [ref=f19e409]: RB
+                          - generic [ref=f19e410]:
+                            - generic [ref=f19e411]: Reinaldo Braga
+                            - generic [ref=f19e412]: reinaldobragaf@uol.com.br
+                        - button "Remover" [ref=f19e414] [cursor=pointer]
+                      - listitem [ref=f19e417]:
+                        - generic [ref=f19e418]:
+                          - generic [ref=f19e419]: RC
+                          - generic [ref=f19e420]:
+                            - generic [ref=f19e421]: Rosemare Cabral
+                            - generic [ref=f19e422]: rosemare.cabral@acto.com.br
+                        - button "Remover" [ref=f19e424] [cursor=pointer]
+                      - listitem [ref=f19e427]:
+                        - generic [ref=f19e428]:
+                          - generic [ref=f19e429]: VC
+                          - generic [ref=f19e430]:
+                            - generic [ref=f19e431]: Vanussa Carvalho
+                            - generic [ref=f19e432]: vanussasc@hotmail.com
+                        - button "Remover" [ref=f19e434] [cursor=pointer]
+                  - generic [ref=f19e439] [cursor=pointer]:
+                    - generic [ref=f19e440]:
+                      - heading "AUDITORIAS" [level=3] [ref=f19e441]
+                      - paragraph [ref=f19e445]: Histórico de alterações nas listas de editores e visualizadores da agenda (quem adicionou ou removeu e quando).
+                    - button [ref=f19e446]
+                - dialog
+          - generic:
+            - dialog
+          - generic:
+            - dialog
+          - generic:
+            - dialog
+    - complementary [ref=f19e449]:
+      - link [ref=f19e453] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f19e454]
+      - navigation [ref=f19e455]:
+        - list [ref=f19e456]:
+          - listitem [ref=f19e457]:
+            - list [ref=f19e458]:
+              - listitem [ref=f19e459]:
+                - link "BEM-VINDO" [ref=f19e460] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=f19e464]:
+                - link "LIDERANÇAS" [ref=f19e465] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=f19e469]:
+                - link "MUNICÍPIOS" [ref=f19e470] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=f19e474]:
+                - link "ELEIÇÕES" [ref=f19e475] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=f19e479]:
+                - link "DASHBOARD" [ref=f19e480] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=f19e484]:
+                - link "RELATÓRIOS" [ref=f19e485] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=f19e489]:
+                - link "DADOS" [ref=f19e490] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=f19e494]:
+                - link "ANIVERSÁRIOS" [ref=f19e495] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=f19e499]:
+                - link "CONFIGURAÇÕES" [ref=f19e500] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status

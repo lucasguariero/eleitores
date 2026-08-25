@@ -1,0 +1,127 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - navigation [ref=e5]:
+        - button "Recolher barra lateral" [ref=e6] [cursor=pointer]
+        - generic [ref=e10]:
+          - button "Notificações" [ref=e14] [cursor=pointer]
+          - button "Menu do usuário" [ref=e19] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=e20]
+      - main [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e25]:
+            - generic [ref=e27]:
+              - generic [ref=e28]:
+                - generic [ref=e33]:
+                  - heading "Aniversários de Hoje" [level=3] [ref=e34]
+                  - generic [ref=e35]:
+                    - generic [ref=e36]: 25 de agosto
+                    - generic [ref=e37]: 5 eventos
+                  - generic [ref=e38]: 5 lideranças
+                - link "Ver todos" [ref=e40] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - generic [ref=e43]:
+                - link "25/08 Liderança SAMARA BEATRIZ CANDIDATO A DEPUTADO ESTADUAL" [ref=e44] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas/5242/edit
+                  - generic [ref=e45]:
+                    - generic [ref=e46]: S
+                    - generic [ref=e47]:
+                      - generic [ref=e48]:
+                        - generic [ref=e49]: 25/08
+                        - generic [ref=e50]: Liderança
+                      - generic [ref=e51]: SAMARA BEATRIZ
+                      - paragraph [ref=e52]: CANDIDATO A DEPUTADO ESTADUAL
+                - link "25/08 Liderança JOEL VEREADOR" [ref=e53] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4825/edit
+                  - generic [ref=e54]:
+                    - generic [ref=e55]: J
+                    - generic [ref=e56]:
+                      - generic [ref=e57]:
+                        - generic [ref=e58]: 25/08
+                        - generic [ref=e59]: Liderança
+                      - generic [ref=e60]: JOEL
+                      - paragraph [ref=e61]: VEREADOR
+                - link "25/08 Liderança MURIEL JÁ É VEREADOR" [ref=e62] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4856/edit
+                  - generic [ref=e63]:
+                    - generic [ref=e64]: M
+                    - generic [ref=e65]:
+                      - generic [ref=e66]:
+                        - generic [ref=e67]: 25/08
+                        - generic [ref=e68]: Liderança
+                      - generic [ref=e69]: MURIEL JÁ É
+                      - paragraph [ref=e70]: VEREADOR
+                - link "25/08 Liderança WASHINGTON SANTANA EX-PREFEITO" [ref=e71] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4493/edit
+                  - generic [ref=e72]:
+                    - generic [ref=e73]: W
+                    - generic [ref=e74]:
+                      - generic [ref=e75]:
+                        - generic [ref=e76]: 25/08
+                        - generic [ref=e77]: Liderança
+                      - generic [ref=e78]: WASHINGTON SANTANA
+                      - paragraph [ref=e79]: EX-PREFEITO
+                - link "25/08 Liderança LANDISUARTH LIDERANÇA" [ref=e80] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas/4802/edit
+                  - generic [ref=e81]:
+                    - generic [ref=e82]: L
+                    - generic [ref=e83]:
+                      - generic [ref=e84]:
+                        - generic [ref=e85]: 25/08
+                        - generic [ref=e86]: Liderança
+                      - generic [ref=e87]: LANDISUARTH
+                      - paragraph [ref=e88]: LIDERANÇA
+            - generic [ref=e90]:
+              - link "LIDERANÇAS" [ref=e91] [cursor=pointer]:
+                - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - link "MUNICÍPIOS" [ref=e97] [cursor=pointer]:
+                - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - link "ELEIÇÕES" [ref=e103] [cursor=pointer]:
+                - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - link "DASHBOARD" [ref=e109] [cursor=pointer]:
+                - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - link "AGENDA" [ref=e116] [cursor=pointer]:
+                - /url: https://uniao-dev.k8s.acto.com.br/agenda
+          - generic:
+            - dialog
+          - generic:
+            - dialog
+          - generic:
+            - dialog
+    - complementary [ref=e123]:
+      - link [ref=e127] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=e128]
+      - navigation [ref=e129]:
+        - list [ref=e130]:
+          - listitem [ref=e131]:
+            - list [ref=e132]:
+              - listitem [ref=e133]:
+                - link "BEM-VINDO" [ref=e134] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=e138]:
+                - link "LIDERANÇAS" [ref=e139] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=e143]:
+                - link "MUNICÍPIOS" [ref=e144] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=e148]:
+                - link "ELEIÇÕES" [ref=e149] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=e153]:
+                - link "DASHBOARD" [ref=e154] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=e158]:
+                - link "RELATÓRIOS" [ref=e159] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=e163]:
+                - link "DADOS" [ref=e164] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=e168]:
+                - link "ANIVERSÁRIOS" [ref=e169] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=e173]:
+                - link "CONFIGURAÇÕES" [ref=e174] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status

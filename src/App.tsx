@@ -92,7 +92,7 @@ function Metric({ label, value, delta, icon: Icon, onClick, tone }: { label: str
   return onClick ? <button className="metric-card" onClick={onClick}>{body}</button> : <article className="metric-card">{body}</article>
 }
 
-function Modal({ title, description, onClose, children }: { title: string; description?: string; onClose: () => void; children: ReactNode }) {
+function Modal({ title, description, onClose, children, actions }: { title: string; description?: string; onClose: () => void; children: ReactNode; actions?: ReactNode }) {
   const dialog = useRef<HTMLElement>(null)
   useEffect(() => {
     const handle = (event: KeyboardEvent) => event.key === 'Escape' && onClose()
@@ -104,7 +104,7 @@ function Modal({ title, description, onClose, children }: { title: string; descr
     dialog.current?.focus()
     return () => previous?.focus()
   }, [])
-  return <div className="modal-backdrop" role="presentation" onMouseDown={onClose}><section className="modal" ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} onMouseDown={event => event.stopPropagation()}><button className="icon-button modal-close" aria-label="Fechar" onClick={onClose}><X size={18} /></button><h2>{title}</h2>{description && <p>{description}</p>}{children}</section></div>
+  return <div className="modal-backdrop" role="presentation" onMouseDown={onClose}><section className="modal" ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} onMouseDown={event => event.stopPropagation()}><button className="icon-button modal-close" aria-label="Fechar" onClick={onClose}><X size={18} /></button><h2>{title}</h2>{description && <p>{description}</p>}{children}{actions && <div className="modal-actions">{actions}</div>}</section></div>
 }
 
 function EmptyState({ title, text, action }: { title: string; text: string; action?: ReactNode }) {
@@ -1105,17 +1105,42 @@ function AgendaModulo({ navigate }: { navigate: Navigate }) {
   const [mes, setMes] = useState('2026-08')
   const [dia, setDia] = useState('2026-08-14')
   const [tipo, setTipo] = useState<'Todos' | TipoCompromisso>('Todos')
+  const [situacao, setSituacao] = useState<'Todas' | 'Marcado' | 'Cumprido' | 'Descumprido' | 'Sugestão'>('Todas')
+  const [busca, setBusca] = useState('')
+  const [filtroMunicipio, setFiltroMunicipio] = useState('')
   const [aberto, setAberto] = useState<Compromisso | null>(null)
+  const [editando, setEditando] = useState<Compromisso | null>(null)
   const ano = Number(mes.slice(0, 4)), mesNum = Number(mes.slice(5))
-  const filtra = (lista: Compromisso[]) => tipo === 'Todos' ? lista : lista.filter(c => c.tipo === tipo)
+
+  // Filtros
+  const filtra = (lista: Compromisso[]) => {
+    let result = lista
+    if (tipo !== 'Todos') result = result.filter(c => c.tipo === tipo)
+    if (situacao !== 'Todas') result = result.filter(c => c.situacao === situacao)
+    if (busca) {
+      const b = busca.toLowerCase()
+      result = result.filter(c => c.titulo.toLowerCase().includes(b) || c.municipio.toLowerCase().includes(b) || c.responsavel.toLowerCase().includes(b))
+    }
+    if (filtroMunicipio) result = result.filter(c => c.municipio === filtroMunicipio)
+    return result
+  }
+
   const doMes = filtra(compromissosDoMes(ano, mesNum))
   const abertos = encaminhamentosAbertos()
   const atrasados = abertos.filter(e => e.situacao === 'Atrasado')
   const totalKm = rota.paradas.reduce((s, p) => s + p.km, 0)
   const visoes = [['dia', 'Dia'], ['mes', 'Mês'], ['ano', 'Ano'], ['lista', 'Listagem'], ['rota', 'Rota de viagem']] as const
 
+  // Estatísticas por situação
+  const stats = {
+    marcadas: compromissosDoMes(ano, mesNum).filter(c => c.situacao === 'Marcado' && !c.sugestao).length,
+    realizadas: compromissosDoMes(ano, mesNum).filter(c => c.situacao === 'Cumprido').length,
+    naoRealizadas: compromissosDoMes(ano, mesNum).filter(c => c.situacao === 'Descumprido').length,
+    sugestoes: compromissosDoMes(ano, mesNum).filter(c => c.sugestao).length,
+  }
+
   return <>
-    <PageHeader eyebrow="Análise" title="Agenda" description="Viagens, visitas, reuniões e entrevistas num só lugar. Reunião é um tipo de compromisso, não um módulo à parte — e qualquer tipo pode gerar encaminhamento com dono e prazo." actions={<button className="primary-button"><Plus size={16} /> Novo compromisso</button>} />
+    <PageHeader eyebrow="Análise" title="Agenda" description="Viagens, visitas, reuniões e entrevistas num só lugar. Reunião é um tipo de compromisso, não um módulo à parte — e qualquer tipo pode gerar encaminhamento com dono e prazo." actions={<button className="primary-button" onClick={() => setEditando({ id: 0, tipo: 'Viagem', titulo: '', data: '', hora: '', municipio: '', responsavel: '', participantes: 0, situacao: 'Marcado', encaminhamentos: [], sugestao: false } as Compromisso)}><Plus size={16} /> Novo compromisso</button>} />
 
     <div className="metrics-grid">
       <Metric label="Compromissos no mês" value={String(doMes.length)} delta={tipo === 'Todos' ? 'todos os tipos' : `só ${tipo.toLowerCase()}`} icon={CalendarDays} />
@@ -1126,10 +1151,33 @@ function AgendaModulo({ navigate }: { navigate: Navigate }) {
 
     <section className="card agenda-controles">
       <div className="segmented" role="tablist" aria-label="Visão da agenda">{visoes.map(([id, rotulo]) => <button key={id} role="tab" aria-selected={visao === id} className={visao === id ? 'active' : ''} onClick={() => setVisao(id)}>{rotulo}</button>)}</div>
+
       {visao !== 'rota' && <div className="filtros-tipo">
         <button className={`chip-tipo ${tipo === 'Todos' ? 'ativo' : ''}`} onClick={() => setTipo('Todos')}>Todos</button>
         {tiposCompromisso.map(t => <button key={t} className={`chip-tipo tipo-${t.toLowerCase().replace('ã', 'a')} ${tipo === t ? 'ativo' : ''}`} onClick={() => setTipo(t)}>{t}</button>)}
       </div>}
+
+      {/* Abas de situação */}
+      {visao !== 'rota' && visao !== 'dia' && visao !== 'ano' && <div className="situacao-tabs">
+        <button className={`situacao-tab ${situacao === 'Todas' ? 'active' : ''}`} onClick={() => setSituacao('Todas')}>Todas</button>
+        <button className={`situacao-tab ${situacao === 'Marcado' ? 'active' : ''}`} onClick={() => setSituacao('Marcado')}>Marcadas <span className="badge">{stats.marcadas}</span></button>
+        <button className={`situacao-tab ${situacao === 'Cumprido' ? 'active' : ''}`} onClick={() => setSituacao('Cumprido')}>Realizadas <span className="badge">{stats.realizadas}</span></button>
+        <button className={`situacao-tab ${situacao === 'Descumprido' ? 'active' : ''}`} onClick={() => setSituacao('Descumprido')}>Não realizadas <span className="badge">{stats.naoRealizadas}</span></button>
+        <button className={`situacao-tab ${situacao === 'Sugestão' ? 'active' : ''}`} onClick={() => setSituacao('Sugestão')}>Sugestões <span className="badge">{stats.sugestoes}</span></button>
+      </div>}
+
+      {/* Busca e filtros */}
+      {visao !== 'rota' && <div className="agenda-busca">
+        <div className="busca-input">
+          <Search size={16} />
+          <input type="text" placeholder="Buscar por nome, município ou responsável..." value={busca} onChange={e => setBusca(e.target.value)} />
+        </div>
+        <select value={filtroMunicipio} onChange={e => setFiltroMunicipio(e.target.value)} aria-label="Filtrar por município">
+          <option value="">Todos os municípios</option>
+          {municipios.slice(0, 20).map(m => <option key={m.nome} value={m.nome}>{m.nome}</option>)}
+        </select>
+      </div>}
+
       {(visao === 'mes' || visao === 'lista') && <select value={mes} onChange={e => setMes(e.target.value)} aria-label="Mês exibido"><option value="2026-08">Agosto 2026</option><option value="2026-09">Setembro 2026</option></select>}
       {visao === 'dia' && <input type="date" value={dia} onChange={e => setDia(e.target.value)} aria-label="Dia exibido" />}
       {visao === 'ano' && <select value={ano} aria-label="Ano exibido" onChange={e => setMes(`${e.target.value}-08`)}><option>2026</option></select>}
@@ -1141,16 +1189,87 @@ function AgendaModulo({ navigate }: { navigate: Navigate }) {
     {visao === 'lista' && <AgendaLista itens={doMes} aoAbrir={setAberto} />}
     {visao === 'rota' && <AgendaRota navigate={navigate} total={totalKm} />}
 
-    {aberto && <Modal title={aberto.titulo} description={`${aberto.tipo} · ${aberto.hora} · ${aberto.municipio}`} onClose={() => setAberto(null)}>
+    {/* Modal de detalle */}
+    {aberto && <Modal title={aberto.titulo} description={`${aberto.tipo} · ${aberto.hora} · ${aberto.municipio}`} onClose={() => setAberto(null)} actions={<><button className="secondary-button" onClick={() => { setEditando(aberto); setAberto(null) }}><Edit size={14} /> Editar</button><button className="danger-button">Excluir</button></>}>
       <div className="event-detail">
-        <div className="pill-row"><Pill tone={aberto.situacao === 'Cumprido' ? 'green' : aberto.situacao === 'Descumprido' ? 'red' : 'blue'}>{aberto.situacao}</Pill><Pill tone="neutral">{aberto.tipo}</Pill>{aberto.vinculo && <Pill tone="purple">{aberto.vinculo}</Pill>}</div>
-        <div className="info-grid"><span><small>Responsável</small><strong>{aberto.responsavel}</strong></span><span><small>Participantes</small><strong>{aberto.participantes}</strong></span></div>
+        <div className="pill-row">
+          <Pill tone={aberto.situacao === 'Cumprido' ? 'green' : aberto.situacao === 'Descumprido' ? 'red' : aberto.situacao === 'Sugestão' ? 'amber' : 'blue'}>{aberto.situacao}</Pill>
+          <Pill tone="neutral">{aberto.tipo}</Pill>
+          {aberto.vinculo && <Pill tone="purple">{aberto.vinculo}</Pill>}
+          {aberto.sugestao && <Pill tone="amber">Sugestão</Pill>}
+        </div>
+        <div className="info-grid">
+          <span><small>Responsável</small><strong>{aberto.responsavel}</strong></span>
+          <span><small>Participantes</small><strong>{aberto.participantes}</strong></span>
+          <span><small>Data</small><strong>{aberto.data.slice(8)}/{aberto.data.slice(5,7)}</strong></span>
+          <span><small>Hora</small><strong>{aberto.hora || '—'}</strong></span>
+        </div>
+        {aberto.informacoesAdicionais && <div><small className="rotulo-bloco">Informações Adicionais</small><p>{aberto.informacoesAdicionais}</p></div>}
         {!!aberto.pauta?.length && <div><small className="rotulo-bloco">Pauta</small><ol className="pauta-lista">{aberto.pauta.map(p => <li key={p}>{p}</li>)}</ol></div>}
         <div>
           <small className="rotulo-bloco">Encaminhamentos</small>
           {aberto.encaminhamentos.length === 0
             ? <div className="muted-box">Nada registrado. {aberto.situacao === 'Marcado' ? 'Encaminhamento se registra durante ou depois do compromisso.' : 'Um compromisso cumprido sem encaminhamento costuma indicar registro incompleto.'}</div>
             : <div className="encaminhamentos">{aberto.encaminhamentos.map(e => <div key={e.texto}><span className={`enc-dot ${e.situacao === 'Atrasado' ? 'atraso' : e.situacao === 'Concluído' ? 'ok' : ''}`} /><div><strong>{e.texto}</strong><small>{e.dono} · prazo {e.prazo}</small></div><Pill tone={e.situacao === 'Atrasado' ? 'red' : e.situacao === 'Concluído' ? 'green' : 'blue'}>{e.situacao}</Pill></div>)}</div>}
+        </div>
+      </div>
+    </Modal>}
+
+    {/* Modal de criar/editar */}
+    {editando && <Modal title={editando.id ? 'Editar compromisso' : 'Novo compromisso'} description="Preencha os dados do compromisso" onClose={() => setEditando(null)} actions={<><button className="secondary-button" onClick={() => setEditando(null)}>Cancelar</button><button className="primary-button">Salvar</button></>}>
+      <div className="form-grid">
+        <div className="form-group">
+          <label>Tipo *</label>
+          <select value={editando.tipo} onChange={e => setEditando({ ...editando, tipo: e.target.value as TipoCompromisso })}>
+            {tiposCompromisso.map(t => <option key={t} value={t}>{t}</option>)}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Título *</label>
+          <input type="text" value={editando.titulo} onChange={e => setEditando({ ...editando, titulo: e.target.value })} placeholder="Ex: Reunião com lideranças" />
+        </div>
+        <div className="form-group">
+          <label>Data *</label>
+          <input type="date" value={editando.data} onChange={e => setEditando({ ...editando, data: e.target.value })} />
+        </div>
+        <div className="form-group">
+          <label>Hora</label>
+          <input type="time" value={editando.hora} onChange={e => setEditando({ ...editando, hora: e.target.value })} />
+        </div>
+        <div className="form-group">
+          <label>Município *</label>
+          <select value={editando.municipio} onChange={e => setEditando({ ...editando, municipio: e.target.value })}>
+            <option value="">Selecione...</option>
+            {municipios.slice(0, 30).map(m => <option key={m.nome} value={m.nome}>{m.nome}</option>)}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Responsável</label>
+          <input type="text" value={editando.responsavel} onChange={e => setEditando({ ...editando, responsavel: e.target.value })} placeholder="Nome do responsável" />
+        </div>
+        <div className="form-group">
+          <label>Participantes</label>
+          <input type="number" value={editando.participantes} onChange={e => setEditando({ ...editando, participantes: Number(e.target.value) })} min={0} />
+        </div>
+        <div className="form-group">
+          <label>Situação</label>
+          <select value={editando.situacao} onChange={e => setEditando({ ...editando, situacao: e.target.value as any })}>
+            <option value="Marcado">Marcado</option>
+            <option value="Cumprido">Cumprido</option>
+            <option value="Descumprido">Descumprido</option>
+            <option value="Sugestão">Sugestão</option>
+          </select>
+        </div>
+        <div className="form-group full">
+          <label>Informações Adicionais</label>
+          <textarea value={editando.informacoesAdicionais || ''} onChange={e => setEditando({ ...editando, informacoesAdicionais: e.target.value })} placeholder="Descrição, observações, pleitos..." rows={3} />
+        </div>
+        <div className="form-group full">
+          <label className="toggle-label">
+            <input type="checkbox" checked={editando.sugestao || false} onChange={e => setEditando({ ...editando, sugestao: e.target.checked })} />
+            <span>Sugestão de agenda</span>
+          </label>
+          <small className="help-text">Marque quando este registro for uma sugestão de agenda.</small>
         </div>
       </div>
     </Modal>}

@@ -1,0 +1,290 @@
+- generic [active] [ref=f17e1]:
+  - generic [ref=f17e2]:
+    - generic [ref=f17e3]:
+      - navigation [ref=f17e5]:
+        - link [ref=f17e7] [cursor=pointer]:
+          - /url: https://uniao-dev.k8s.acto.com.br
+          - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f17e8]
+        - list [ref=f17e9]:
+          - listitem [ref=f17e10]:
+            - link "BEM-VINDO" [ref=f17e11] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br
+          - listitem [ref=f17e15]:
+            - link "LIDERANÇAS" [ref=f17e16] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+          - listitem [ref=f17e20]:
+            - link "MUNICÍPIOS" [ref=f17e21] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+          - listitem [ref=f17e25]:
+            - link "ELEIÇÕES" [ref=f17e26] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+          - listitem [ref=f17e30]:
+            - link "DASHBOARD" [ref=f17e31] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+          - listitem [ref=f17e35]:
+            - link "RELATÓRIOS" [ref=f17e36] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+          - listitem [ref=f17e40]:
+            - link "DADOS" [ref=f17e41] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/dados
+          - listitem [ref=f17e45]:
+            - link "ANIVERSÁRIOS" [ref=f17e46] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+          - listitem [ref=f17e50]:
+            - link "CONFIGURAÇÕES" [ref=f17e51] [cursor=pointer]:
+              - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+        - generic [ref=f17e56]:
+          - button "Notificações" [ref=f17e60] [cursor=pointer]
+          - button "Menu do usuário" [ref=f17e65] [cursor=pointer]:
+            - img "Avatar de Lucas Dias" [ref=f17e66]
+      - main [ref=f17e67]:
+        - generic [ref=f17e69]:
+          - generic [ref=f17e70]:
+            - heading "CONFIGURAR MUNICÍPIOS" [level=1] [ref=f17e72]
+            - generic [ref=f17e74]:
+              - button "EXPORTAR CIDADES" [ref=f17e75] [cursor=pointer]
+              - button "IMPORTAR CIDADES" [ref=f17e79] [cursor=pointer]
+          - generic [ref=f17e83]:
+            - tablist [ref=f17e84]:
+              - tab "CONFIGURAR LIDERANÇA" [ref=f17e85] [cursor=pointer]
+              - tab "PESSOAS TSE" [ref=f17e89] [cursor=pointer]
+              - tab "INTEGRAÇÃO TSE" [ref=f17e93] [cursor=pointer]
+              - tab "USUÁRIOS" [ref=f17e97] [cursor=pointer]
+              - tab "CONFIGURAR AGENDA" [ref=f17e101] [cursor=pointer]
+              - tab "CONFIGURAR MUNICÍPIOS" [ref=f17e105] [cursor=pointer]
+            - generic [ref=f17e111]:
+              - generic [ref=f17e112]:
+                - generic [ref=f17e116]:
+                  - generic [ref=f17e117]: Pesquisar
+                  - searchbox "Pesquisar" [ref=f17e123]
+                - table [ref=f17e125]:
+                  - rowgroup [ref=f17e126]:
+                    - row [ref=f17e127]:
+                      - columnheader "Marcar/desmarcar todos os itens para ações em massa." [ref=f17e128]:
+                        - generic [ref=f17e130]:
+                          - checkbox "Marcar/desmarcar todos os itens para ações em massa." [ref=f17e131]
+                          - generic [ref=f17e132]: Marcar/desmarcar todos os itens para ações em massa.
+                      - columnheader [ref=f17e133]:
+                        - button "Município" [ref=f17e134] [cursor=pointer]
+                      - columnheader "Ação" [ref=f17e138]
+                  - rowgroup [ref=f17e139]:
+                    - row [ref=f17e140]:
+                      - cell "Marcar/desmarcar o item 2900108 para ações em massa." [ref=f17e141]:
+                        - generic [ref=f17e143]:
+                          - checkbox "Marcar/desmarcar o item 2900108 para ações em massa." [ref=f17e144]
+                          - generic [ref=f17e145]: Marcar/desmarcar o item 2900108 para ações em massa.
+                      - cell [ref=f17e146]:
+                        - link [ref=f17e148] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900108/edit
+                          - generic [ref=f17e154]:
+                            - text: ABAÍRA
+                            - paragraph [ref=f17e155]: IBGE 2900108
+                      - cell [ref=f17e156]:
+                        - link "Editar" [ref=f17e159] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900108/edit
+                    - row [ref=f17e164]:
+                      - cell "Marcar/desmarcar o item 2900207 para ações em massa." [ref=f17e165]:
+                        - generic [ref=f17e167]:
+                          - checkbox "Marcar/desmarcar o item 2900207 para ações em massa." [ref=f17e168]
+                          - generic [ref=f17e169]: Marcar/desmarcar o item 2900207 para ações em massa.
+                      - cell [ref=f17e170]:
+                        - link [ref=f17e172] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900207/edit
+                          - generic [ref=f17e178]:
+                            - text: ABARÉ
+                            - paragraph [ref=f17e179]: IBGE 2900207
+                      - cell [ref=f17e180]:
+                        - link "Editar" [ref=f17e183] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900207/edit
+                    - row [ref=f17e188]:
+                      - cell "Marcar/desmarcar o item 2900306 para ações em massa." [ref=f17e189]:
+                        - generic [ref=f17e191]:
+                          - checkbox "Marcar/desmarcar o item 2900306 para ações em massa." [ref=f17e192]
+                          - generic [ref=f17e193]: Marcar/desmarcar o item 2900306 para ações em massa.
+                      - cell [ref=f17e194]:
+                        - link [ref=f17e196] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900306/edit
+                          - generic [ref=f17e202]:
+                            - text: ACAJUTIBA
+                            - paragraph [ref=f17e203]: IBGE 2900306
+                      - cell [ref=f17e204]:
+                        - link "Editar" [ref=f17e207] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900306/edit
+                    - row [ref=f17e212]:
+                      - cell "Marcar/desmarcar o item 2900355 para ações em massa." [ref=f17e213]:
+                        - generic [ref=f17e215]:
+                          - checkbox "Marcar/desmarcar o item 2900355 para ações em massa." [ref=f17e216]
+                          - generic [ref=f17e217]: Marcar/desmarcar o item 2900355 para ações em massa.
+                      - cell [ref=f17e218]:
+                        - link [ref=f17e220] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900355/edit
+                          - generic [ref=f17e226]:
+                            - text: ADUSTINA
+                            - paragraph [ref=f17e227]: IBGE 2900355
+                      - cell [ref=f17e228]:
+                        - link "Editar" [ref=f17e231] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900355/edit
+                    - row [ref=f17e236]:
+                      - cell "Marcar/desmarcar o item 2900405 para ações em massa." [ref=f17e237]:
+                        - generic [ref=f17e239]:
+                          - checkbox "Marcar/desmarcar o item 2900405 para ações em massa." [ref=f17e240]
+                          - generic [ref=f17e241]: Marcar/desmarcar o item 2900405 para ações em massa.
+                      - cell [ref=f17e242]:
+                        - link [ref=f17e244] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900405/edit
+                          - generic [ref=f17e250]:
+                            - text: AGUA FRIA
+                            - paragraph [ref=f17e251]: IBGE 2900405
+                      - cell [ref=f17e252]:
+                        - link "Editar" [ref=f17e255] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900405/edit
+                    - row [ref=f17e260]:
+                      - cell "Marcar/desmarcar o item 2900504 para ações em massa." [ref=f17e261]:
+                        - generic [ref=f17e263]:
+                          - checkbox "Marcar/desmarcar o item 2900504 para ações em massa." [ref=f17e264]
+                          - generic [ref=f17e265]: Marcar/desmarcar o item 2900504 para ações em massa.
+                      - cell [ref=f17e266]:
+                        - link [ref=f17e268] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900504/edit
+                          - generic [ref=f17e274]:
+                            - text: ERICO CARDOSO
+                            - paragraph [ref=f17e275]: IBGE 2900504
+                      - cell [ref=f17e276]:
+                        - link "Editar" [ref=f17e279] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900504/edit
+                    - row [ref=f17e284]:
+                      - cell "Marcar/desmarcar o item 2900603 para ações em massa." [ref=f17e285]:
+                        - generic [ref=f17e287]:
+                          - checkbox "Marcar/desmarcar o item 2900603 para ações em massa." [ref=f17e288]
+                          - generic [ref=f17e289]: Marcar/desmarcar o item 2900603 para ações em massa.
+                      - cell [ref=f17e290]:
+                        - link [ref=f17e292] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900603/edit
+                          - generic [ref=f17e298]:
+                            - text: AIQUARA
+                            - paragraph [ref=f17e299]: IBGE 2900603
+                      - cell [ref=f17e300]:
+                        - link "Editar" [ref=f17e303] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900603/edit
+                    - row [ref=f17e308]:
+                      - cell "Marcar/desmarcar o item 2900702 para ações em massa." [ref=f17e309]:
+                        - generic [ref=f17e311]:
+                          - checkbox "Marcar/desmarcar o item 2900702 para ações em massa." [ref=f17e312]
+                          - generic [ref=f17e313]: Marcar/desmarcar o item 2900702 para ações em massa.
+                      - cell [ref=f17e314]:
+                        - link [ref=f17e316] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900702/edit
+                          - generic [ref=f17e322]:
+                            - text: ALAGOINHAS
+                            - paragraph [ref=f17e323]: IBGE 2900702
+                      - cell [ref=f17e324]:
+                        - link "Editar" [ref=f17e327] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900702/edit
+                    - row [ref=f17e332]:
+                      - cell "Marcar/desmarcar o item 2900801 para ações em massa." [ref=f17e333]:
+                        - generic [ref=f17e335]:
+                          - checkbox "Marcar/desmarcar o item 2900801 para ações em massa." [ref=f17e336]
+                          - generic [ref=f17e337]: Marcar/desmarcar o item 2900801 para ações em massa.
+                      - cell [ref=f17e338]:
+                        - link [ref=f17e340] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900801/edit
+                          - generic [ref=f17e346]:
+                            - text: ALCOBAÇA
+                            - paragraph [ref=f17e347]: IBGE 2900801
+                      - cell [ref=f17e348]:
+                        - link "Editar" [ref=f17e351] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900801/edit
+                    - row [ref=f17e356]:
+                      - cell "Marcar/desmarcar o item 2900900 para ações em massa." [ref=f17e357]:
+                        - generic [ref=f17e359]:
+                          - checkbox "Marcar/desmarcar o item 2900900 para ações em massa." [ref=f17e360]
+                          - generic [ref=f17e361]: Marcar/desmarcar o item 2900900 para ações em massa.
+                      - cell [ref=f17e362]:
+                        - link [ref=f17e364] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900900/edit
+                          - generic [ref=f17e370]:
+                            - text: ALMADINA
+                            - paragraph [ref=f17e371]: IBGE 2900900
+                      - cell [ref=f17e372]:
+                        - link "Editar" [ref=f17e375] [cursor=pointer]:
+                          - /url: https://uniao-dev.k8s.acto.com.br/configuracoes/cidades/2900900/edit
+                - navigation "Paginação" [ref=f17e380]:
+                  - generic [ref=f17e381]: Exibindo 1 a 10 de 417 resultados
+                  - generic [ref=f17e384]:
+                    - generic [ref=f17e385]: por página
+                    - combobox "por página" [ref=f17e388]:
+                      - option "5"
+                      - option "10" [selected]
+                      - option "25"
+                      - option "50"
+                      - option "Todas"
+                  - list [ref=f17e389]:
+                    - listitem [ref=f17e390]:
+                      - button "Ir para página 1" [ref=f17e391] [cursor=pointer]:
+                        - generic [ref=f17e392]: "1"
+                    - listitem [ref=f17e393]:
+                      - button "Ir para página 2" [ref=f17e394] [cursor=pointer]:
+                        - generic [ref=f17e395]: "2"
+                    - listitem [ref=f17e396]:
+                      - button "Ir para página 3" [ref=f17e397] [cursor=pointer]:
+                        - generic [ref=f17e398]: "3"
+                    - listitem [ref=f17e399]:
+                      - button "Ir para página 4" [ref=f17e400] [cursor=pointer]:
+                        - generic [ref=f17e401]: "4"
+                    - listitem [ref=f17e402]:
+                      - button "..." [disabled] [ref=f17e403]
+                    - listitem [ref=f17e405]:
+                      - button "Ir para página 41" [ref=f17e406] [cursor=pointer]:
+                        - generic [ref=f17e407]: "41"
+                    - listitem [ref=f17e408]:
+                      - button "Ir para página 42" [ref=f17e409] [cursor=pointer]:
+                        - generic [ref=f17e410]: "42"
+                    - listitem [ref=f17e411]:
+                      - button "Próxima" [ref=f17e412] [cursor=pointer]
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+              - generic:
+                - dialog
+    - complementary [ref=f17e415]:
+      - link [ref=f17e419] [cursor=pointer]:
+        - /url: https://uniao-dev.k8s.acto.com.br
+        - img "União Brasil - Sistema de Gestão Política (Logotipo)" [ref=f17e420]
+      - navigation [ref=f17e421]:
+        - list [ref=f17e422]:
+          - listitem [ref=f17e423]:
+            - list [ref=f17e424]:
+              - listitem [ref=f17e425]:
+                - link "BEM-VINDO" [ref=f17e426] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br
+              - listitem [ref=f17e430]:
+                - link "LIDERANÇAS" [ref=f17e431] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/liderancas-scroll
+              - listitem [ref=f17e435]:
+                - link "MUNICÍPIOS" [ref=f17e436] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/municipios-scroll
+              - listitem [ref=f17e440]:
+                - link "ELEIÇÕES" [ref=f17e441] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/apuracao-por-cidade
+              - listitem [ref=f17e445]:
+                - link "DASHBOARD" [ref=f17e446] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dashboard-dados
+              - listitem [ref=f17e450]:
+                - link "RELATÓRIOS" [ref=f17e451] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/relatorios-estrategicos
+              - listitem [ref=f17e455]:
+                - link "DADOS" [ref=f17e456] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/dados
+              - listitem [ref=f17e460]:
+                - link "ANIVERSÁRIOS" [ref=f17e461] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/aniversarios
+              - listitem [ref=f17e465]:
+                - link "CONFIGURAÇÕES" [ref=f17e466] [cursor=pointer]:
+                  - /url: https://uniao-dev.k8s.acto.com.br/configuracoes
+  - generic:
+    - status
