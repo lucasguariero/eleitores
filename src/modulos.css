@@ -314,6 +314,7 @@ strong.vazio { color: var(--muted-2); font-weight: 500; font-style: italic; }
 .agenda-controles { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: var(--gutter); }
 .agenda-controles .segmented { flex-wrap: nowrap; }
 .agenda-controles .segmented button { white-space: nowrap; font-size: 14px; padding: 8px 14px; }
+.agenda-controles input[type="date"] { padding: 10px 14px; font-size: 14px; }
 .agenda-controles select, .agenda-controles input[type="date"] { margin-left: auto; }
 .filtros-tipo { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip-tipo { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; color: var(--muted); background: var(--superficie-2); border: 1px solid var(--linha); border-radius: 999px; font-size: 13px; font-weight: 500; transition: all 180ms ease-in-out; }
