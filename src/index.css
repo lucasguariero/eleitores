@@ -642,6 +642,8 @@ input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--blue); }
 .calendar-weekday { padding:9px 8px; color:var(--muted); background:var(--superficie-3); border-right:1px solid var(--linha-suave); border-bottom:1px solid var(--linha); font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
 .calendar-cell { min-height:105px; padding:8px; color:inherit; text-align:left; background:var(--superficie-2); border:0; border-right:1px solid var(--linha-suave); border-bottom:1px solid var(--linha-suave); }
 .calendar-cell.empty { background:var(--superficie-3); }
+:root[data-theme='dark'] .calendar-cell.empty { background:var(--superficie-2); }
+:root[data-theme='dark'] .calendar-cell { background:var(--superficie-3); }
 button.calendar-cell:hover { background:var(--superficie-3); }.calendar-cell small { display:block; color:var(--muted); }
 .year-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:11px; }.year-grid button { display:grid; gap:8px; padding:16px; color:inherit; text-align:left; background:var(--superficie-2); border:1px solid var(--linha); border-radius: 8px; }.year-grid i { height:5px; background:#0ea5e9; border-radius: 6px; }
 .event-detail { display:grid; gap:13px; }.event-detail div small,.event-detail div strong { display:block; }
