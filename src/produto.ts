@@ -37,8 +37,7 @@ export const modulos: Modulo[] = [
   { id: 'painel', label: 'Painel Executivo', grupo: 'Início', plano: 'essencial', descricao: 'Indicadores consolidados para decidir onde agir.', obrigatorio: true },
 
   { id: 'municipios', label: 'Municípios', grupo: 'Território', plano: 'essencial', descricao: 'Dossiê por município: oficiais do IBGE e observações da equipe.' },
-  { id: 'mesorregioes', label: 'Mesorregiões', grupo: 'Território', plano: 'essencial', descricao: 'Visão agregada por mesorregião: municípios, cobertura e indicadores consolidados.' },
-  { id: 'territorios', label: 'Territórios', grupo: 'Território', plano: 'avancado', descricao: 'Recortes próprios acima do município, com cobertura e prioridade.' },
+  { id: 'territorios', label: 'Territórios', grupo: 'Território', plano: 'avancado', descricao: 'Visão agregada por território: mapa interativo, métricas consolidadas e detalhamento de municípios.' },
   { id: 'eleicoes', label: 'Eleições', grupo: 'Território', plano: 'essencial', descricao: 'Apuração e resultados por cargo, turno e município.' },
 
   { id: 'quadro-eleitoral', label: 'Quadro Eleitoral', grupo: 'Relacionamento', plano: 'essencial', descricao: 'Quem concorreu ou concorre a eleição — atual e do passado — com avaliação política.' },

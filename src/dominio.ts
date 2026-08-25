@@ -35,10 +35,101 @@ export const municipios: Municipio[] = [
 
 export const divisoes = [
   { nome: 'Centro Norte', municipios: 3, populacao: 157160, eleitores: 119940 },
-  { nome: 'Leste', municipios: 2, populacao: 63440, eleitores: 48600 },
-  { nome: 'Pantanais', municipios: 2, populacao: 32110, eleitores: 24920 },
-  { nome: 'Sudoeste', municipios: 1, populacao: 87340, eleitores: 66910 },
+  { nome: 'Leste', municipios: 2, populacao: 63440, vereadores: 48600 },
+  { nome: 'Pantanais', municipios: 2, populacao: 32110, eleitoral: 24920 },
+  { nome: 'Sudoeste', municipios: 1, populacao: 87340, eleitoral: 66910 },
 ]
+
+// Festas e eventos do município
+export type Festa = {
+  nome: string
+  data: string
+  tipo: 'religiosa' | 'cívica' | 'cultural'
+}
+
+export const festasPorMunicipio: Record<string, Festa[]> = {
+  'aurora': [
+    { nome: 'Festa de Nossa Senhora da Aurora', data: '15 de agosto', tipo: 'religiosa' },
+    { nome: 'Aurora Fest', data: '20 de dezembro', tipo: 'cultural' },
+  ],
+  'ipe-verde': [
+    { nome: 'Festa de Santa Rita', data: '22 de setembro', tipo: 'religiosa' },
+    { nome: 'Festival de Música', data: '10 de julho', tipo: 'cultural' },
+  ],
+  'serra-alta': [
+    { nome: 'Festa de São João', data: '24 de junho', tipo: 'religiosa' },
+  ],
+  'porto-lirio': [
+    { nome: 'Festa de São Pedro', data: '29 de junho', tipo: 'religiosa' },
+    { nome: 'Expo Porto Lírio', data: '15 de novembro', tipo: 'cívica' },
+  ],
+  'campo-novo': [
+    { nome: 'Aniversário da Cidade', data: '28 de outubro', tipo: 'cívica' },
+  ],
+  'vale-claro': [
+    { nome: 'Festa de Nossa Senhora do Vale', data: '15 de agosto', tipo: 'religiosa' },
+    { nome: 'Carnaval', data: 'febreiro', tipo: 'cultural' },
+  ],
+  'pedra-branca': [
+    { nome: 'Festa de São Sebastião', data: '20 de janeiro', tipo: 'religiosa' },
+  ],
+  'rio-doce': [
+    { nome: 'Festa de Santo Antônio', data: '13 de junho', tipo: 'religiosa' },
+    { nome: 'Festa do Divino', data: 'maio', tipo: 'religiosa' },
+  ],
+}
+
+// Responsáveis vinculados ao município
+export type Responsavel = {
+  nome: string
+  funcao: string
+  telefone: string
+  email: string
+}
+
+export const responsaveisPorMunicipio: Record<string, Responsavel[]> = {
+  'aurora': [
+    { nome: 'Roberto Alves', funcao: 'Coordenador Regional', telefone: '(00) 90000-0001', email: 'roberto@exemplo.invalid' },
+    { nome: 'Maria Santos', funcao: 'Vice-coordenador', telefone: '(00) 90000-0002', email: 'maria@exemplo.invalid' },
+  ],
+  'ipe-verde': [
+    { nome: 'Carlos Lima', funcao: 'Coordenador Regional', telefone: '(00) 90000-0003', email: 'carlos@exemplo.invalid' },
+  ],
+  'serra-alta': [
+    { nome: 'Ana Paula', funcao: 'Coordenador Regional', telefone: '(00) 90000-0004', email: 'ana@exemplo.invalid' },
+    { nome: 'João Silva', funcao: 'Articulador', telefone: '(00) 90000-0005', email: 'joao@exemplo.invalid' },
+  ],
+  'campo-novo': [
+    { nome: 'Pedro Oliveira', funcao: 'Coordenador Regional', telefone: '(00) 90000-0006', email: 'pedro@exemplo.invalid' },
+  ],
+}
+
+// Vereadores do município
+export type Vereador = {
+  nome: string
+  partido: string
+  mandato: string
+  situacao: 'titular' | 'suplente'
+}
+
+export const vereadoresPorMunicipio: Record<string, Vereador[]> = {
+  'aurora': [
+    { nome: 'José Carlos', partido: 'MDB', mandato: '2025-2028', situacao: 'titular' },
+    { nome: 'Maria Ferreira', partido: 'PT', mandato: '2025-2028', situacao: 'titular' },
+    { nome: 'Pedro Santos', partido: 'PSD', mandato: '2025-2028', situacao: 'titular' },
+    { nome: 'Ana Oliveira', partido: 'PSDB', mandato: '2025-2028', situacao: 'suplente' },
+  ],
+  'ipe-verde': [
+    { nome: 'Lucia Maria', partido: 'União Brasil', mandato: '2025-2028', situacao: 'titular' },
+    { nome: 'Carlos Souza', partido: 'MDB', mandato: '2025-2028', situacao: 'titular' },
+  ],
+  'serra-alta': [
+    { nome: 'Roberto Almeida', partido: 'PT', mandato: '2025-2028', situacao: 'titular' },
+    { nome: 'Juliana Costa', partido: 'PSD', mandato: '2025-2028', situacao: 'titular' },
+    { nome: 'Marcos Paulo', partido: 'MDB', mandato: '2025-2028', situacao: 'titular' },
+    { nome: 'Fernanda Lima', partido: 'PSDB', mandato: '2025-2028', situacao: 'suplente' },
+  ],
+}
 
 export const apuracao = {
   ano: 2026, apuradas: 98.4, eleitores: 261370, candidatos: 14, votosValidos: 214880,

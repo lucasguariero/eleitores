@@ -15,7 +15,7 @@ const CHAVE = 'eleitores:tema'
 
 export function temaSalvo(): Tema {
   const v = localStorage.getItem(CHAVE)
-  return v === 'claro' || v === 'escuro' || v === 'sistema' ? v : 'sistema'
+  return v === 'claro' || v === 'escuro' || v === 'sistema' ? v : 'escuro'
 }
 
 /** O que efetivamente vai para o DOM depois de resolver `sistema`. */

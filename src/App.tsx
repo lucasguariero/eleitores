@@ -6,12 +6,12 @@ import {
   Handshake, Info, Layers3, LayoutDashboard, List, LockKeyhole, LogOut, Map,
   MapPin, Megaphone, Menu, MessageCircle, MoreHorizontal, Plus,
   RefreshCw, Search, Settings, Shield, ShieldCheck, SlidersHorizontal, Sparkles,
-  Target, TrendingUp, UserCog, UsersRound, X, Link2, History,
+  Target, TrendingUp, UserCog, UsersRound, X, Link2, History, Edit,
   Vote, BookOpenCheck, Home, Cake, Workflow, Receipt, Route, Lock, Sigma, Paperclip, Palette, Sun, Moon, Monitor, Star,
   type LucideIcon,
 } from 'lucide-react'
-import { campaigns, electoralPeople, linkQueue, monthCells, priorityColors, relationships, team, territories, users, weekdays, type ElectoralPerson } from './data'
-import { aniversarios, apuracao, compromissosDoDia, compromissosDoMes, contas, cruzamentos, divisoes, encaminhamentosAbertos, exportacoes, municipios, rota, statusPolitico, sugestoesCruzamento, tiposCompromisso, type Compromisso, type TipoCompromisso } from './dominio'
+import { campaigns, electoralPeople, linkQueue, monthCells, pessoasTSE, priorityColors, relationships, team, territories, users, weekdays, type ElectoralPerson, type TPessoaTSE, type TeamMember } from './data'
+import { aniversarios, apuracao, compromissosDoDia, compromissosDoMes, contas, cruzamentos, divisoes, encaminhamentosAbertos, exportacoes, festasPorMunicipio, municipios, responsaveisPorMunicipio, rota, statusPolitico, sugestoesCruzamento, tiposCompromisso, type Compromisso, type TipoCompromisso, vereadoresPorMunicipio } from './dominio'
 import { cargosEquipe, gruposOrdem, moduloIncluso, modulos, perfilVe, perfis, planos, tenantPadrao, vinculosEquipe, type Perfil, type Plano, type Tenant } from './produto'
 import { completude, dadosInternos } from './ficha'
 import { aplicarTema, ouvirSistema, temaSalvo, type Tema } from './tema'
@@ -59,6 +59,11 @@ function go(route: string) {
 
 function Pill({ children, tone = 'neutral' }: { children: ReactNode; tone?: 'neutral' | 'green' | 'blue' | 'amber' | 'red' | 'purple' }) {
   return <span className={`pill pill-${tone}`}>{children}</span>
+}
+
+/** Ícone de origem TSE - indica que o dado vem do TSE */
+function TSEIcon() {
+  return <span className="tse-icon" title="Dado sincronizado do TSE"><RefreshCw size={12} /></span>
 }
 
 function Avatar({ initials, size = 'md' }: { initials: string; size?: 'sm' | 'md' | 'lg' }) {
@@ -191,25 +196,65 @@ function ElectoralBoard({ navigate, route }: { navigate: Navigate; route: string
       <div className="view-toggle" aria-label="Alternar visualização"><button className={view === 'list' ? 'active' : ''} onClick={() => setView('list')} aria-label="Lista"><List size={17} /></button><button className={view === 'grid' ? 'active' : ''} onClick={() => setView('grid')} aria-label="Grade"><Grid3X3 size={17} /></button></div>
     </section>
     <div className="result-meta"><span><strong>{filtered.length}</strong> pessoas encontradas</span><span><Info size={14} /> Dados inteiramente fictícios</span></div>
-    {pageItems.length === 0 ? <EmptyState title="Nenhuma pessoa encontrada" text="Ajuste os filtros ou limpe a busca para voltar à lista completa." action={<button className="primary-button" onClick={() => { setQuery(''); setParty('Todos os partidos'); setRunning('Todos') }}>Limpar filtros</button>} /> : view === 'list' ? <div className="table-card"><table><thead><tr><th>Pessoa</th><th>Partido e cargo</th><th>Status político</th><th>Última candidatura</th><th>Desempenho</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{pageItems.map(person => <tr key={person.id} onClick={() => navigate(`quadro-eleitoral/perfil/${person.id}`)}><td><div className="person-cell"><Avatar initials={person.initials} /><div><strong>{person.name}</strong><small>{person.territory}</small></div></div></td><td><strong>{person.party}</strong><small>{person.office}</small></td><td><StatusPill valor={statusDe(person.id)} /></td><td><strong>{person.history[0].year} · {person.history[0].office}</strong><small>{person.history[0].result} · fonte TSE</small></td><td><strong>{person.votes.toLocaleString('pt-BR')} votos</strong><Progress value={person.performance} /></td><td><button className="icon-button" aria-label={`Abrir perfil de ${person.name}`}><ChevronRight size={17} /></button></td></tr>)}</tbody></table></div> : <div className="people-grid">{pageItems.map(person => <button className="person-card" key={person.id} onClick={() => navigate(`quadro-eleitoral/perfil/${person.id}`)}><div className="person-card-top"><Avatar initials={person.initials} size="lg" />{person.running && <Pill tone="blue">Em disputa</Pill>}</div><h3>{person.name}</h3><p>{person.office} · {person.party}</p><div className="person-stats"><span><small>Votos recentes</small><strong>{person.votes.toLocaleString('pt-BR')}</strong></span><span><small>Índice</small><strong>{person.performance}</strong></span></div><Progress value={person.performance} label={person.status} /></button>)}</div>}
+    {pageItems.length === 0 ? <EmptyState title="Nenhuma pessoa encontrada" text="Ajuste os filtros ou limpe a busca para voltar à lista completa." action={<button className="primary-button" onClick={() => { setQuery(''); setParty('Todos os partidos'); setRunning('Todos') }}>Limpar filtros</button>} /> : view === 'list' ? <div className="table-card"><table><thead><tr><th>Pessoa</th><th>Partido e cargo</th><th>Status político</th><th>Última candidatura</th><th>Desempenho</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{pageItems.map(person => <tr key={person.id} onClick={() => navigate(`quadro-eleitoral/perfil/${person.id}`)}><td><div className="person-cell"><Avatar initials={person.initials} /><div><strong>{person.name}</strong><small>{person.territory}</small></div></div></td><td><strong>{person.party}</strong><TSEIcon /><small>{person.office}</small></td><td><StatusPill valor={statusDe(person.id)} /></td><td><strong>{person.history[0].year} · {person.history[0].office}</strong><small>{person.history[0].result} · fonte TSE</small></td><td><strong>{person.votes.toLocaleString('pt-BR')} votos</strong><Progress value={person.performance} /></td><td><button className="icon-button" aria-label={`Abrir perfil de ${person.name}`}><ChevronRight size={17} /></button></td></tr>)}</tbody></table></div> : <div className="people-grid">{pageItems.map(person => <button className="person-card" key={person.id} onClick={() => navigate(`quadro-eleitoral/perfil/${person.id}`)}><div className="person-card-top"><Avatar initials={person.initials} size="lg" />{person.running && <Pill tone="blue">Em disputa</Pill>}</div><h3>{person.name}</h3><p>{person.office} · {person.party}</p><div className="person-stats"><span><small>Votos recentes</small><strong>{person.votes.toLocaleString('pt-BR')}</strong></span><span><small>Índice</small><strong>{person.performance}</strong></span></div><Progress value={person.performance} label={person.status} /></button>)}</div>}
     <div className="pagination"><span>Página {page} de {pages}</span><div><button className="icon-button" disabled={page === 1} onClick={() => setPage(value => value - 1)} aria-label="Página anterior"><ChevronLeft size={17} /></button>{Array.from({ length: pages }, (_, i) => i + 1).map(value => <button className={`page-button ${page === value ? 'active' : ''}`} onClick={() => setPage(value)} key={value}>{value}</button>)}<button className="icon-button" disabled={page === pages} onClick={() => setPage(value => value + 1)} aria-label="Próxima página"><ChevronRight size={17} /></button></div></div>
   </>
 }
 
 function Territories({ navigate }: { navigate: Navigate }) {
+  const { tenant } = useTenant()
   const [selectedId, setSelectedId] = useState('capital')
   const [priority, setPriority] = useState('Todas')
   const [mode, setMode] = useState<'list' | 'grid'>('list')
+  const [tab, setTab] = useState<'mapa' | 'metricas'>('mapa')
   const selected = territories.find(item => item.id === selectedId) || territories[0]
   const shown = territories.filter(item => priority === 'Todas' || item.priority === priority)
+
+  // Métricas consolidadas (antes eram do Mesorregioes)
+  const totalMunicipios = municipios.length
+  const totalEleitores = municipios.reduce((soma, m) => soma + m.eleitores, 0)
+  const totalPopulacao = municipios.reduce((soma, m) => soma + m.populacao, 0)
+  const coberturaMedia = Math.round(territories.reduce((soma, t) => soma + t.coverage, 0) / territories.length)
+
+  // Calcula métricas por divisão territorial (antes Mesorregioes)
+  const divisoesComCompletude = divisoes.map((d, idx) => {
+    const municipiosDaDivisao = municipios.filter(m => m.divisao === d.nome)
+    const completudeMedia = municipiosDaDivisao.length > 0
+      ? Math.round(municipiosDaDivisao.reduce((soma, m) => soma + m.completude, 0) / municipiosDaDivisao.length)
+      : 0
+    const municipiosConsolidados = municipiosDaDivisao.filter(m => m.completude >= 80).length
+    return { ...d, completudeMedia, municipiosConsolidados, municipiosTotal: municipiosDaDivisao.length, indice: idx + 1 }
+  })
+
   return <>
-    <PageHeader eyebrow="Análise" title="Territórios" description="Explore cobertura, potencial e oportunidades. O mapa filtra e atualiza a leitura ao lado." actions={<button className="primary-button"><Plus size={16} /> Criar agrupamento</button>} />
-    <section className="card map-toolbar"><div><label>Prioridade<select value={priority} onChange={e => setPriority(e.target.value)}><option>Todas</option><option>Alta</option><option>Média</option><option>Estável</option></select></label><label>Camada<select><option>Cobertura política</option><option>Potencial eleitoral</option><option>Relacionamentos</option></select></label></div><div className="legend"><span><i className="legend-high" /> Prioridade alta</span><span><i className="legend-medium" /> Prioridade média</span><span><i className="legend-stable" /> Estável</span></div></section>
-    <div className="territory-layout">
-      <section className="card map-card"><div className="map-title"><div><span className="eyebrow">Mapa abstrato</span><h2>Recorte territorial contratado</h2></div><Pill tone="blue">Interativo</Pill></div><svg className="territory-map" viewBox="20 0 490 320" role="img" aria-label="Mapa abstrato dos territórios fictícios">{territories.map(item => <path key={item.id} d={item.path} fill={priority !== 'Todas' && item.priority !== priority ? '#DDE5EF' : priorityColors[item.priority]} className={selectedId === item.id ? 'selected' : ''} onClick={() => setSelectedId(item.id)} onKeyDown={event => (event.key === 'Enter' || event.key === ' ') && setSelectedId(item.id)} tabIndex={0} role="button" aria-label={`${item.name}, prioridade ${item.priority}`} />)}</svg><p className="map-hint"><MapPin size={15} /> Selecione uma região para atualizar indicadores e oportunidades.</p></section>
-      <aside className="card territory-detail"><span className="eyebrow">Território selecionado</span><h2>{selected.name}</h2><Pill tone={selected.priority === 'Alta' ? 'amber' : selected.priority === 'Estável' ? 'green' : 'blue'}>Prioridade {selected.priority.toLowerCase()}</Pill><div className="territory-numbers"><div><small>Eleitorado simulado</small><strong>{selected.electorate.toLocaleString('pt-BR')}</strong></div><div><small>Municípios fictícios</small><strong>{selected.municipalities}</strong></div></div><label className="coverage-label"><span>Cobertura qualificada <strong>{selected.coverage}%</strong></span><Progress value={selected.coverage} /></label><div className="opportunity-box"><Sparkles size={18} /><div><strong>Oportunidade</strong><p>{selected.opportunity}</p></div></div><button className="primary-button full" onClick={() => navigate(`territorios/perfil/${selected.id}`)}>Abrir visão detalhada <ArrowRight size={16} /></button></aside>
+    <PageHeader eyebrow="Análise" title="Territórios" description="Mapa interativo, métricas consolidadas e detalhamento de municípios." actions={<><button className="secondary-button"><RefreshCw size={16} /> Sincronizar IBGE</button><button className="primary-button"><Plus size={16} /> Criar agrupamento</button></>} />
+
+    <div className="metrics-grid five">
+      <Metric label="Territórios" value={String(territories.length)} delta="recortes cadastrados" icon={Map} />
+      <Metric label="Municípios" value={String(totalMunicipios)} delta="no recorte" icon={Building2} />
+      <Metric label="Eleitores" value={totalEleitores.toLocaleString('pt-BR')} delta="total no recorte" icon={UsersRound} />
+      <Metric label="População" value={totalPopulacao.toLocaleString('pt-BR')} delta="estimada IBGE" icon={Map} />
+      <Metric label="Cobertura média" value={`${coberturaMedia}%`} delta="dossiês consolidados" icon={Check} tone="green" />
     </div>
-    <section className="section-block"><div className="section-heading"><div><span className="eyebrow">Comparativo</span><h2>Visão por território</h2></div><div className="view-toggle" aria-label="Alternar visualização"><button className={mode === 'list' ? 'active' : ''} onClick={() => setMode('list')} aria-label="Lista"><List size={17} /></button><button className={mode === 'grid' ? 'active' : ''} onClick={() => setMode('grid')} aria-label="Grade"><Grid3X3 size={17} /></button></div></div>{shown.length === 0 ? <EmptyState title="Nenhum território neste filtro" text="Escolha outra prioridade para comparar regiões." action={<button className="primary-button" onClick={() => setPriority('Todas')}>Mostrar todos</button>} /> : <div className={mode === 'grid' ? 'territory-grid' : 'territory-list'}>{shown.map(item => <button id={`territory-${item.id}`} className="territory-row" key={item.id} onClick={() => setSelectedId(item.id)}><i style={{ background: priorityColors[item.priority] }} /><div><strong>{item.name}</strong><small>{item.municipalities} municípios fictícios</small></div><span><small>Cobertura</small><strong>{item.coverage}%</strong></span><span><small>Eleitorado</small><strong>{item.electorate.toLocaleString('pt-BR')}</strong></span><Pill tone={item.priority === 'Alta' ? 'amber' : item.priority === 'Estável' ? 'green' : 'blue'}>{item.priority}</Pill><ChevronRight size={18} /></button>)}</div>}</section>
+
+    <div className="segmented" style={{ marginBottom: '16px' }}>
+      <button className={tab === 'mapa' ? 'active' : ''} onClick={() => setTab('mapa')}>Mapa interativo</button>
+      <button className={tab === 'metricas' ? 'active' : ''} onClick={() => setTab('metricas')}>Por {tenant.divisaoTerritorial}</button>
+    </div>
+
+    {tab === 'mapa' && <>
+      <section className="card map-toolbar"><div><label>Prioridade<select value={priority} onChange={e => setPriority(e.target.value)}><option>Todas</option><option>Alta</option><option>Média</option><option>Estável</option></select></label><label>Camada<select><option>Cobertura política</option><option>Potencial eleitoral</option><option>Relacionamentos</option></select></label></div><div className="legend"><span><i className="legend-high" /> Prioridade alta</span><span><i className="legend-medium" /> Prioridade média</span><span><i className="legend-stable" /> Estável</span></div></section>
+      <div className="territory-layout">
+        <section className="card map-card"><div className="map-title"><div><span className="eyebrow">Mapa abstrato</span><h2>Recorte territorial contratado</h2></div><Pill tone="blue">Interativo</Pill></div><svg className="territory-map" viewBox="20 0 490 320" role="img" aria-label="Mapa abstrato dos territórios fictícios">{territories.map(item => <path key={item.id} d={item.path} fill={priority !== 'Todas' && item.priority !== priority ? '#DDE5EF' : priorityColors[item.priority]} className={selectedId === item.id ? 'selected' : ''} onClick={() => setSelectedId(item.id)} onKeyDown={event => (event.key === 'Enter' || event.key === ' ') && setSelectedId(item.id)} tabIndex={0} role="button" aria-label={`${item.name}, prioridade ${item.priority}`} />)}</svg><p className="map-hint"><MapPin size={15} /> Selecione uma região para atualizar indicadores e oportunidades.</p></section>
+        <aside className="card territory-detail"><span className="eyebrow">Território selecionado</span><h2>{selected.name}</h2><Pill tone={selected.priority === 'Alta' ? 'amber' : selected.priority === 'Estável' ? 'green' : 'blue'}>Prioridade {selected.priority.toLowerCase()}</Pill><div className="territory-numbers"><div><small>Eleitorado simulado</small><strong>{selected.electorate.toLocaleString('pt-BR')}</strong></div><small>Municípios fictícios</small><strong>{selected.municipalities}</strong></div><label className="coverage-label"><span>Cobertura qualificada <strong>{selected.coverage}%</strong></span><Progress value={selected.coverage} /></label><div className="opportunity-box"><Sparkles size={18} /><div><strong>Oportunidade</strong><p>{selected.opportunity}</p></div></div><button className="primary-button full" onClick={() => navigate(`territorios/perfil/${selected.id}`)}>Abrir visão detalhada <ArrowRight size={16} /></button></aside>
+      </div>
+      <section className="section-block"><div className="section-heading"><div><span className="eyebrow">Comparativo</span><h2>Visão por território</h2></div><div className="view-toggle" aria-label="Alternar visualização"><button className={mode === 'list' ? 'active' : ''} onClick={() => setMode('list')} aria-label="Lista"><List size={17} /></button><button className={mode === 'grid' ? 'active' : ''} onClick={() => setMode('grid')} aria-label="Grade"><Grid3X3 size={17} /></button></div></div>{shown.length === 0 ? <EmptyState title="Nenhum território neste filtro" text="Escolha outra prioridade para comparar regiões." action={<button className="primary-button" onClick={() => setPriority('Todas')}>Mostrar todos</button>} /> : <div className={mode === 'grid' ? 'territory-grid' : 'territory-list'}>{shown.map(item => <button id={`territory-${item.id}`} className="territory-row" key={item.id} onClick={() => setSelectedId(item.id)}><i style={{ background: priorityColors[item.priority] }} /><div><strong>{item.name}</strong><small>{item.municipalities} municípios fictícios</small></div><span><small>Cobertura</small><strong>{item.coverage}%</strong></span><span><small>Eleitorado</small><strong>{item.electorate.toLocaleString('pt-BR')}</strong></span><Pill tone={item.priority === 'Alta' ? 'amber' : item.priority === 'Estável' ? 'green' : 'blue'}>{item.priority}</Pill><ChevronRight size={18} /></button>)}</div>}</section>
+    </>}
+
+    {tab === 'metricas' && <>
+      <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input placeholder={`Buscar ${tenant.divisaoTerritorial.toLowerCase()}`} aria-label={`Buscar ${tenant.divisaoTerritorial}`} /></div></section>
+      <div className="municipios-grid">{divisoesComCompletude.map(d => <article className="card municipio-card" key={d.nome}><div className="municipio-topo"><div><h3>{d.nome}</h3><small>{d.municipiosTotal} município{d.municipiosTotal !== 1 ? 's' : ''}</small></div><Pill tone={d.completudeMedia >= 70 ? 'green' : d.completudeMedia >= 40 ? 'amber' : 'red'}>{d.completudeMedia}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{d.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{d.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Cobertura <strong>{d.completudeMedia}%</strong></span><Progress value={d.completudeMedia} /></label><button className="secondary-button full" onClick={() => navigate(`territorios/perfil/${encodeURIComponent(d.nome.toLowerCase().replace(/\s+/g, '-'))}`)}>Ver detalhe <ArrowRight size={15} /></button></article>)}</div>
+    </>}
   </>
 }
 
@@ -260,7 +305,7 @@ function Team() {
     <div className="metrics-grid three"><Metric label="Integrantes" value={String(team.length)} delta="ativos no ciclo" icon={UsersRound} /><Metric label="Com acesso ao sistema" value={String(team.filter(p => p.hasAccess).length)} delta="contas habilitadas" icon={ShieldCheck} /><Metric label="Sem acesso" value={String(team.filter(p => !p.hasAccess).length)} delta="trabalham sem conta" icon={Lock} /></div>
 
     <div className="table-card"><table><thead><tr><th onClick={() => ordena('nome')} style={{cursor:'pointer'}}>Pessoa {ordem === 'nome' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('vinculo')} style={{cursor:'pointer'}}>Vínculo {ordem === 'vinculo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('cargo')} style={{cursor:'pointer'}}>Cargo no grupo {ordem === 'cargo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('area')} style={{cursor:'pointer'}}>Área {ordem === 'area' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('perfil')} style={{cursor:'pointer'}}>Perfil de acesso {ordem === 'perfil' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('status')} style={{cursor:'pointer'}}>Situação {ordem === 'status' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th></tr></thead><tbody>{lista.map(pessoa => <tr key={pessoa.name}>
-      <td><div className="person-cell"><Avatar initials={pessoa.initials} /><div><strong>{pessoa.name}</strong><small>{pessoa.area}</small></div></div></td>
+      <td><div className="person-cell"><Avatar initials={pessoa.initials} /><div><strong>{pessoa.name}</strong><small>{pessoa.area}</small>{(pessoa as TeamMember).liderancaId && <span className="vinculo-tag"><Link2 size={10} /> Liderança</span>}</div></div></td>
       <td>{pessoa.bond}</td>
       <td><strong>{pessoa.role}</strong><small>o que faz no grupo</small></td>
       <td>{pessoa.area}</td>
@@ -291,31 +336,95 @@ function Team() {
 function UsersAccess() {
   const [permissions, setPermissions] = useState(false)
   const [status, setStatus] = useState('Todos os status')
-  const [ordem, setOrdem] = useState<'nome' | 'perfil' | 'escopo' | 'status' | 'acesso'>('nome')
+  const [ordem, setOrdem] = useState<'nome' | 'tipo' | 'escopo' | 'status' | 'liderancas'>('nome')
   const [direcao, setDirecao] = useState<'asc' | 'desc'>('asc')
   const shown = users.filter(user => status === 'Todos os status' || user.status === status).sort((a, b) => {
-    const cmp = ordem === 'nome' ? a.name.localeCompare(b.name) : ordem === 'perfil' ? a.profile.localeCompare(b.profile) : ordem === 'escopo' ? a.scope.localeCompare(b.scope) : ordem === 'status' ? a.status.localeCompare(b.status) : a.last.localeCompare(b.last)
+    const cmp = ordem === 'nome' ? a.name.localeCompare(b.name) : ordem === 'tipo' ? a.type.localeCompare(b.type) : ordem === 'escopo' ? a.scope.localeCompare(b.scope) : ordem === 'status' ? a.status.localeCompare(b.status) : a.createdLeaders - b.createdLeaders
     return direcao === 'asc' ? cmp : -cmp
   })
-  const ordena = (col: 'nome' | 'perfil' | 'escopo' | 'status' | 'acesso') => { setOrdem(col); setDirecao(d => d === 'asc' ? 'desc' : 'asc') }
-  // Guarda o nível escolhido, não um booleano: o select tem três opções e derivar
-  // "Editor" de um true fazia a escolha do usuário voltar sozinha para "Leitor".
-  const [levels, setLevels] = useState<Record<string, string>>({ painel: 'Leitor', 'quadro-eleitoral': 'Leitor', territorios: 'Leitor', campanhas: 'Sem acesso', relacionamento: 'Editor', inteligencia: 'Leitor', base: 'Sem acesso', administrar: 'Sem acesso' })
+  const ordena = (col: 'nome' | 'tipo' | 'escopo' | 'status' | 'liderancas') => { setOrdem(col); setDirecao(d => d === 'asc' ? 'desc' : 'asc') }
+
+  // Tipos de usuário com cor
+  const tipoColor = (tipo: string) => {
+    switch(tipo) {
+      case 'MASTER': return 'red'
+      case 'EDITOR': return 'blue'
+      case 'VISUALIZADOR': return 'green'
+      case 'ATENDENTE': return 'amber'
+      default: return 'neutral'
+    }
+  }
+
   return <>
-    <PageHeader eyebrow="Administração" title="Usuários e Acessos" description="Contas, e-mails, perfis, permissões, status e último acesso — um domínio próprio." actions={<button className="primary-button"><Plus size={16} /> Convidar usuário</button>} />
+    <PageHeader eyebrow="Administração" title="Usuários e Acessos" description="Gerencie quem acessa o sistema e visualize as lideranças criadas por cada usuário." actions={<button className="primary-button"><Plus size={16} /> Criar usuário</button>} />
     <div className="domain-note"><LockKeyhole size={20} /><div><strong>Conta de acesso não é vínculo de equipe nem perfil eleitoral.</strong><p>Uma pessoa pode existir em mais de um domínio técnico, mas cada experiência tem finalidade e regras independentes.</p></div></div>
     <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input placeholder="Buscar por nome ou e-mail" /></div><select value={status} onChange={e => setStatus(e.target.value)}><option>Todos os status</option><option>Ativo</option><option>Convidado</option><option>Suspenso</option></select><button className="secondary-button" onClick={() => setPermissions(true)}><Shield size={16} /> Gerenciar perfis</button></section>
-    <div className="table-card"><table><thead><tr><th onClick={() => ordena('nome')} style={{cursor:'pointer'}}>Usuário {ordem === 'nome' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('perfil')} style={{cursor:'pointer'}}>Perfil de acesso {ordem === 'perfil' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('escopo')} style={{cursor:'pointer'}}>Escopo territorial {ordem === 'escopo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('status')} style={{cursor:'pointer'}}>Status {ordem === 'status' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('acesso')} style={{cursor:'pointer'}}>Último acesso {ordem === 'acesso' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{shown.map(user => <tr key={user.email}><td><strong>{user.name}</strong><small>{user.email}</small></td><td><Pill tone="blue">{user.profile}</Pill></td><td>{user.scope}</td><td><Pill tone={user.status === 'Ativo' ? 'green' : user.status === 'Convidado' ? 'blue' : 'red'}>{user.status}</Pill></td><td>{user.last}</td><td><button className="icon-button" aria-label="Mais ações"><MoreHorizontal size={17} /></button></td></tr>)}</tbody></table></div>
-    <div style={{marginTop: '24px'}}><AuditPanel /></div>
-    {permissions && <Modal title="Perfil: Coordenação regional" description="Permissões por módulo distinguem leitura e edição. Cargo político nunca é usado como permissão." onClose={() => setPermissions(false)}><div className="permission-grid"><div><strong>Módulo</strong><strong>Nível</strong></div>{Object.entries(levels).map(([key, level]) => <label key={key}><span>{routeTitles[key] || key[0].toUpperCase() + key.slice(1)}</span><select value={level} aria-label={`Nível de acesso em ${routeTitles[key] || key}`} onChange={e => setLevels(current => ({ ...current, [key]: e.target.value }))}><option>Sem acesso</option><option>Leitor</option><option>Editor</option></select></label>)}</div><div className="modal-actions"><button className="secondary-button" onClick={() => setPermissions(false)}>Cancelar</button><button className="primary-button" onClick={() => setPermissions(false)}>Salvar permissões</button></div></Modal>}
+    <div className="table-card"><table><thead><tr><th onClick={() => ordena('nome')} style={{cursor:'pointer'}}>Usuário {ordem === 'nome' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('tipo')} style={{cursor:'pointer'}}>Tipo {ordem === 'tipo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('escopo')} style={{cursor:'pointer'}}>Escopo territorial {ordem === 'escopo' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('liderancas')} style={{cursor:'pointer'}}>Lideranças criadas {ordem === 'liderancas' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th onClick={() => ordena('status')} style={{cursor:'pointer'}}>Status {ordem === 'status' ? (direcao === 'asc' ? '↑' : '↓') : ''}</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{shown.map(user => <tr key={user.email}><td><div className="person-cell"><Avatar initials={user.initials} /><div><strong>{user.name}</strong><small>{user.email}</small></div></div></td><td><Pill tone={tipoColor(user.type)}>{user.type}</Pill></td><td>{user.scope}</td><td>{user.createdLeaders > 0 ? <button className="text-button">{user.createdLeaders}</button> : <span className="text-muted">—</span>}</td><td><Pill tone={user.status === 'Ativo' ? 'green' : user.status === 'Convidado' ? 'blue' : 'red'}>{user.status}</Pill></td><td><button className="icon-button" aria-label="Mais ações"><MoreHorizontal size={17} /></button></td></tr>)}</tbody></table></div>
+    {permissions && <Modal title="Permissões por módulo" description="Configure o nível de acesso de cada usuário aos módulos do sistema." onClose={() => setPermissions(false)}>
+      <div className="permission-info"><p>Funcionalidade de permissões por módulo em desenvolvimento.</p></div>
+      <div className="modal-actions"><button className="secondary-button" onClick={() => setPermissions(false)}>Fechar</button></div>
+    </Modal>}
+  </>
+}
+
+function ParametrizacaoAparencia() {
+  const { tema: temaGlobal, setTema: setTemaGlobal } = useTema()
+  const [salvo, setSalvo] = useState(false)
+  return <>
+    <section className="card">
+      <div className="card-heading"><div><span className="eyebrow">Tema padrão</span><h2>Visual padrão para todos os usuários</h2></div></div>
+      <p className="section-description">Este é o tema que novos usuários verão ao acessar o sistema pela primeira vez. Cada usuário pode sobrescrever em "Minha conta".</p>
+      <div className="tema-grid" role="radiogroup" aria-label="Tema global">
+        {([['sistema', 'Seguir o sistema', 'Acompanha o tema do computador'], ['claro', 'Claro', 'Fundo claro'], ['escuro', 'Escuro', 'Fundo escuro']] as const).map(([id, titulo, texto]) =>
+          <button key={id} role="radio" aria-checked={temaGlobal === id} className={`tema-opcao ${temaGlobal === id ? 'ativo' : ''}`} onClick={() => setTemaGlobal(id)}>
+            <span className={`tema-amostra amostra-${id}`} aria-hidden="true"><i /><b /></span>
+            <strong>{titulo}</strong><small>{texto}</small>
+            {temaGlobal === id && <Pill tone="green"><Check size={12} /> Padrão</Pill>}
+          </button>)}
+      </div>
+      <div className="settings-actions"><button className="primary-button" onClick={() => { setSalvo(true); setTimeout(() => setSalvo(false), 1800) }}>{salvo ? <><Check size={16} /> Salvo</> : 'Salvar padrão'}</button></div>
+    </section>
+    <section className="card">
+      <div className="card-heading"><div><span className="eyebrow">Herança</span><h2>Como funciona</h2></div></div>
+      <div className="info-grid">
+        <span><small>Parametrizações → global</small><strong>Aplica a todos os usuários</strong></span>
+        <span><small>Minha conta → individual</small><strong>Cada usuário pode sobrescrever</strong></span>
+      </div>
+      <p className="section-description">O tema definido aqui é o padrão. Se o usuário definir outro tema em "Minha conta", prevalece a escolha individual.</p>
+    </section>
+  </>
+}
+
+function ParametrizacaoNotificacoes() {
+  const [togglesGlobal, setTogglesGlobal] = useState({ oportunidade: true, resumo: true, aniversario: true, prazo: true })
+  const [salvo, setSalvo] = useState(false)
+  const salvar = () => { setSalvo(true); setTimeout(() => setSalvo(false), 1800) }
+  return <>
+    <section className="card">
+      <div className="card-heading"><div><span className="eyebrow">Notificações padrão</span><h2>Configuração padrão para novos usuários</h2></div></div>
+      <p className="section-description">Estas são as notificações habilitadas por padrão para novos usuários. Cada usuário pode ajustar em "Minha conta".</p>
+      {([['oportunidade', 'Território pedindo atenção', 'Quando um município de prioridade alta fica sem visita por mais de 90 dias.'], ['aniversario', 'Data comemorativa próxima', 'Aniversário de candidato, de município ou festa de padroeira nos próximos 7 dias.'], ['prazo', 'Prazo de prestação de contas', 'Lançamento sem comprovante às vésperas do fechamento do período.'], ['resumo', 'Resumo executivo semanal', 'Consolida avanços e pendências numa leitura curta, toda segunda.']] as const).map(([id, titulo, texto]) =>
+        <label className="toggle-row" key={id}><span><strong>{titulo}</strong><small>{texto}</small></span><input type="checkbox" checked={togglesGlobal[id]} onChange={e => setTogglesGlobal(c => ({ ...c, [id]: e.target.checked }))} /></label>)}
+      <div className="settings-actions"><button className="primary-button" onClick={salvar}>{salvo ? <><Check size={16} /> Salvo</> : 'Salvar padrão'}</button></div>
+    </section>
+    <section className="card">
+      <div className="card-heading"><div><span className="eyebrow">Herança</span><h2>Como funciona</h2></div></div>
+      <div className="info-grid">
+        <span><small>Parametrizações → global</small><strong>Padrão para todos os usuários</strong></span>
+        <span><small>Minha conta → individual</small><strong>Cada usuário pode ajustar</strong></span>
+      </div>
+      <p className="section-description">As notificações definidas aqui são o padrão. Se o usuário definir outras preferências em "Minha conta", prevalece a escolha individual.</p>
+    </section>
   </>
 }
 
 function Parameters({ navigate, route }: { navigate: Navigate; route: string }) {
   const aba = route.split('/')[1] || 'valores'
-  const abas = [{ label: 'Valores e vocabulários', route: 'parametrizacoes/valores' }, { label: 'Identidade do ambiente', route: 'parametrizacoes/identidade' }, { label: 'Planos e módulos', route: 'parametrizacoes/planos' }, { label: 'Dados e retenção', route: 'parametrizacoes/dados' }]
+  const abas = [{ label: 'Valores e vocabulários', route: 'parametrizacoes/valores' }, { label: 'Aparência', route: 'parametrizacoes/aparencia' }, { label: 'Notificações', route: 'parametrizacoes/notificacoes' }, { label: 'Identidade do ambiente', route: 'parametrizacoes/identidade' }, { label: 'Planos e módulos', route: 'parametrizacoes/planos' }, { label: 'Dados e retenção', route: 'parametrizacoes/dados' }]
   if (aba === 'identidade') return <><PageHeader eyebrow="Administração" title="Identidade do ambiente" description="Nome, sigla e referências do grupo político. Afeta o que todo mundo vê — por isso vive aqui, e não na conta pessoal." /><SubTabs items={abas} active="parametrizacoes/identidade" navigate={navigate} /><IdentidadeAmbiente /></>
   if (aba === 'dados') return <><PageHeader eyebrow="Administração" title="Dados e retenção" description="Por quanto tempo o ambiente guarda cada coisa, e de onde vem cada dado. Base política guarda opinião sobre pessoas identificadas: retenção não é detalhe técnico." /><SubTabs items={abas} active="parametrizacoes/dados" navigate={navigate} /><DadosRetencao navigate={navigate} /></>
+  if (aba === 'aparencia') return <><PageHeader eyebrow="Administração" title="Aparência global" description="Configurações de tema que se aplicam a todos os usuários do ambiente." /><SubTabs items={abas} active="parametrizacoes/aparencia" navigate={navigate} /><ParametrizacaoAparencia /></>
+  if (aba === 'notificacoes') return <><PageHeader eyebrow="Administração" title="Notificações globais" description="Configurações de notificação que se aplicam a todos os usuários do ambiente." /><SubTabs items={abas} active="parametrizacoes/notificacoes" navigate={navigate} /><ParametrizacaoNotificacoes /></>
   if (aba === 'planos') return <>
     <PageHeader eyebrow="Administração" title="Planos e módulos" description="O que este cliente contratou. Desligar um módulo o remove do menu — é assim que o mesmo produto atende grupos diferentes." actions={<button className="secondary-button" onClick={() => navigate('configuracoes')}><Settings size={16} /> Configurações gerais</button>} />
     <SubTabs items={abas} active="parametrizacoes/planos" navigate={navigate} />
@@ -327,14 +436,13 @@ function Parameters({ navigate, route }: { navigate: Navigate; route: string }) 
 function ParametersValores({ navigate, abas }: { navigate: Navigate; abas: { label: string; route: string }[] }) {
   const categories = [
     { id: 'tipos', icon: Layers3, title: 'Tipos e classificações', count: 12, values: ['Liderança comunitária', 'Representação setorial', 'Articulação regional'] },
-    { id: 'cargos', icon: Building2, title: 'Cargos e funções políticas', count: 18, values: ['Prefeito(a)', 'Vereador(a)', 'Deputado(a) estadual'] },
     { id: 'status', icon: Activity, title: 'Status de acompanhamento', count: 8, values: ['Monitorado', 'Contato prioritário', 'Em aproximação'] },
     { id: 'territorios', icon: Map, title: 'Regras territoriais', count: 6, values: ['Região estratégica', 'Polo de influência', 'Área de cobertura'] },
-    { id: 'papeis', icon: Shield, title: 'Papéis e perfis padrão', count: 7, values: ['Administradora', 'Coordenação regional', 'Leitura executiva'] },
-    { id: 'campos', icon: FileText, title: 'Campos complementares', count: 9, values: ['Tema prioritário', 'Canal preferencial', 'Nível de relacionamento'] },
-    { id: 'partidos', icon: Vote, title: 'Partidos e legendas', count: 5, values: ['Movimento Cívico 18', 'Aliança Popular 44', 'Rede Democrática 27'] },
+    { id: 'areas', icon: BriefcaseBusiness, title: 'Áreas de atuação', count: 9, values: ['Educação', 'Saúde', 'Infraestrutura', 'Cultura', 'Meio ambiente', 'Economia', 'Esporte', 'Segurança'] },
+    { id: 'atributos', icon: Star, title: 'Atributos de liderança', count: 6, values: ['Articuladora', 'Base comunitária', 'Técnica', 'Nome nacional', 'Base sindical', 'Mobilizadora'] },
     { id: 'grupos', icon: UsersRound, title: 'Grupos locais', count: 8, values: ['Conselho regional', 'Rede comunitária', 'Fórum setorial'] },
     { id: 'interacoes', icon: MessageCircle, title: 'Tipos de interação', count: 7, values: ['Reunião', 'Visita', 'Entrevista'] },
+    { id: 'campos', icon: FileText, title: 'Campos complementares', count: 9, values: ['Tema prioritário', 'Canal preferencial', 'Nível de relacionamento'] },
     { id: 'governanca', icon: BookOpenCheck, title: 'Políticas de governança', count: 6, values: ['Revisão de vínculo', 'Retenção de histórico', 'Aprovação de campo sensível'] },
   ]
   const [selected, setSelected] = useState(categories[0])
@@ -373,6 +481,7 @@ function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }
   const [salvo, setSalvo] = useState(false)
   const [toggles, setToggles] = useState({ oportunidade: true, resumo: true, confidencial: false, aniversario: true, prazo: true })
   const abas = [
+    { id: 'perfil', label: 'Dados pessoais', icone: UserCog },
     { id: 'aparencia', label: 'Aparência', icone: Palette },
     { id: 'notificacoes', label: 'Notificações', icone: Bell },
     { id: 'seguranca', label: 'Segurança e sessão', icone: Shield },
@@ -383,6 +492,43 @@ function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }
     <div className="settings-layout">
       <nav className="card settings-nav" aria-label="Seções de configuração">{abas.map(a => { const Icone = a.icone; return <button key={a.id} className={aba === a.id ? 'active' : ''} onClick={() => navigate(`configuracoes/${a.id}`)}><Icone size={17} /> {a.label}</button> })}</nav>
       <section className="card settings-form">
+
+        {aba === 'perfil' && <>
+          <div className="card-heading"><div><span className="eyebrow">Sua conta</span><h2>Dados pessoais</h2></div></div>
+          <p className="section-description">Estas informações são visíveis para outros usuários do sistema.</p>
+          <div className="user-profile-header">
+            <Avatar initials="SL" size="lg" />
+            <div>
+              <strong>Sofia Linhares</strong>
+              <small>Coordenação política · Articulação</small>
+              <span className="user-email">sofia.linhares@exemplo.invalid</span>
+            </div>
+          </div>
+          <div className="form-grid">
+            <label>Nome completo<input defaultValue="Sofia Linhares" /></label>
+            <label>E-mail<input defaultValue="sofia.linhares@exemplo.invalid" type="email" /></label>
+            <label>Telefone<input defaultValue="+55 (11) 99999-9999" type="tel" /></label>
+          </div>
+          <h3>Vínculos no sistema</h3>
+          <div className="vinculos-grid">
+            <div className="vinculo-card">
+              <UsersRound size={18} />
+              <div><strong>Equipe</strong><small>Funcionária · Coordenação política</small></div>
+              <Pill tone="green">Ativo</Pill>
+            </div>
+            <div className="vinculo-card">
+              <UserCog size={18} />
+              <div><strong>Usuário</strong><small>Administrador · MASTER</small></div>
+              <Pill tone="green">Acesso ativo</Pill>
+            </div>
+            <div className="vinculo-card">
+              <Link2 size={18} />
+              <div><strong>Liderança</strong><small>Helena Prado Nunes</small></div>
+              <button className="text-button">Ver perfil</button>
+            </div>
+          </div>
+          <div className="settings-actions"><button className="primary-button" onClick={salvar}>Salvar alterações</button></div>
+        </>}
 
         {aba === 'aparencia' && <>
           <div className="card-heading"><div><span className="eyebrow">Aparência</span><h2>Tema da interface</h2></div></div>
@@ -491,7 +637,7 @@ function ElectoralProfileExpanded({ person, navigate }: { person: ElectoralPerso
   const [tab, setTab] = useState('perfil')
   return <>
     <button className="back-button" onClick={() => navigate('quadro-eleitoral')}><ChevronLeft size={16} /> Voltar ao quadro eleitoral</button>
-    <section className="profile-hero card domain-hero electoral"><div className="profile-main"><div className="portrait-placeholder"><Avatar initials={person.initials} size="lg" /><small>Foto ilustrativa</small></div><div><span className="eyebrow">Perfil eleitoral estruturado</span><h1>{person.name}</h1><p>{person.office} · {person.party} · {person.territory}</p><div className="pill-row"><Pill tone="green">{person.status}</Pill>{person.running && <Pill tone="blue">Em disputa</Pill>}<Pill>Atualizado há 2 dias</Pill></div></div></div><div className="hero-actions"><button className="secondary-button" onClick={() => setTab('auditoria')}><History size={16} /> Auditoria</button><button className="primary-button" onClick={() => navigate('agenda')}><CalendarDays size={16} /> Agendar interação</button></div></section>
+    <section className="profile-hero card domain-hero electoral"><div className="profile-main"><div className="portrait-placeholder"><Avatar initials={person.initials} size="lg" /><small>Foto ilustrativa</small></div><div><span className="eyebrow">Perfil eleitoral estruturado</span><h1>{person.name}</h1><p>{person.office} · {person.party} · {person.territory}</p><div className="pill-row"><Pill tone="green">{person.status}</Pill>{person.running && <Pill tone="blue">Em disputa</Pill>}<Pill>Atualizado há 2 dias</Pill></div></div></div><div className="hero-actions"><button className="secondary-button danger-button"><X size={16} /> Inativar</button><button className="secondary-button" onClick={() => setTab('auditoria')}><History size={16} /> Auditoria</button><button className="secondary-button"><Edit size={16} /> Editar</button><button className="primary-button" onClick={() => navigate('agenda')}><CalendarDays size={16} /> Agendar interação</button></div></section>
     <div className="profile-tabs"><button className={tab === 'perfil' ? 'active' : ''} onClick={() => setTab('perfil')}>Perfil completo</button><button className={tab === 'interacoes' ? 'active' : ''} onClick={() => setTab('interacoes')}>Interações</button><button className={tab === 'auditoria' ? 'active' : ''} onClick={() => setTab('auditoria')}>Auditoria</button></div>
     {tab === 'perfil' && <><section className="card avaliacao-bloco"><div><span className="eyebrow">Avaliação política</span><h2>Como o grupo classifica esta pessoa</h2><p className="section-description">É a única informação da ficha que é julgamento da equipe, não fato do TSE. Trocar aqui atualiza a lista e o painel na hora.</p></div><div className="avaliacao-opcoes" role="radiogroup" aria-label="Status político">{tenant.escalaStatus.map(s => <button key={s.valor} role="radio" aria-checked={statusDe(person.id) === s.valor} className={statusDe(person.id) === s.valor ? 'ativo' : ''} onClick={() => avaliar(person.id, s.valor)} title={s.descricao}><StatusPill valor={s.valor} /></button>)}</div></section><FaixaCompletude valor={completude(person.id).pct} atualizadoPor={dadosInternos[person.id]?.observacao?.autor || 'ninguém ainda'} quando={dadosInternos[person.id]?.observacao?.data || '—'} />
     <div className="detail-layout"><div className="detail-stack">
@@ -507,9 +653,39 @@ function ElectoralProfileExpanded({ person, navigate }: { person: ElectoralPerso
 }
 
 function TerritoryProfile({ id, navigate }: { id: string; navigate: Navigate }) {
-  const territory = territories.find(t => t.id === id) || territories[0]
+  const { tenant } = useTenant()
+  const decodeId = decodeURIComponent(id)
+  // Verifica se é um território original (tem ID do territories) ou uma divisão (tem nome da divisão)
+  const territory = territories.find(t => t.id === decodeId)
+  const divisao = divisoes.find(d => d.nome.toLowerCase().replace(/\s+/g, '-') === decodeId || d.nome === decodeId)
+
+  // Se é uma divisão (视图 de Mesorregião)
+  if (divisao) {
+    const municipiosDaDivisao = municipios.filter(m => m.divisao === divisao.nome)
+    const completudeMedia = municipiosDaDivisao.length > 0
+      ? Math.round(municipiosDaDivisao.reduce((soma, m) => soma + m.completude, 0) / municipiosDaDivisao.length)
+      : 0
+    const consolidado = municipiosDaDivisao.filter(m => m.completude >= 80).length
+    const critico = municipiosDaDivisao.filter(m => m.completude < 40).length
+    return <>
+      <button className="back-button" onClick={() => navigate('territorios')}><ChevronLeft size={16}/> Voltar aos territórios</button>
+      <section className="profile-hero card domain-hero territory"><div><span className="eyebrow">{tenant.divisaoTerritorial}</span><h1>{divisao.nome}</h1><p>{municipiosDaDivisao.length} município{municipiosDaDivisao.length !== 1 ? 's' : ''} · {divisao.populacao.toLocaleString('pt-BR')} habitantes</p><div className="pill-row"><Pill tone={completudeMedia >= 70 ? 'green' : completudeMedia >= 40 ? 'amber' : 'red'}>Cobertura {completudeMedia}%</Pill></div></div><div className="hero-actions"><button className="secondary-button"><Download size={15} /> Exportar</button><button className="primary-button"><Plus size={15} /> Editar</button></div></section>
+      <FaixaCompletude valor={completudeMedia} atualizadoPor="Sofia Linhares" quando="09 ago 2026" />
+      <div className="metrics-grid five">
+        <Metric label="Municípios" value={String(municipiosDaDivisao.length)} delta="nesta divisão" icon={Building2} />
+        <Metric label="Eleitores" value={divisao.eleitores.toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
+        <Metric label="População" value={divisao.populacao.toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
+        <Metric label="Consolidados" value={String(consolidado)} delta="acima de 80%" icon={Check} tone="green" />
+        <Metric label="Críticos" value={String(critico)} delta="abaixo de 40%" icon={AlertTriangle} tone="red" />
+      </div>
+      <section className="card"><div className="card-heading"><div><span className="eyebrow">Municípios desta {tenant.divisaoTerritorial}</span><h2>Lista consolidada</h2></div></div><div className="municipios-grid">{municipiosDaDivisao.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo}</small></div><Pill tone={m.completude >= 80 ? 'green' : m.completude >= 40 ? 'amber' : 'red'}>{m.completude}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div></section>
+    </>
+  }
+
+  // Se é um território original (com mapa)
+  const t = territory || territories[0]
   const [notes, setNotes] = useState('Gerais')
-  return <><button className="back-button" onClick={() => navigate('territorios')}><ChevronLeft size={16}/> Voltar aos territórios</button><section className="profile-hero card domain-hero territory"><div><span className="eyebrow">Perfil territorial · Município demonstrativo</span><h1>Município de {territory.name}</h1><p>Panorama socioterritorial, político e eleitoral em uma leitura única.</p><div className="pill-row"><Pill tone={territory.priority==='Alta'?'amber':'green'}>Prioridade {territory.priority}</Pill><Pill>{territory.electorate.toLocaleString('pt-BR')} eleitores simulados</Pill></div></div><button className="primary-button" onClick={() => navigate('relacionamento/agenda')}><CalendarDays size={16}/> Criar agenda</button></section><div className="metrics-grid"><Metric label="Cobertura" value={`${territory.coverage}%`} delta="+4 p.p. no ciclo" icon={Target}/><Metric label="Representantes" value="18" delta="5 aliados ativos" icon={UsersRound}/><Metric label="Oportunidades" value="7" delta="2 pedem ação" icon={Sparkles}/><Metric label="Agendas" value="12" delta="últimos 90 dias" icon={CalendarDays}/></div><div className="territory-profile-grid"><section className="card territory-visual"><div className="card-heading"><div><span className="eyebrow">Panorama</span><h2>Mapa e indicadores</h2></div><Pill tone="blue">Recorte municipal</Pill></div><svg viewBox="0 0 520 320" aria-label="Mapa abstrato"><path d={territory.path} fill={priorityColors[territory.priority]}/><circle cx="260" cy="150" r="12"/><circle cx="330" cy="210" r="7"/><path className="map-link" d="M260 150 L330 210"/></svg><div className="indicator-strip"><span><small>Urbanização</small><strong>76%</strong></span><span><small>Renda índice</small><strong>62/100</strong></span><span><small>Engajamento</small><strong>71/100</strong></span></div></section><section className="card"><div className="card-heading"><div><span className="eyebrow">Quadro eleitoral</span><h2>Representantes e aliados</h2></div></div>{electoralPeople.slice(0,4).map(p=><button className="leader-row" key={p.id} onClick={()=>navigate(`quadro-eleitoral/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm"/><span><strong>{p.name}</strong><small>{p.office}</small></span><Pill tone={p.id%2?'green':'blue'}>{p.id%2?'Aliado':'Monitorado'}</Pill></button>)}</section></div><div className="dashboard-grid equal"><section className="card"><div className="card-heading"><div><span className="eyebrow">Oportunidade</span><h2>Leitura socioterritorial</h2></div><Sparkles size={20}/></div><div className="opportunity-callout">{territory.opportunity}</div><div className="info-grid"><span><small>Dinâmica populacional</small><strong>Crescimento moderado</strong></span><span><small>Principal polo</small><strong>Distrito Aurora</strong></span><span><small>Pressão de agenda</small><strong>Alta</strong></span><span><small>Fonte</small><strong>IBGE fictício curado</strong></span></div></section><section className="card structured-notes"><div className="card-heading"><div><span className="eyebrow">Registros auditáveis</span><h2>Observações</h2></div><button className="icon-button" aria-label="Adicionar observação"><Plus size={16}/></button></div><div className="segmented">{['Gerais','Políticas','Relacionamento'].map(n=><button className={notes===n?'active':''} onClick={()=>setNotes(n)} key={n}>{n}</button>)}</div><article><strong>{notes === 'Gerais' ? 'Conectividade entre distritos' : notes === 'Políticas' ? 'Recomposição de alianças locais' : 'Retomar encontro com conselho regional'}</strong><p>Registro demonstrativo estruturado, com contexto curto e próximo passo.</p><small>Sofia Linhares · 10 ago 2026 · edição rastreável</small></article></section></div><section className="card"><div className="card-heading"><div><span className="eyebrow">Histórico</span><h2>Resultados e agendas do município</h2></div><button className="text-button" onClick={()=>navigate('relatorios/municipios')}>Abrir relatório <ArrowRight size={14}/></button></div><div className="result-comparison">{['2020','2022','2024'].map((year,i)=><div key={year}><strong>{year}</strong><span><i style={{width:`${58+i*12}%`}}/></span><b>{(24+i*7)} mil votos</b></div>)}</div></section></>
+  return <><button className="back-button" onClick={() => navigate('territorios')}><ChevronLeft size={16}/> Voltar aos territórios</button><section className="profile-hero card domain-hero territory"><div><span className="eyebrow">Perfil territorial · Município demonstrativo</span><h1>Município de {t.name}</h1><p>Panorama socioterritorial, político e eleitoral em uma leitura única.</p><div className="pill-row"><Pill tone={t.priority==='Alta'?'amber':'green'}>Prioridade {t.priority}</Pill><Pill>{t.electorate.toLocaleString('pt-BR')} eleitores simulados</Pill></div></div><button className="primary-button" onClick={() => navigate('relacionamento/agenda')}><CalendarDays size={16}/> Criar agenda</button></section><div className="metrics-grid"><Metric label="Cobertura" value={`${t.coverage}%`} delta="+4 p.p. no ciclo" icon={Target}/><Metric label="Representantes" value="18" delta="5 aliados ativos" icon={UsersRound}/><Metric label="Oportunidades" value="7" delta="2 pedem ação" icon={Sparkles}/><Metric label="Agendas" value="12" delta="últimos 90 dias" icon={CalendarDays}/></div><div className="territory-profile-grid"><section className="card territory-visual"><div className="card-heading"><div><span className="eyebrow">Panorama</span><h2>Mapa e indicadores</h2></div><Pill tone="blue">Recorte municipal</Pill></div><svg viewBox="0 0 520 320" aria-label="Mapa abstrato"><path d={t.path} fill={priorityColors[t.priority]}/><circle cx="260" cy="150" r="12"/><circle cx="330" cy="210" r="7"/><path className="map-link" d="M260 150 L330 210"/></svg><div className="indicator-strip"><span><small>Urbanização</small><strong>76%</strong></span><span><small>Renda índice</small><strong>62/100</strong></span><span><small>Engajamento</small><strong>71/100</strong></span></div></section><section className="card"><div className="card-heading"><div><span className="eyebrow">Quadro eleitoral</span><h2>Representantes e aliados</h2></div></div>{electoralPeople.slice(0,4).map(p=><button className="leader-row" key={p.id} onClick={()=>navigate(`quadro-eleitoral/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm"/><span><strong>{p.name}</strong><small>{p.office}</small></span><Pill tone={p.id%2?'green':'blue'}>{p.id%2?'Aliado':'Monitorado'}</Pill></button>)}</section></div><div className="dashboard-grid equal"><section className="card"><div className="card-heading"><div><span className="eyebrow">Oportunidade</span><h2>Leitura socioterritorial</h2></div><Sparkles size={20}/></div><div className="opportunity-callout">{t.opportunity}</div><div className="info-grid"><span><small>Dinâmica populacional</small><strong>Crescimento moderado</strong></span><span><small>Principal polo</small><strong>Distrito Aurora</strong></span><span><small>Pressão de agenda</small><strong>Alta</strong></span><span><small>Fonte</small><strong>IBGE fictício curado</strong></span></div></section><section className="card structured-notes"><div className="card-heading"><div><span className="eyebrow">Registros auditáveis</span><h2>Observações</h2></div><button className="icon-button" aria-label="Adicionar observação"><Plus size={16}/></button></div><div className="segmented">{['Gerais','Políticas','Relacionamento'].map(n=><button className={notes===n?'active':''} onClick={()=>setNotes(n)} key={n}>{n}</button>)}</div><article><strong>{notes === 'Gerais' ? 'Conectividade entre distritos' : notes === 'Políticas' ? 'Recomposição de alianças locais' : 'Retomar encontro com conselho regional'}</strong><p>Registro demonstrativo estruturado, com contexto curto e próximo passo.</p><small>Sofia Linhares · 10 ago 2026 · edição rastreável</small></article></section></div><section className="card"><div className="card-heading"><div><span className="eyebrow">Histórico</span><h2>Resultados e agendas do município</h2></div><button className="text-button" onClick={()=>navigate('relatorios/municipios')}>Abrir relatório <ArrowRight size={14}/></button></div><div className="result-comparison">{['2020','2022','2024'].map((year,i)=><div key={year}><strong>{year}</strong><span><i style={{width:`${58+i*12}%`}}/></span><b>{(24+i*7)} mil votos</b></div>)}</div></section></>
 }
 
 function Reports({ route, navigate }: { route: string; navigate: Navigate }) {
@@ -524,7 +700,7 @@ function ComparisonReport({navigate}:{navigate:Navigate}) { return <div classNam
 function ConsolidatedReport({navigate}:{navigate:Navigate}) { return <section className="card"><div className="card-heading"><div><span className="eyebrow">Drill-down</span><h2>Desempenho municipal consolidado</h2></div><Pill tone="purple">63 municípios fictícios</Pill></div><div className="municipal-ranking">{territories.map((t,i)=><button key={t.id} onClick={()=>navigate(`territorios/perfil/${t.id}`)}><b>{i+1}</b><span><strong>{t.name}</strong><small>{t.electorate.toLocaleString('pt-BR')} eleitores simulados</small></span><Progress value={88-i*7}/><strong>{(88-i*7)}%</strong><ChevronRight size={16}/></button>)}</div></section> }
 
 function NationalBaseHub({ navigate }: { navigate: Navigate }) {
-  const [tab,setTab]=useState('cadastros'); const tabs=['cadastros','vinculos','eleicoes','territorios'];
+  const [tab,setTab]=useState('cadastros'); const tabs=['cadastros','pessoas-tse','vinculos','eleicoes','territorios'];
   const [subRota, setSubRota] = useState('')
   useEffect(() => {
     const hash = window.location.hash.replace('#', '')
@@ -549,7 +725,7 @@ function NationalBaseHub({ navigate }: { navigate: Navigate }) {
     return () => window.removeEventListener('hashchange', handler)
   }, [])
   if (subRota) return <NationalRecords navigate={navigate} modo="detalhe" />
-  return <><PageHeader eyebrow="Administração" title="Base Nacional" description="Cadastros curados, vínculos de identidade, eleições, sincronizações e catálogo territorial — tudo simulado." actions={<button className="secondary-button"><RefreshCw size={16}/> Nova sincronização simulada</button>}/><div className="source-warning"><AlertTriangle size={18}/><div><strong>Ambiente demonstrativo</strong><p>Nenhum registro, arquivo ou serviço real está conectado.</p></div></div><div className="profile-tabs">{tabs.map(t=><button key={t} className={tab===t?'active':''} onClick={()=>setTab(t)}>{({cadastros:'Cadastros curados',vinculos:'Fila de vínculos',eleicoes:'Eleições e sincronizações',territorios:'Catálogo territorial'} as Record<string,string>)[t]}</button>)}</div>{tab==='cadastros'&&<NationalRecords navigate={navigate}/>}{tab==='vinculos'&&<LinkQueue/>}{tab==='eleicoes'&&<ElectionCatalog/>}{tab==='territorios'&&<TerritoryCatalog/>}</>
+  return <><PageHeader eyebrow="Administração" title="Base Nacional" description="Cadastros curados, vínculos de identidade, eleições, sincronizações e catálogo territorial — tudo simulado." actions={<button className="secondary-button"><RefreshCw size={16}/> Nova sincronização simulada</button>}/><div className="source-warning"><AlertTriangle size={18}/><div><strong>Ambiente demonstrativo</strong><p>Nenhum registro, arquivo ou serviço real está conectado.</p></div></div><div className="profile-tabs">{tabs.map(t=><button key={t} className={tab===t?'active':''} onClick={()=>setTab(t)}>{({cadastros:'Cadastros curados','pessoas-tse':'Pessoas TSE',vinculos:'Fila de vínculos',eleicoes:'Eleições e sincronizações',territorios:'Catálogo territorial'} as Record<string,string>)[t]}</button>)}</div>{tab==='cadastros'&&<NationalRecords navigate={navigate}/>}{tab==='pessoas-tse'&&<PessoasTSEList/>}{tab==='vinculos'&&<LinkQueue/>}{tab==='eleicoes'&&<ElectionCatalog/>}{tab==='territorios'&&<TerritoryCatalog/>}</>
 }
 function NationalRecords({ navigate, modo }: { navigate: Navigate; modo?: 'lista' | 'detalhe' }) {
   const conjuntos = [
@@ -585,6 +761,119 @@ function NationalRecords({ navigate, modo }: { navigate: Navigate; modo?: 'lista
     </>
   }
   return <><div className="metrics-grid three"><Metric label="Pessoas curadas" value="2,8 mi" delta="volume fictício" icon={UsersRound}/><Metric label="Territórios" value="5.570" delta="catálogo demonstrativo" icon={Map}/><Metric label="Qualidade" value="98,7%" delta="regras simuladas" icon={ShieldCheck}/></div><section className="card"><div className="card-heading"><div><span className="eyebrow">Camadas permanentes</span><h2>Conjuntos curados</h2></div></div><div className="dataset-list">{conjuntos.map(x => <div key={x.id}><span className="dataset-icon"><Database size={17}/></span><div><strong>{x.nome}</strong><small>{x.descricao}</small></div><Pill tone={x.status === 'Atualizado' ? 'green' : 'amber'}>{x.status}</Pill><button className="icon-button" aria-label={`Abrir ${x.nome}`} onClick={() => window.location.hash = `base-nacional/${x.id}`}><ChevronRight size={16}/></button></div>)}</div></section></>}
+
+function PessoasTSEList() {
+  const [pessoas, setPessoas] = useState<TPessoaTSE[]>(pessoasTSE)
+  const [promovidos, setPromovidos] = useState<number[]>([])
+  const [filtro, setFiltro] = useState('')
+  const [filtroCargo, setFiltroCargo] = useState('Todos')
+  const [filtroPartido, setFiltroPartido] = useState('Todos')
+  const [filtroResultado, setFiltroResultado] = useState('Todos')
+
+  const shown = pessoas.filter(p => {
+    if (promovidos.includes(p.id)) return false
+    if (filtro && !p.nome.toLowerCase().includes(filtro.toLowerCase())) return false
+    if (filtroCargo !== 'Todos' && p.cargo !== filtroCargo) return false
+    if (filtroPartido !== 'Todos' && p.partido !== filtroPartido) return false
+    if (filtroResultado !== 'Todos' && p.resultado !== filtroResultado) return false
+    return true
+  })
+
+  const cargos = [...new Set(pessoasTSE.map(p => p.cargo))]
+  const partidos = [...new Set(pessoasTSE.map(p => p.partido))]
+  const resultados = [...new Set(pessoasTSE.map(p => p.resultado))]
+
+  const promover = (id: number) => {
+    setPromovidos(prev => [...prev, id])
+  }
+
+  const restaurar = () => {
+    setPromovidos([])
+  }
+
+  return (
+    <section className="card">
+      <div className="card-heading">
+        <div>
+          <span className="eyebrow">Importação do TSE</span>
+          <h2>Pessoas candidatas pendentes</h2>
+        </div>
+        <Pill tone="amber">{shown.length} pendências</Pill>
+      </div>
+
+      <div className="tse-filtros">
+        <div className="search-field">
+          <Search size={17} />
+          <input
+            placeholder="Buscar por nome..."
+            value={filtro}
+            onChange={e => setFiltro(e.target.value)}
+          />
+        </div>
+        <select value={filtroCargo} onChange={e => setFiltroCargo(e.target.value)}>
+          <option>Todos os cargos</option>
+          {cargos.map(c => <option key={c}>{c}</option>)}
+        </select>
+        <select value={filtroPartido} onChange={e => setFiltroPartido(e.target.value)}>
+          <option>Todos os partidos</option>
+          {partidos.map(p => <option key={p}>{p}</option>)}
+        </select>
+        <select value={filtroResultado} onChange={e => setFiltroResultado(e.target.value)}>
+          <option>Todos os resultados</option>
+          {resultados.map(r => <option key={r}>{r}</option>)}
+        </select>
+      </div>
+
+      {shown.length === 0 ? (
+        <EmptyState
+          title="Nenhuma pessoa pendente"
+          text={promovidos.length > 0 ? "Todas as pessoas foram importadas nesta sessão." : "Nenhuma pessoa encontrada com os filtros selecionados."}
+          action={promovidos.length > 0 ? <button className="primary-button" onClick={restaurar}>Restaurar demo</button> : undefined}
+        />
+      ) : (
+        <div className="tse-lista">
+          {shown.map(pessoa => (
+            <div key={pessoa.id} className="tse-item">
+              <div className="tse-info">
+                <Avatar initials={pessoa.nome.split(' ').slice(0, 2).map(n => n[0]).join('')} />
+                <div>
+                  <strong>{pessoa.nome}</strong>
+                  <small>
+                    <span className="tse-origem"><RefreshCw size={12} /> {pessoa.origem}</span>
+                    <span>· {pessoa.municipio}</span>
+                  </small>
+                </div>
+              </div>
+              <div className="tse-dados">
+                <span className="tse-cargo">{pessoa.cargo}</span>
+                <span className="tse-partido">{pessoa.partido}</span>
+                <span className="tse-ano">{pessoa.ano}</span>
+              </div>
+              <div className="tse-resultado">
+                <Pill tone={pessoa.resultado.includes('Eleit') ? 'green' : 'neutral'}>
+                  {pessoa.resultado}
+                </Pill>
+                <small>{pessoa.votos.toLocaleString('pt-BR')} votos</small>
+              </div>
+              <div className="tse-acoes">
+                <button className="primary-button" onClick={() => promover(pessoa.id)}>
+                  <Plus size={14} /> Promover a liderança
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {promovidos.length > 0 && (
+        <p className="tse-rodape">
+          <Check size={14} /> {promovidos.length === 1 ? '1 pessoa importada' : `${promovidos.length} pessoas importadas`} nesta sessão
+        </p>
+      )}
+    </section>
+  )
+}
+
 function LinkQueue(){
   const [resolvidos,setResolvidos]=useState<Record<number,string>>({})
   const fila=linkQueue.filter(item=>!resolvidos[item.id])
@@ -658,29 +947,76 @@ function MunicipioFicha({ id, navigate }: { id: string; navigate: Navigate }) {
   ].filter(Boolean) as { campo: string; porque: string }[]
   const [favorito, setFavorito] = useState(m.favorito || false)
   const [filtroCandidato, setFiltroCandidato] = useState('Todos')
+  const [aba, setAba] = useState<'informacoes' | 'vereadores' | 'responsaveis' | 'festas'>('informacoes')
   const statusMunicipio = m.completude >= 80 ? 'consolidado' : m.completude >= 40 ? 'parcial' : 'crítico'
   const statusTone = statusMunicipio === 'consolidado' ? 'green' : statusMunicipio === 'parcial' ? 'amber' : 'red'
   const candidatosFiltrados = electoralPeople.filter(p => filtroCandidato === 'Todos' || statusDe(p.id) === filtroCandidato).slice(0, 6)
+
+  // Dados específicos
+  const festas = festasPorMunicipio[m.id] || []
+  const responsaveis = responsaveisPorMunicipio[m.id] || []
+  const vereadores = vereadoresPorMunicipio[m.id] || []
+
   const resultados = [
     { ano: 2024, candidatos: [{ nome: 'Roberto Alves', partido: 'MDB', votos: 15230, elegido: true }, { nome: 'Maria Santos', partido: 'PT', votos: 10100, elegido: false }, { nome: 'Carlos Lima', partido: 'PSDB', votos: 3900, elegido: false }] },
     { ano: 2022, candidatos: [{ nome: 'Roberto Alves', partido: 'MDB', votos: 14100, elegido: true }, { nome: 'Ana Paula', partido: 'PT', votos: 11200, elegido: false }] },
     { ano: 2020, candidatos: [{ nome: 'Roberto Alves', partido: 'MDB', votos: 12800, elegido: true }, { nome: 'João Silva', partido: 'PSD', votos: 9500, elegido: false }] },
   ]
+
+  const abas = [
+    { id: 'informacoes', label: 'Informações gerais' },
+    { id: 'vereadores', label: 'Vereadores' },
+    { id: 'responsaveis', label: 'Responsáveis' },
+    { id: 'festas', label: 'Festas e eventos' },
+  ] as const
+
   return <>
     <button className="back-button" onClick={() => navigate('municipios')}><ChevronLeft size={16} /> Voltar aos municípios</button>
     <section className="profile-hero card domain-hero territory"><div><span className="eyebrow">Dossiê municipal · Cód. {m.codigo}</span><h1>{m.nome} <Pill tone={statusTone}>{statusMunicipio}</Pill></h1><p>{m.divisao} · {m.distanciaCapital} km da capital</p></div><div className="hero-actions"><button className="secondary-button" onClick={() => navigate(`municipios/perfil/${proximo.id}`)}>Próximo município <ChevronRight size={15} /></button><button className={`secondary-button ${favorito ? 'active' : ''}`} onClick={() => setFavorito(!favorito)}><Star size={15} fill={favorito ? '#f59e0b' : 'none'} /></button><button className="secondary-button"><Download size={15} /> Exportar PDF</button><button className="primary-button"><Plus size={15} /> Editar dossiê</button></div></section>
-    <FaixaCompletude valor={m.completude} atualizadoPor="Sofia Linhares" quando="09 ago 2026" />
-    <div className="detail-layout"><div className="detail-stack">
-      <section className="card"><div className="card-heading"><div><span className="eyebrow">Origem oficial</span><h2>Dados do IBGE e do TSE</h2></div><Pill tone="blue"><ShieldCheck size={12} /> Sinc. 12/08/2026</Pill></div><div className="info-grid"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Número de eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span><span><small>{tenant.divisaoTerritorial}</small><strong>{m.divisao}</strong></span><span><small>Distância até a capital</small><strong>{m.distanciaCapital} km</strong></span><span><small>Prefeito(a)</small><strong>{m.prefeito} · {m.partidoPrefeito}</strong></span><span><small>Vice-prefeito(a)</small><strong>{m.vice}</strong></span></div></section>
-      <section className="card"><div className="card-heading"><div><span className="eyebrow">Preenchido pela equipe</span><h2>Dados internos</h2></div><button className="icon-button" aria-label="Editar dados internos"><Plus size={16} /></button></div><div className="info-grid"><span><small>Aniversário da cidade</small><strong>{m.aniversario}</strong></span><span><small>Padroeira</small><strong className={m.padroeira ? '' : 'vazio'}>{m.padroeira || 'a preencher'}</strong></span><span><small>Pistas de pouso próximas</small><strong className={m.pistaPouso ? '' : 'vazio'}>{m.pistaPouso || 'a preencher'}</strong></span><span><small>Última observação</small><strong>Sofia Linhares · 09 ago</strong></span></div></section>
-      <AccordionBlock title="Candidatos vinculados" icon={UsersRound} open>
-        <div className="filter-row"><select value={filtroCandidato} onChange={e => setFiltroCandidato(e.target.value)}><option>Todos</option><option>Aliado</option><option>Aliado parcial</option><option>Neutro</option><option>Adversário</option><option>Não avaliado</option></select></div>
-        <div className="vinculo-lista">{candidatosFiltrados.map(p => <button key={p.id} onClick={() => navigate(`quadro-eleitoral/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{p.office}</small></span><StatusPill valor={statusDe(p.id)} /><ChevronRight size={15} /></button>)}</div>
-      </AccordionBlock>
-      <AccordionBlock title="Resultados das eleições" icon={Vote}>
-        <div className="resultados-ano">{resultados.map(r => { const total = r.candidatos.reduce((s, x) => s + x.votos, 0); return <div key={r.ano} className="resultado-ano"><h4>{r.ano} <small>{total.toLocaleString('pt-BR')} votos</small></h4>{r.candidatos.map((c, i) => <div key={i} className="resultado-candidato"><span className="candidato-info"><strong>{c.nome}</strong><small>{c.partido}</small></span><span className="candidato-votos"><b>{c.votos.toLocaleString('pt-BR')} votos</b><small>{Math.round(c.votos / total * 100)}%</small></span><div className="barra-votos"><i style={{ width: `${c.votos / r.candidatos[0].votos * 100}%` }} className={c.elegido ? 'vencedor' : ''} /></div>{c.elegido && <Pill tone="green">Eleito</Pill>}</div>)}</div> })}</div>
-      </AccordionBlock>
-    </div><aside className="detail-aside"><BlocoCompletar pendentes={pendentes} /></aside></div>
+
+    {/* Abas estilo K8s */}
+    <nav className="municipio-abas" aria-label="Seções do município">
+      {abas.map(a => <button key={a.id} className={aba === a.id ? 'active' : ''} onClick={() => setAba(a.id)}>{a.label}</button>)}
+    </nav>
+
+    {aba === 'informacoes' && <>
+      <FaixaCompletude valor={m.completude} atualizadoPor="Sofia Linhares" quando="09 ago 2026" />
+      <div className="detail-layout"><div className="detail-stack">
+        <section className="card"><div className="card-heading"><div><span className="eyebrow">Origem oficial</span><h2>Dados do IBGE e do TSE</h2></div><Pill tone="blue"><ShieldCheck size={12} /> Sinc. 12/08/2026</Pill></div><div className="info-grid"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Número de eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span><span><small>{tenant.divisaoTerritorial}</small><strong>{m.divisao}</strong></span><span><small>Distância até a capital</small><strong>{m.distanciaCapital} km</strong></span><span><small>Prefeito(a)</small><strong>{m.prefeito} · {m.partidoPrefeito}</strong></span><span><small>Vice-prefeito(a)</small><strong>{m.vice}</strong></span></div></section>
+        <section className="card"><div className="card-heading"><div><span className="eyebrow">Preenchido pela equipe</span><h2>Dados internos</h2></div><button className="icon-button" aria-label="Editar dados internos"><Plus size={16} /></button></div><div className="info-grid"><span><small>Aniversário da cidade</small><strong>{m.aniversario}</strong></span><span><small>Padroeira</small><strong className={m.padroeira ? '' : 'vazio'}>{m.padroeira || 'a preencher'}</strong></span><span><small>Pistas de pouso próximas</small><strong className={m.pistaPouso ? '' : 'vazio'}>{m.pistaPouso || 'a preencher'}</strong></span><span><small>Última observação</small><strong>Sofia Linhares · 09 ago</strong></span></div></section>
+        <AccordionBlock title="Candidatos vinculados" icon={UsersRound} open>
+          <div className="filter-row"><select value={filtroCandidato} onChange={e => setFiltroCandidato(e.target.value)}><option>Todos</option><option>Aliado</option><option>Aliado parcial</option><option>Neutro</option><option>Adversário</option><option>Não avaliado</option></select></div>
+          <div className="vinculo-lista">{candidatosFiltrados.map(p => <button key={p.id} onClick={() => navigate(`quadro-eleitoral/perfil/${p.id}`)}><Avatar initials={p.initials} size="sm" /><span><strong>{p.name}</strong><small>{p.office}</small></span><StatusPill valor={statusDe(p.id)} /><ChevronRight size={15} /></button>)}</div>
+        </AccordionBlock>
+        <AccordionBlock title="Resultados das eleições" icon={Vote}>
+          <div className="resultados-ano">{resultados.map(r => { const total = r.candidatos.reduce((s, x) => s + x.votos, 0); return <div key={r.ano} className="resultado-ano"><h4>{r.ano} <small>{total.toLocaleString('pt-BR')} votos</small></h4>{r.candidatos.map((c, i) => <div key={i} className="resultado-candidato"><span className="candidato-info"><strong>{c.nome}</strong><small>{c.partido}</small></span><span className="candidato-votos"><b>{c.votos.toLocaleString('pt-BR')} votos</b><small>{Math.round(c.votos / total * 100)}%</small></span><div className="barra-votos"><i style={{ width: `${c.votos / r.candidatos[0].votos * 100}%` }} className={c.elegido ? 'vencedor' : ''} /></div>{c.elegido && <Pill tone="green">Eleito</Pill>}</div>)}</div> })}</div>
+        </AccordionBlock>
+      </div><aside className="detail-aside"><BlocoCompletar pendentes={pendentes} /></aside></div>
+    </>}
+
+    {aba === 'vereadores' && <>
+      <div className="detail-layout"><div className="detail-stack">
+        <section className="card"><div className="card-heading"><div><span className="eyebrow">Vereadores</span><h2>Câmara Municipal de {m.nome}</h2></div><button className="primary-button"><Plus size={15} /> Adicionar vereador</button></div>
+          {vereadores.length === 0 ? <EmptyState title="Nenhum vereador cadastrado" text="Adicione os vereadores eleitos para acompanhar a composição da câmara." action={<button className="primary-button">Adicionar vereador</button>} /> : <div className="table-card"><table><thead><tr><th>Vereador</th><th>Partido</th><th>Mandato</th><th>Situação</th></tr></thead><tbody>{vereadores.map((v, i) => <tr key={i}><td><strong>{v.nome}</strong></td><td>{v.partido}</td><td>{v.mandato}</td><td><Pill tone={v.situacao === 'titular' ? 'green' : 'amber'}>{v.situacao === 'titular' ? 'Titular' : 'Suplente'}</Pill></td></tr>)}</tbody></table></div>}
+        </section>
+      </div></div>
+    </>}
+
+    {aba === 'responsaveis' && <>
+      <div className="detail-layout"><div className="detail-stack">
+        <section className="card"><div className="card-heading"><div><span className="eyebrow">Responsáveis</span><h2>Pessoas vinculadas a {m.nome}</h2></div><button className="primary-button"><Plus size={15} /> Adicionar responsável</button></div>
+          {responsaveis.length === 0 ? <EmptyState title="Nenhum responsável cadastrado" text="Adicione coordenadores e articuladores responsáveis por este município." action={<button className="primary-button">Adicionar responsável</button>} /> : <div className="responsaveis-lista">{responsaveis.map((r, i) => <div key={i} className="responsavel-card"><Avatar initials={r.nome.split(' ').map(n => n[0]).join('')} size="lg" /><div><strong>{r.nome}</strong><small>{r.funcao}</small><span>{r.telefone} · {r.email}</span></div><button className="icon-button"><MoreHorizontal size={17} /></button></div>)}</div>}
+        </section>
+      </div></div>
+    </>}
+
+    {aba === 'festas' && <>
+      <div className="detail-layout"><div className="detail-stack">
+        <section className="card"><div className="card-heading"><div><span className="eyebrow">Festas e Eventos</span><h2>Calendário de festividades de {m.nome}</h2></div><button className="primary-button"><Plus size={15} /> Adicionar festa</button></div>
+          {festas.length === 0 ? <EmptyState title="Nenhuma festa cadastrada" text="Adicione as festas religiosas, cívicas e culturais do município." action={<button className="primary-button">Adicionar festa</button>} /> : <div className="festas-lista">{festas.map((f, i) => <div key={i} className="festa-card"><div className="festa-icon"><CalendarDays size={20} /></div><div><strong>{f.nome}</strong><span>{f.data}</span><Pill tone={f.tipo === 'religiosa' ? 'blue' : f.tipo === 'cívica' ? 'green' : 'amber'}>{f.tipo}</Pill></div></div>)}</div>}
+        </section>
+      </div></div>
+    </>}
   </>
 }
 
@@ -1039,7 +1375,6 @@ function App() {
       case 'painel': return <Dashboard navigate={navigate} />
       case 'quadro-eleitoral': return <ElectoralBoard navigate={navigate} route={route} />
       case 'municipios': return route.includes('/perfil/') ? <MunicipioFicha id={route.split('/')[2]} navigate={navigate} /> : <Municipios navigate={navigate} />
-      case 'mesorregioes': return route.includes('/perfil/') ? <MesorregiaoProfile id={route.split('/')[2]} navigate={navigate} /> : <Mesorregioes navigate={navigate} />
       case 'territorios': return route.includes('/perfil/') ? <TerritoryProfile id={route.split('/')[2]} navigate={navigate} /> : <Territories navigate={navigate} />
       case 'eleicoes': return <Eleicoes />
       case 'campanhas': return <Campaigns />

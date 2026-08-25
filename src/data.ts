@@ -94,17 +94,61 @@ export const relationships = [
 ]
 
 export const team = [
-  { name: 'Sofia Linhares', initials: 'SL', bond: 'Funcionária', role: 'Coordenação política', area: 'Articulação', status: 'Ativa', hasAccess: true },
+  { name: 'Sofia Linhares', initials: 'SL', bond: 'Funcionária', role: 'Coordenação política', area: 'Articulação', status: 'Ativa', hasAccess: true, liderancaId: 1 },
   { name: 'Rafael Guimar', initials: 'RG', bond: 'Prestador', role: 'Analista territorial', area: 'Inteligência', status: 'Ativo', hasAccess: true },
   { name: 'Cecília Prado', initials: 'CP', bond: 'Colaboradora', role: 'Assessoria de agenda', area: 'Relacionamento', status: 'Ativa', hasAccess: false },
   { name: 'Breno Valadares', initials: 'BV', bond: 'Funcionário', role: 'Analista de dados', area: 'Base Nacional', status: 'Ativo', hasAccess: true },
-  { name: 'Maya Ventura', initials: 'MV', bond: 'Prestadora', role: 'Design de comunicação', area: 'Campanhas', status: 'Pausada', hasAccess: false },
+  { name: 'Maya Ventura', initials: 'MV', bond: 'Prestadora', role: 'Design de comunicação', area: 'Campanhas', status: 'Pausada', hasAccess: false, liderancaId: 3 },
 ]
 
+// Tipos de usuário: MASTER (acesso total), EDITOR (criar/editar), VISUALIZADOR (só ler), ATENDENTE (limitado)
+export type UserType = 'MASTER' | 'EDITOR' | 'VISUALIZADOR' | 'ATENDENTE'
+
+export type TeamMember = {
+  name: string
+  initials: string
+  bond: string
+  role: string
+  area: string
+  status: string
+  hasAccess: boolean
+  liderancaId?: number // ID da liderança vinculada (se a pessoa também é liderança)
+}
+
 export const users = [
-  { name: 'Sofia Linhares', email: 'sofia.linhares@exemplo.invalid', profile: 'Administradora', scope: 'Todo o território', status: 'Ativo', last: 'Hoje, 10:42' },
-  { name: 'Rafael Guimar', email: 'rafael.guimar@exemplo.invalid', profile: 'Inteligência', scope: 'Serra Clara + 2', status: 'Ativo', last: 'Hoje, 08:15' },
-  { name: 'Breno Valadares', email: 'breno.valadares@exemplo.invalid', profile: 'Dados nacionais', scope: 'Todo o território', status: 'Ativo', last: 'Ontem, 18:20' },
-  { name: 'Iris Cordeiro', email: 'iris.cordeiro@exemplo.invalid', profile: 'Relacionamento', scope: 'Capital Central', status: 'Convidado', last: 'Ainda não acessou' },
-  { name: 'Lauro Quintana', email: 'lauro.quintana@exemplo.invalid', profile: 'Leitura executiva', scope: 'Todo o território', status: 'Suspenso', last: '02 ago, 11:06' },
+  { name: 'Sofia Linhares', initials: 'SL', email: 'sofia.linhares@exemplo.invalid', type: 'MASTER' as UserType, scope: 'Todo o território', status: 'Ativo', last: 'Hoje, 10:42', createdLeaders: 45 },
+  { name: 'Rafael Guimar', initials: 'RG', email: 'rafael.guimar@exemplo.invalid', type: 'EDITOR' as UserType, scope: 'Serra Clara + 2', status: 'Ativo', last: 'Hoje, 08:15', createdLeaders: 23 },
+  { name: 'Breno Valadares', initials: 'BV', email: 'breno.valadares@exemplo.invalid', type: 'EDITOR' as UserType, scope: 'Todo o território', status: 'Ativo', last: 'Ontem, 18:20', createdLeaders: 12 },
+  { name: 'Iris Cordeiro', initials: 'IC', email: 'iris.cordeiro@exemplo.invalid', type: 'VISUALIZADOR' as UserType, scope: 'Capital Central', status: 'Convidado', last: 'Ainda não acessou', createdLeaders: 0 },
+  { name: 'Lauro Quintana', initials: 'LQ', email: 'lauro.quintana@exemplo.invalid', type: 'ATENDENTE' as UserType, scope: 'Todo o território', status: 'Suspenso', last: '02 ago, 11:06', createdLeaders: 0 },
+]
+
+/**
+ * Pessoas trazidas pela sincronização com o TSE que ainda não são lideranças cadastradas.
+ * O sistema permite "promover" para liderança, o queemove da lista.
+ */
+export type TPessoaTSE = {
+  id: number
+  nome: string
+  cpf: string
+  cargo: string
+  partido: string
+  municipio: string
+  ano: number
+  votos: number
+  resultado: string
+  origem: 'TSE'
+}
+
+export const pessoasTSE: TPessoaTSE[] = [
+  { id: 1, nome: 'Ricardo Souza Martins', cpf: '***.123.456-**', cargo: 'Prefeito', partido: 'MDB', municipio: 'Serra Clara', ano: 2024, votos: 28450, resultado: 'Eleito', origem: 'TSE' },
+  { id: 2, nome: 'Juliana Alves Pinto', cpf: '***.234.567-**', cargo: 'Vereador', partido: 'PT', municipio: 'Capital Central', ano: 2024, votos: 8230, resultado: 'Eleita', origem: 'TSE' },
+  { id: 3, nome: 'Marcos Antônio Ferreira', cpf: '***.345.678-**', cargo: 'Deputado Estadual', partido: 'PSD', municipio: 'Vale do Ipê', ano: 2022, votos: 45200, resultado: 'Eleito', origem: 'TSE' },
+  { id: 4, nome: 'Carla Cristina Oliveira', cpf: '***.456.789-**', cargo: 'Prefeito', partido: 'PSB', municipio: 'Campos do Norte', ano: 2024, votos: 19870, resultado: 'Eleita', origem: 'TSE' },
+  { id: 5, nome: 'Paulo Roberto Santos', cpf: '***.567.890-**', cargo: 'Vereador', partido: 'PL', municipio: 'Rota das Águas', ano: 2024, votos: 5120, resultado: 'Suplente', origem: 'TSE' },
+  { id: 6, nome: 'Fernanda Lima Costa', cpf: '***.678.901-**', cargo: 'Deputado Federal', partido: 'UNIÃO', municipio: 'Pantanais do Sul', ano: 2022, votos: 89450, resultado: 'Eleita', origem: 'TSE' },
+  { id: 7, nome: 'Bruno Mendes Silva', cpf: '***.789.012-**', cargo: 'Vice-Prefeito', partido: 'MDB', municipio: 'Serra Clara', ano: 2024, votos: 28450, resultado: 'Eleito', origem: 'TSE' },
+  { id: 8, nome: 'Patrícia Andrade Reis', cpf: '***.890.123-**', cargo: 'Vereador', partido: 'REPUBLICANOS', municipio: 'Capital Central', ano: 2024, votos: 7650, resultado: 'Eleita', origem: 'TSE' },
+  { id: 9, nome: 'Lucas Oliveira Souza', cpf: '***.901.234-**', cargo: 'Prefeito', partido: 'PP', municipio: 'Vale do Ipê', ano: 2024, votos: 22100, resultado: 'Não Eleito', origem: 'TSE' },
+  { id: 10, nome: 'Ana Paula Ribeiro', cpf: '***.012.345-**', cargo: 'Deputado Estadual', partido: 'PDT', municipio: 'Campos do Norte', ano: 2022, votos: 32100, resultado: 'Suplente', origem: 'TSE' },
 ]
