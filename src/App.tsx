@@ -212,7 +212,7 @@ function Territories({ navigate }: { navigate: Navigate }) {
 
   // Métricas consolidadas (antes eram do Mesorregioes)
   const totalMunicipios = municipios.length
-  const totalEleitores = municipios.reduce((soma, m) => soma + m.eleitores, 0)
+  const totalEleitores = municipios.reduce((soma, m) => soma + (m.eleitores ?? 0), 0)
   const totalPopulacao = municipios.reduce((soma, m) => soma + m.populacao, 0)
   const coberturaMedia = Math.round(territories.reduce((soma, t) => soma + t.coverage, 0) / territories.length)
 
@@ -253,7 +253,7 @@ function Territories({ navigate }: { navigate: Navigate }) {
 
     {tab === 'metricas' && <>
       <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input placeholder={`Buscar ${tenant.divisaoTerritorial.toLowerCase()}`} aria-label={`Buscar ${tenant.divisaoTerritorial}`} /></div></section>
-      <div className="municipios-grid">{divisoesComCompletude.map(d => <article className="card municipio-card" key={d.nome}><div className="municipio-topo"><div><h3>{d.nome}</h3><small>{d.municipiosTotal} município{d.municipiosTotal !== 1 ? 's' : ''}</small></div><Pill tone={d.completudeMedia >= 70 ? 'green' : d.completudeMedia >= 40 ? 'amber' : 'red'}>{d.completudeMedia}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{d.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{d.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Cobertura <strong>{d.completudeMedia}%</strong></span><Progress value={d.completudeMedia} /></label><button className="secondary-button full" onClick={() => navigate(`territorios/perfil/${encodeURIComponent(d.nome.toLowerCase().replace(/\s+/g, '-'))}`)}>Ver detalhe <ArrowRight size={15} /></button></article>)}</div>
+      <div className="municipios-grid">{divisoesComCompletude.map(d => <article className="card municipio-card" key={d.nome}><div className="municipio-topo"><div><h3>{d.nome}</h3><small>{d.municipiosTotal} município{d.municipiosTotal !== 1 ? 's' : ''}</small></div><Pill tone={d.completudeMedia >= 70 ? 'green' : d.completudeMedia >= 40 ? 'amber' : 'red'}>{d.completudeMedia}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{d.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{(d.eleitores ?? 0).toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Cobertura <strong>{d.completudeMedia}%</strong></span><Progress value={d.completudeMedia} /></label><button className="secondary-button full" onClick={() => navigate(`territorios/perfil/${encodeURIComponent(d.nome.toLowerCase().replace(/\s+/g, '-'))}`)}>Ver detalhe <ArrowRight size={15} /></button></article>)}</div>
     </>}
   </>
 }
@@ -603,7 +603,6 @@ function SettingsPage({ route, navigate }: { route: string; navigate: Navigate }
   </>
 }
 
-
 function SubTabs({ items, active, navigate }: { items: { label: string; route: string }[]; active: string; navigate: Navigate }) {
   return <nav className="subtabs" aria-label="Navegação da seção">{items.map(item => <button key={item.route} className={active === item.route ? 'active' : ''} onClick={() => navigate(item.route)}>{item.label}</button>)}</nav>
 }
@@ -659,7 +658,7 @@ function TerritoryProfile({ id, navigate }: { id: string; navigate: Navigate }) 
   const territory = territories.find(t => t.id === decodeId)
   const divisao = divisoes.find(d => d.nome.toLowerCase().replace(/\s+/g, '-') === decodeId || d.nome === decodeId)
 
-  // Se é uma divisão (视图 de Mesorregião)
+  // Se é uma divisão (vista de Mesorregião)
   if (divisao) {
     const municipiosDaDivisao = municipios.filter(m => m.divisao === divisao.nome)
     const completudeMedia = municipiosDaDivisao.length > 0
@@ -673,12 +672,12 @@ function TerritoryProfile({ id, navigate }: { id: string; navigate: Navigate }) 
       <FaixaCompletude valor={completudeMedia} atualizadoPor="Sofia Linhares" quando="09 ago 2026" />
       <div className="metrics-grid five">
         <Metric label="Municípios" value={String(municipiosDaDivisao.length)} delta="nesta divisão" icon={Building2} />
-        <Metric label="Eleitores" value={divisao.eleitores.toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
+        <Metric label="Eleitores" value={(divisao.eleitores ?? 0).toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
         <Metric label="População" value={divisao.populacao.toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
         <Metric label="Consolidados" value={String(consolidado)} delta="acima de 80%" icon={Check} tone="green" />
         <Metric label="Críticos" value={String(critico)} delta="abaixo de 40%" icon={AlertTriangle} tone="red" />
       </div>
-      <section className="card"><div className="card-heading"><div><span className="eyebrow">Municípios desta {tenant.divisaoTerritorial}</span><h2>Lista consolidada</h2></div></div><div className="municipios-grid">{municipiosDaDivisao.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo}</small></div><Pill tone={m.completude >= 80 ? 'green' : m.completude >= 40 ? 'amber' : 'red'}>{m.completude}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div></section>
+      <section className="card"><div className="card-heading"><div><span className="eyebrow">Municípios desta {tenant.divisaoTerritorial}</span><h2>Lista consolidada</h2></div></div><div className="municipios-grid">{municipiosDaDivisao.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo}</small></div><Pill tone={m.completude >= 80 ? 'green' : m.completude >= 40 ? 'amber' : 'red'}>{m.completude}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{(m.eleitores ?? 0).toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div></section>
     </>
   }
 
@@ -763,7 +762,7 @@ function NationalRecords({ navigate, modo }: { navigate: Navigate; modo?: 'lista
   return <><div className="metrics-grid three"><Metric label="Pessoas curadas" value="2,8 mi" delta="volume fictício" icon={UsersRound}/><Metric label="Territórios" value="5.570" delta="catálogo demonstrativo" icon={Map}/><Metric label="Qualidade" value="98,7%" delta="regras simuladas" icon={ShieldCheck}/></div><section className="card"><div className="card-heading"><div><span className="eyebrow">Camadas permanentes</span><h2>Conjuntos curados</h2></div></div><div className="dataset-list">{conjuntos.map(x => <div key={x.id}><span className="dataset-icon"><Database size={17}/></span><div><strong>{x.nome}</strong><small>{x.descricao}</small></div><Pill tone={x.status === 'Atualizado' ? 'green' : 'amber'}>{x.status}</Pill><button className="icon-button" aria-label={`Abrir ${x.nome}`} onClick={() => window.location.hash = `base-nacional/${x.id}`}><ChevronRight size={16}/></button></div>)}</div></section></>}
 
 function PessoasTSEList() {
-  const [pessoas, setPessoas] = useState<TPessoaTSE[]>(pessoasTSE)
+  const [pessoas] = useState<TPessoaTSE[]>(pessoasTSE)
   const [promovidos, setPromovidos] = useState<number[]>([])
   const [filtro, setFiltro] = useState('')
   const [filtroCargo, setFiltroCargo] = useState('Todos')
@@ -917,7 +916,7 @@ function Municipios({ navigate }: { navigate: Navigate }) {
   const [busca, setBusca] = useState('')
   const [soFavoritos, setSoFavoritos] = useState(false)
   const lista = municipios.filter(m => (divisao === 'Todas' || m.divisao === divisao) && m.nome.toLowerCase().includes(busca.toLowerCase()) && (!soFavoritos || m.favorito))
-  const totalEleitores = municipios.reduce((soma, m) => soma + m.eleitores, 0)
+  const totalEleitores = municipios.reduce((soma, m) => soma + (m.eleitores ?? 0), 0)
   const consolidado = municipios.filter(m => m.completude >= 80).length
   const critico = municipios.filter(m => m.completude < 40).length
   return <>
@@ -930,7 +929,7 @@ function Municipios({ navigate }: { navigate: Navigate }) {
       <Metric label="Dossiê crítico" value={String(critico)} delta="abaixo de 40%" icon={AlertTriangle} onClick={() => setDivisao('Todas')} tone="red" />
     </div>
     <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar município" aria-label="Buscar município" /></div><select value={divisao} onChange={e => setDivisao(e.target.value)} aria-label={`Filtrar por ${tenant.divisaoTerritorial}`}><option>Todas</option>{divisoes.map(d => <option key={d.nome}>{d.nome}</option>)}</select><div className="segmented"><button className={!soFavoritos ? 'active' : ''} onClick={() => setSoFavoritos(false)}>Todos</button><button className={soFavoritos ? 'active' : ''} onClick={() => setSoFavoritos(true)}>Favoritos</button></div></section>
-      {lista.length === 0 ? <EmptyState title="Nenhum município neste filtro" text="Ajuste a busca ou volte ao recorte completo." action={<button className="primary-button" onClick={() => { setBusca(''); setDivisao('Todas'); setSoFavoritos(false) }}>Limpar filtros</button>} /> : <div className="municipios-grid">{lista.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo} · {m.divisao}</small></div>{m.favorito && <Pill tone="amber">Favorito</Pill>}</div><div className="municipio-prefeito"><Avatar initials={m.prefeito.split(' ').slice(0, 2).map(n => n[0]).join('')} size="sm" /><span><strong>{m.prefeito}</strong><small>{m.partidoPrefeito}</small></span></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div>}
+      {lista.length === 0 ? <EmptyState title="Nenhum município neste filtro" text="Ajuste a busca ou volte ao recorte completo." action={<button className="primary-button" onClick={() => { setBusca(''); setDivisao('Todas'); setSoFavoritos(false) }}>Limpar filtros</button>} /> : <div className="municipios-grid">{lista.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo} · {m.divisao}</small></div>{m.favorito && <Pill tone="amber">Favorito</Pill>}</div><div className="municipio-prefeito"><Avatar initials={m.prefeito.split(' ').slice(0, 2).map(n => n[0]).join('')} size="sm" /><span><strong>{m.prefeito}</strong><small>{m.partidoPrefeito}</small></span></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{(m.eleitores ?? 0).toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div>}
   </>
 }
 
@@ -982,7 +981,7 @@ function MunicipioFicha({ id, navigate }: { id: string; navigate: Navigate }) {
     {aba === 'informacoes' && <>
       <FaixaCompletude valor={m.completude} atualizadoPor="Sofia Linhares" quando="09 ago 2026" />
       <div className="detail-layout"><div className="detail-stack">
-        <section className="card"><div className="card-heading"><div><span className="eyebrow">Origem oficial</span><h2>Dados do IBGE e do TSE</h2></div><Pill tone="blue"><ShieldCheck size={12} /> Sinc. 12/08/2026</Pill></div><div className="info-grid"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Número de eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span><span><small>{tenant.divisaoTerritorial}</small><strong>{m.divisao}</strong></span><span><small>Distância até a capital</small><strong>{m.distanciaCapital} km</strong></span><span><small>Prefeito(a)</small><strong>{m.prefeito} · {m.partidoPrefeito}</strong></span><span><small>Vice-prefeito(a)</small><strong>{m.vice}</strong></span></div></section>
+        <section className="card"><div className="card-heading"><div><span className="eyebrow">Origem oficial</span><h2>Dados do IBGE e do TSE</h2></div><Pill tone="blue"><ShieldCheck size={12} /> Sinc. 12/08/2026</Pill></div><div className="info-grid"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Número de eleitores</small><strong>{(m.eleitores ?? 0).toLocaleString('pt-BR')}</strong></span><span><small>{tenant.divisaoTerritorial}</small><strong>{m.divisao}</strong></span><span><small>Distância até a capital</small><strong>{m.distanciaCapital} km</strong></span><span><small>Prefeito(a)</small><strong>{m.prefeito} · {m.partidoPrefeito}</strong></span><span><small>Vice-prefeito(a)</small><strong>{m.vice}</strong></span></div></section>
         <section className="card"><div className="card-heading"><div><span className="eyebrow">Preenchido pela equipe</span><h2>Dados internos</h2></div><button className="icon-button" aria-label="Editar dados internos"><Plus size={16} /></button></div><div className="info-grid"><span><small>Aniversário da cidade</small><strong>{m.aniversario}</strong></span><span><small>Padroeira</small><strong className={m.padroeira ? '' : 'vazio'}>{m.padroeira || 'a preencher'}</strong></span><span><small>Pistas de pouso próximas</small><strong className={m.pistaPouso ? '' : 'vazio'}>{m.pistaPouso || 'a preencher'}</strong></span><span><small>Última observação</small><strong>Sofia Linhares · 09 ago</strong></span></div></section>
         <AccordionBlock title="Candidatos vinculados" icon={UsersRound} open>
           <div className="filter-row"><select value={filtroCandidato} onChange={e => setFiltroCandidato(e.target.value)}><option>Todos</option><option>Aliado</option><option>Aliado parcial</option><option>Neutro</option><option>Adversário</option><option>Não avaliado</option></select></div>
@@ -1035,7 +1034,7 @@ function Mesorregioes({ navigate }: { navigate: Navigate }) {
   const [busca, setBusca] = useState('')
   const lista = divisoes.filter(d => d.nome.toLowerCase().includes(busca.toLowerCase()))
   const totalMunicipios = municipios.length
-  const totalEleitores = municipios.reduce((soma, m) => soma + m.eleitores, 0)
+  const totalEleitores = municipios.reduce((soma, m) => soma + (m.eleitores ?? 0), 0)
   const totalPopulacao = municipios.reduce((soma, m) => soma + m.populacao, 0)
   // Calcula completude média por divisão
   const divisoesComCompletude = divisoes.map((d, idx) => {
@@ -1056,7 +1055,7 @@ function Mesorregioes({ navigate }: { navigate: Navigate }) {
       <Metric label="Cobertura média" value={`${Math.round(divisoesComCompletude.reduce((s, d) => s + d.completudeMedia, 0) / divisoesComCompletude.length)}%`} delta="dossiês consolidados" icon={Check} tone="green" />
     </div>
     <section className="card toolbar-card"><div className="search-field"><Search size={17} /><input value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar mesorregião" aria-label="Buscar mesorregião" /></div></section>
-    {lista.length === 0 ? <EmptyState title="Nenhuma mesorregião neste filtro" text="Ajuste a busca para voltar ao recorte completo." action={<button className="primary-button" onClick={() => setBusca('')}>Limpar busca</button>} /> : <div className="municipios-grid">{divisoesComCompletude.filter(d => d.nome.toLowerCase().includes(busca.toLowerCase())).map(d => <article className="card municipio-card" key={d.nome}><div className="municipio-topo"><div><h3>{d.nome}</h3><small>{d.municipiosTotal} município{d.municipiosTotal !== 1 ? 's' : ''}</small></div><Pill tone={d.completudeMedia >= 70 ? 'green' : d.completudeMedia >= 40 ? 'amber' : 'red'}>{d.completudeMedia}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{d.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{d.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Cobertura <strong>{d.completudeMedia}%</strong></span><Progress value={d.completudeMedia} /></label><button className="secondary-button full" onClick={() => navigate(`mesorregioes/perfil/${encodeURIComponent(d.nome)}`)}>Ver detalhe <ArrowRight size={15} /></button></article>)}</div>}
+    {lista.length === 0 ? <EmptyState title="Nenhuma mesorregião neste filtro" text="Ajuste a busca para voltar ao recorte completo." action={<button className="primary-button" onClick={() => setBusca('')}>Limpar busca</button>} /> : <div className="municipios-grid">{divisoesComCompletude.filter(d => d.nome.toLowerCase().includes(busca.toLowerCase())).map(d => <article className="card municipio-card" key={d.nome}><div className="municipio-topo"><div><h3>{d.nome}</h3><small>{d.municipiosTotal} município{d.municipiosTotal !== 1 ? 's' : ''}</small></div><Pill tone={d.completudeMedia >= 70 ? 'green' : d.completudeMedia >= 40 ? 'amber' : 'red'}>{d.completudeMedia}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{d.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{(d.eleitores ?? 0).toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Cobertura <strong>{d.completudeMedia}%</strong></span><Progress value={d.completudeMedia} /></label><button className="secondary-button full" onClick={() => navigate(`mesorregioes/perfil/${encodeURIComponent(d.nome)}`)}>Ver detalhe <ArrowRight size={15} /></button></article>)}</div>}
   </>
 }
 
@@ -1076,12 +1075,12 @@ function MesorregiaoProfile({ id, navigate }: { id: string; navigate: Navigate }
     <FaixaCompletude valor={completudeMedia} atualizadoPor="Sofia Linhares" quando="09 ago 2026" />
     <div className="metrics-grid five">
       <Metric label="Municípios" value={String(municipiosDaDivisao.length)} delta="nesta divisão" icon={Building2} />
-      <Metric label="Eleitores" value={meso.eleitores.toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
+      <Metric label="Eleitores" value={(meso.eleitores ?? 0).toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
       <Metric label="População" value={meso.populacao.toLocaleString('pt-BR')} delta="total na divisão" icon={UsersRound} />
       <Metric label="Consolidados" value={String(consolidado)} delta="acima de 80%" icon={Check} tone="green" />
       <Metric label="Críticos" value={String(critico)} delta="abaixo de 40%" icon={AlertTriangle} tone="red" />
     </div>
-    <section className="card"><div className="card-heading"><div><span className="eyebrow">Municípios desta {tenant.divisaoTerritorial}</span><h2>Lista consolidada</h2></div></div><div className="municipios-grid">{municipiosDaDivisao.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo}</small></div><Pill tone={m.completude >= 80 ? 'green' : m.completude >= 40 ? 'amber' : 'red'}>{m.completude}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{m.eleitores.toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div></section>
+    <section className="card"><div className="card-heading"><div><span className="eyebrow">Municípios desta {tenant.divisaoTerritorial}</span><h2>Lista consolidada</h2></div></div><div className="municipios-grid">{municipiosDaDivisao.map(m => <article className="card municipio-card" key={m.id}><div className="municipio-topo"><div><h3>{m.nome}</h3><small>Cód. {m.codigo}</small></div><Pill tone={m.completude >= 80 ? 'green' : m.completude >= 40 ? 'amber' : 'red'}>{m.completude}%</Pill></div><div className="municipio-nums"><span><small>População</small><strong>{m.populacao.toLocaleString('pt-BR')}</strong></span><span><small>Eleitores</small><strong>{(m.eleitores ?? 0).toLocaleString('pt-BR')}</strong></span></div><label className="coverage-label"><span>Dossiê <strong>{m.completude}%</strong></span><Progress value={m.completude} /></label><button className="secondary-button full" onClick={() => navigate(`municipios/perfil/${m.id}`)}>Ver dossiê <ArrowRight size={15} /></button></article>)}</div></section>
   </>
 }
 
@@ -1189,7 +1188,7 @@ function AgendaModulo({ navigate }: { navigate: Navigate }) {
     {visao === 'lista' && <AgendaLista itens={doMes} aoAbrir={setAberto} />}
     {visao === 'rota' && <AgendaRota navigate={navigate} total={totalKm} />}
 
-    {/* Modal de detalle */}
+    {/* Modal de detalhe */}
     {aberto && <Modal title={aberto.titulo} description={`${aberto.tipo} · ${aberto.hora} · ${aberto.municipio}`} onClose={() => setAberto(null)} actions={<><button className="secondary-button" onClick={() => { setEditando(aberto); setAberto(null) }}><Edit size={14} /> Editar</button><button className="danger-button">Excluir</button></>}>
       <div className="event-detail">
         <div className="pill-row">
@@ -1495,6 +1494,7 @@ function App() {
       case 'quadro-eleitoral': return <ElectoralBoard navigate={navigate} route={route} />
       case 'municipios': return route.includes('/perfil/') ? <MunicipioFicha id={route.split('/')[2]} navigate={navigate} /> : <Municipios navigate={navigate} />
       case 'territorios': return route.includes('/perfil/') ? <TerritoryProfile id={route.split('/')[2]} navigate={navigate} /> : <Territories navigate={navigate} />
+      case 'mesorregioes': return route.includes('/perfil/') ? <MesorregiaoProfile id={route.split('/')[2]} navigate={navigate} /> : <Mesorregioes navigate={navigate} />
       case 'eleicoes': return <Eleicoes />
       case 'campanhas': return <Campaigns />
       case 'agenda': return <AgendaModulo navigate={navigate} />
@@ -1515,7 +1515,6 @@ function App() {
   }, [route, tenant])
   return <TemaCtx.Provider value={{ tema, setTema }}><TenantCtx.Provider value={{ tenant, setTenant, perfil, setPerfil }}><AvaliacaoCtx.Provider value={{ statusDe, avaliar }}><div className="app-shell"><a className="skip-link" href="#main-content">Pular para o conteúdo</a><Sidebar route={route} navigate={navigate} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />{mobileOpen && <button className="sidebar-overlay" aria-label="Fechar menu" onClick={() => setMobileOpen(false)} />}<Topbar route={route} onMenu={() => setMobileOpen(true)} /><main id="main-content" className="main-content">{/* key força a animação de entrada a rodar de novo a cada troca de rota */}<div className="pagina" key={route}>{page}</div><footer className="prototype-footer"><span><Info size={14} /> Protótipo local · dados inteiramente fictícios · sem integrações reais</span><button className="text-button"><CircleHelp size={14} /> Ajuda</button><button className="text-button"><LogOut size={14} /> Sair</button></footer></main></div></AvaliacaoCtx.Provider></TenantCtx.Provider></TemaCtx.Provider>
 }
-
 
 function IdentidadeAmbiente() {
   const { tenant, setTenant } = useTenant()
